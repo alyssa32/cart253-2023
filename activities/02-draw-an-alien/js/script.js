@@ -25,9 +25,10 @@ function setup() {
   arc(250, 250, 170, 140, 0, PI);
 
   //Middle part of saucer
-
   fill(130, 131, 143);
   ellipse(250, 250, 300, 50);
+
+  //Inside of saucer
   fill(21, 29, 56);
   ellipse(250, 250, 150, 30);
 
