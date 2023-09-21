@@ -5,45 +5,35 @@
 
 "use strict";
 let bg = {
-  r: 52,
-  g: 36,
-  b: 82,
+  r: 189,
+  g: 238,
+  b: 255,
 };
+let bgCanvas = 500;
 let sun = {
   x: 250,
   y: 250,
-  size: 150,
-  growthRate: 0.4,
+  size: 100,
   fill: (237, 221, 142),
 };
 let sunGlow = {
   x: 250,
   y: 250,
-  size: 160,
-  growthRate: 0.5,
+  size: 120,
   fill: (237, 221, 142),
   alpha: 200,
 };
-let mercury = {
-  x: 360,
-  y: 250,
-  speed: -0.9,
-  size: 10,
-  fill: (180, 188, 219),
+let water = {
+  fill: (90, 137, 219),
 };
-let venus = {
-  x: 380,
-  y: 250,
-  speed: -0.7,
-  size: 20,
-  fill: (235, 189, 120),
+let bigMountain = {
+  fill: (79, 184, 96),
 };
-let earth = {
-  x: 410,
-  y: 250,
-  speed: -0.6,
-  size: 25,
-  fill: (120, 201, 235),
+let midMountain = {
+  fill: (103, 163, 125),
+};
+let smallMountain = {
+  fill: (132, 181, 160),
 };
 
 /**
@@ -55,7 +45,8 @@ function preload() {}
  * Description of setup
  */
 function setup() {
-  createCanvas(500, 500);
+  createCanvas(bgCanvas, bgCanvas);
+  background(bg.r, bg.g, bg.b);
 }
 
 /**
@@ -63,30 +54,18 @@ function setup() {
  */
 function draw() {
   //Background
-  background(bg.r, bg.g, bg.b);
-  //The Sun
-  fill(sun.fill);
-  sun.size = sun.size + sun.growthRate;
-  sun.size = constrain(sun.size, 0, 160);
-  ellipse(sun.x, sun.y, sun.size);
-  //The Sun Glow
-  fill(sunGlow.fill, sunGlow.alpha);
-  sunGlow.size = sunGlow.size + sunGlow.growthRate;
-  sunGlow.size = constrain(sunGlow.size, 0, 180);
-  ellipse(sunGlow.x, sunGlow.y, sunGlow.size);
-  //Mercury
-  fill(mercury.fill);
-  mercury.x = mercury.x + mercury.speed;
-  mercury.x = constrain(mercury.x, 140, 360);
-  ellipse(mercury.x, mercury.y, mercury.size);
-  //Venus
-  fill(venus.fill);
-  venus.x = venus.x + venus.speed;
-  venus.x = constrain(venus.x, 120, 380);
-  ellipse(venus.x, venus.y, venus.size);
-  //Earth
-  fill(earth.fill);
-  earth.x = earth.x + earth.speed;
-  earth.x = constrain(earth.x, 90, 400);
-  ellipse(earth.x, earth.y, earth.size);
+  noStroke();
+
+  //Sun
+  ellipse(250, mouseY, 70);
+  //The Big Mountain
+  ellipse(0, 350, 400, 480);
+
+  //The Medium Mountain
+  ellipse(480, 340, 250, 190);
+  //The Water
+  rect(0, 300, 500, 300);
+  fill(water.fill);
+  //The Small Mountain
+  ellipse(360, 300, 120, 60);
 }
