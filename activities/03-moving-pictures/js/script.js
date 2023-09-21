@@ -5,35 +5,54 @@
 
 "use strict";
 let bg = {
-  r: 189,
-  g: 238,
-  b: 255,
+  h: 198,
+  s: 37,
+  b: 99,
 };
 let bgCanvas = 500;
 let sun = {
   x: 250,
-  y: 250,
-  size: 100,
-  fill: (237, 221, 142),
+  y: 340,
+  size: 80,
+  r: 255,
+  g: 223,
+  b: 107,
 };
 let sunGlow = {
   x: 250,
-  y: 250,
-  size: 120,
-  fill: (237, 221, 142),
-  alpha: 200,
+  y: 340,
+  r: 237,
+  g: 221,
+  b: 142,
+  alpha: 150,
+  size: 95,
+  count: 0,
 };
 let water = {
-  fill: (90, 137, 219),
+  x: 0,
+  y: 340,
+  w: 500,
+  h: 300,
+  r: 90,
+  g: 137,
+  b: 219,
 };
 let bigMountain = {
-  fill: (79, 184, 96),
+  r: 61,
+  g: 143,
+  b: 65,
 };
 let midMountain = {
-  fill: (103, 163, 125),
+  r: 103,
+  g: 163,
+  b: 125,
 };
 let smallMountain = {
-  fill: (132, 181, 160),
+  x: 400,
+  y: 350,
+  r: 132,
+  g: 181,
+  b: 160,
 };
 
 /**
@@ -46,7 +65,6 @@ function preload() {}
  */
 function setup() {
   createCanvas(bgCanvas, bgCanvas);
-  background(bg.r, bg.g, bg.b);
 }
 
 /**
@@ -54,18 +72,46 @@ function setup() {
  */
 function draw() {
   //Background
+  colorMode(HSB);
+  background(bg.h, bg.s, bg.b);
+  bg.b = mouseY;
+  bg.b = map(mouseY, 0, 500, 100, 0);
   noStroke();
-
+  colorMode(RGB);
   //Sun
-  ellipse(250, mouseY, 70);
-  //The Big Mountain
-  ellipse(0, 350, 400, 480);
+  fill(sun.r, sun.g, sun.b);
+  ellipse(sun.x, sun.y, sun.size);
+  sun.y = mouseY;
+  sun.y = constrain(sun.y, 60, 400);
+
+  //The Sun's Glowing Rim
+  fill(sunGlow.r, sunGlow.g, sunGlow.b, sunGlow.alpha);
+  ellipse(sunGlow.x, sunGlow.y, sunGlow.size);
+  sunGlow.y = mouseY;
+  sunGlow.y = constrain(sunGlow.y, 60, 400);
+  sunGlow.size = constrain(sunGlow.size, 95, 110);
+  if (sunGlow.size == 110 || sunGlow.size == 95) {
+    sunGlow.count += 1;
+  }
+  if (sunGlow.count % 2 == 0) {
+    sunGlow.size += -0.2;
+  } else {
+    sunGlow.size += 0.2;
+  }
+
+  //The Small Mountain
+  fill(smallMountain.r, smallMountain.g, smallMountain.b);
+  arc(smallMountain.x, smallMountain.y, 200, 60, PI, TWO_PI);
+
+  //The Water
+  fill(water.r, water.g, water.b);
+  rect(water.x, water.y, water.w, water.h);
 
   //The Medium Mountain
-  ellipse(480, 340, 250, 190);
-  //The Water
-  rect(0, 300, 500, 300);
-  fill(water.fill);
-  //The Small Mountain
-  ellipse(360, 300, 120, 60);
+  fill(midMountain.r, midMountain.g, midMountain.b);
+  arc(790, 380, 900, 280, PI, TWO_PI);
+
+  //The Big Mountain
+  fill(bigMountain.r, bigMountain.g, bigMountain.b);
+  arc(-140, 440, 700, 700, PI, TWO_PI);
 }
