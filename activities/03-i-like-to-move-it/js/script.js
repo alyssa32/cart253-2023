@@ -13,7 +13,7 @@ let bgCanvas = 500;
 let sun = {
   x: 250,
   y: 340,
-  maxHeight: 400,
+  maxHeight: 440,
   minHeight: 60,
   size: 80,
   r: 255,
@@ -116,12 +116,19 @@ function draw() {
   ellipse(sun.x, sun.y, sun.size);
   sun.y = mouseY;
   sun.y = constrain(sun.y, sun.minHeight, sun.maxHeight);
+  sun.x = mouseX;
+  sun.x = constrain(sun.x, sun.minHeight, sun.maxHeight);
 
   //The Sun's Glowing Rim
   fill(sunGlow.r, sunGlow.g, sunGlow.b, sunGlow.alpha);
   ellipse(sunGlow.x, sunGlow.y, sunGlow.size);
+
+  //The Sun's Glow Animation
   sunGlow.y = mouseY;
   sunGlow.y = constrain(sunGlow.y, sun.minHeight, sun.maxHeight);
+  sunGlow.x = mouseX;
+  sunGlow.x = constrain(sunGlow.x, sun.minHeight, sun.maxHeight);
+  
   sunGlow.size = constrain(sunGlow.size, sunGlow.minSize, sunGlow.maxSize);
   if (sunGlow.size == sunGlow.maxSize || sunGlow.size == sunGlow.minSize) {
     sunGlow.count += 1;
@@ -166,6 +173,7 @@ function draw() {
     fish.tailX3,
     fish.tailY3
   );
+  //Fishy animation
   fish.bodyX += fish.speed;
   fish.tailX1 += fish.speed;
   fish.tailX2 += fish.speed;
