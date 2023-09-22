@@ -13,6 +13,8 @@ let bgCanvas = 500;
 let sun = {
   x: 250,
   y: 340,
+  maxHeight: 400,
+  minHeight: 60,
   size: 80,
   r: 255,
   g: 223,
@@ -26,7 +28,10 @@ let sunGlow = {
   b: 142,
   alpha: 150,
   size: 95,
+  minSize: 95,
+  maxSize: 120,
   count: 0,
+  speed: 0.2,
 };
 let water = {
   x: 0,
@@ -38,11 +43,19 @@ let water = {
   b: 219,
 };
 let bigMountain = {
+  x: -140,
+  y: 440,
+  w: 700,
+  h: 700,
   r: 61,
   g: 143,
   b: 65,
 };
 let midMountain = {
+  x: 790,
+  y: 380,
+  w: 900,
+  h: 280,
   r: 103,
   g: 163,
   b: 125,
@@ -50,9 +63,28 @@ let midMountain = {
 let smallMountain = {
   x: 400,
   y: 350,
+  w: 200,
+  h: 60,
   r: 132,
   g: 181,
   b: 160,
+};
+
+let fish = {
+  bodyX: 450,
+  bodyY: 460,
+  bodyW: 35,
+  bodyH: 7,
+  tailX1: 465,
+  tailY1: 460,
+  tailX2: 470,
+  tailY2: 455,
+  tailX3: 470,
+  tailY3: 465,
+  r: 79,
+  g: 124,
+  b: 201,
+  speed: -0.6,
 };
 
 /**
@@ -61,14 +93,14 @@ let smallMountain = {
 function preload() {}
 
 /**
- * Description of setup
+ * Canvas Size
  */
 function setup() {
   createCanvas(bgCanvas, bgCanvas);
 }
 
 /**
- * Description of draw()
+ * Shapes coming together to make a scene with a little animation
  */
 function draw() {
   //Background
@@ -78,30 +110,38 @@ function draw() {
   bg.b = map(mouseY, 0, 500, 100, 0);
   noStroke();
   colorMode(RGB);
+
   //Sun
   fill(sun.r, sun.g, sun.b);
   ellipse(sun.x, sun.y, sun.size);
   sun.y = mouseY;
-  sun.y = constrain(sun.y, 60, 400);
+  sun.y = constrain(sun.y, sun.minHeight, sun.maxHeight);
 
   //The Sun's Glowing Rim
   fill(sunGlow.r, sunGlow.g, sunGlow.b, sunGlow.alpha);
   ellipse(sunGlow.x, sunGlow.y, sunGlow.size);
   sunGlow.y = mouseY;
-  sunGlow.y = constrain(sunGlow.y, 60, 400);
-  sunGlow.size = constrain(sunGlow.size, 95, 110);
-  if (sunGlow.size == 110 || sunGlow.size == 95) {
+  sunGlow.y = constrain(sunGlow.y, sun.minHeight, sun.maxHeight);
+  sunGlow.size = constrain(sunGlow.size, sunGlow.minSize, sunGlow.maxSize);
+  if (sunGlow.size == sunGlow.maxSize || sunGlow.size == sunGlow.minSize) {
     sunGlow.count += 1;
   }
   if (sunGlow.count % 2 == 0) {
-    sunGlow.size += -0.2;
+    sunGlow.size += -sunGlow.speed;
   } else {
-    sunGlow.size += 0.2;
+    sunGlow.size += sunGlow.speed;
   }
 
   //The Small Mountain
   fill(smallMountain.r, smallMountain.g, smallMountain.b);
-  arc(smallMountain.x, smallMountain.y, 200, 60, PI, TWO_PI);
+  arc(
+    smallMountain.x,
+    smallMountain.y,
+    smallMountain.w,
+    smallMountain.h,
+    PI,
+    TWO_PI
+  );
 
   //The Water
   fill(water.r, water.g, water.b);
@@ -109,9 +149,25 @@ function draw() {
 
   //The Medium Mountain
   fill(midMountain.r, midMountain.g, midMountain.b);
-  arc(790, 380, 900, 280, PI, TWO_PI);
+  arc(midMountain.x, midMountain.y, midMountain.w, midMountain.h, PI, TWO_PI);
 
   //The Big Mountain
   fill(bigMountain.r, bigMountain.g, bigMountain.b);
-  arc(-140, 440, 700, 700, PI, TWO_PI);
+  arc(bigMountain.x, bigMountain.y, bigMountain.w, bigMountain.h, PI, TWO_PI);
+
+  //Fishy
+  fill(fish.r, fish.g, fish.b);
+  ellipse(fish.bodyX, fish.bodyY, fish.bodyW, fish.bodyH);
+  triangle(
+    fish.tailX1,
+    fish.tailY1,
+    fish.tailX2,
+    fish.tailY2,
+    fish.tailX3,
+    fish.tailY3
+  );
+  fish.bodyX += fish.speed;
+  fish.tailX1 += fish.speed;
+  fish.tailX2 += fish.speed;
+  fish.tailX3 += fish.speed;
 }
