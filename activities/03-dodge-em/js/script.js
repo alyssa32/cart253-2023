@@ -15,14 +15,7 @@ let food = {
     g: 227,
     b: 115,
 }
-let pacman = {
-    x: 600,
-    y: 450,
-    size: 60,
-    r: 252,
-    g: 186,
-    b: 3,
-}
+
 let boxOne = {
     x: 0,
     y: 180,
@@ -63,18 +56,50 @@ let boxFour = {
     b: 255,
 }
 
-let blueGhostImg;
+let chickenImg = {
+     x: 500,
+    y: 250,
+    w: 10,
+    h: 5,
+}
 
-let pinkGhostImg;
+let blueGhostImg = {
+    x: 10,
+    y: 250,
+    w: 90,
+    h: 90,
+    speed: 2
+}
 
-let greenGhostImg;
+let pinkGhostImg = {
+    x: 500,
+    y: 430,
+    w: 90,
+    h: 90,
+    speed: 2
+}
 
-let orangeGhostImg;
+let greenGhostImg = {
+    x: 210,
+    y: 610,
+    w: 90,
+    h: 90,
+    speed: 2
+}
+
+let orangeGhostImg = {
+    x: 810,
+    y: 800,
+    w: 90,
+    h: 90,
+    speed: 2
+}
 
 /**
  * Preloads the Ghost Images
 */
 function preload() {
+chickenImg = loadImage("assets/images/chicken.png");
 blueGhostImg = loadImage("assets/images/blueGhost.PNG");
 pinkGhostImg = loadImage("assets/images/pinkGhost.PNG");
 greenGhostImg = loadImage("assets/images/greenGhost.PNG");
@@ -88,6 +113,8 @@ orangeGhostImg = loadImage("assets/images/orangeGhost.PNG");
 function setup() {
     createCanvas(1000,1000);
 }
+
+
 /**
  * Description of draw()
 */
@@ -108,9 +135,9 @@ x = x + 70;
      }
    
 
-  //Draws the Pacman
-fill(pacman.r, pacman.g, pacman.b);
-ellipse(mouseX, mouseY, pacman.size);
+  //Draws the Chicken
+  image(chickenImg, mouseX, mouseY, chickenImg.w, chickenImg.h);
+  imageMode(CENTER);
 
   //Draws the First Box
   stroke(boxOne.r, boxOne.g, boxOne.b);
@@ -130,16 +157,25 @@ ellipse(mouseX, mouseY, pacman.size);
   //Draws the Blue Ghost
   image(blueGhostImg, 10, 250, 90, 90);
 
- //Draws the Blue Ghost
+ //Draws the Pink Ghost
   image(pinkGhostImg, 500, 430, 90, 90);
 
-   //Draws the Blue Ghost
+   //Draws the Green Ghost
   image(greenGhostImg, 210, 610, 90, 90);
 
-   //Draws the Blue Ghost
+   //Draws the Orange Ghost
   image(orangeGhostImg, 810, 800, 90, 90);
 
+orangeGhostImg.x = orangeGhostImg.x + orangeGhostImg.speed;
 
-     }
-    
+if (orangeGhostImg.x > width) {
+    orangeGhostImg.speed = -orangeGhostImg.speed;
+}
 
+if (orangeGhostImg.x < 0) {
+     orangeGhostImg.speed = -orangeGhostImg.speed;
+}
+     //Prevents Pacman from passing through the boxes
+}
+
+  
