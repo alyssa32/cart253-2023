@@ -62,11 +62,23 @@ let boxFour = {
     g: 68,
     b: 255,
 }
+
+let blueGhostImg;
+
+let pinkGhostImg;
+
+let greenGhostImg;
+
+let orangeGhostImg;
+
 /**
- * Description of preload
+ * Preloads the Ghost Images
 */
 function preload() {
-
+blueGhostImg = loadImage("assets/images/blueGhost.PNG");
+pinkGhostImg = loadImage("assets/images/pinkGhost.PNG");
+greenGhostImg = loadImage("assets/images/greenGhost.PNG");
+orangeGhostImg = loadImage("assets/images/orangeGhost.PNG");
 }
 
 
@@ -89,13 +101,12 @@ fill(food.r, food.g, food.b);
 
      let x = food.x
      let numSegments = 13;
-     let segmentsDrawn = 0;
 
-     while (segmentsDrawn < numSegments) {
+     for (let i = 0; i < numSegments; i++) {
 ellipse(x, food.y, food.size);
 x = x + 70;
-segmentsDrawn = segmentsDrawn + 1;
      }
+   
 
   //Draws the Pacman
 fill(pacman.r, pacman.g, pacman.b);
@@ -115,6 +126,20 @@ ellipse(mouseX, mouseY, pacman.size);
 
    //Draws the Fourth Box
   rect(boxFour.x, boxFour.y, boxFour.w, boxFour.h);
+
+  //Draws the Blue Ghost
+  image(blueGhostImg, 10, 250, 90, 90);
+
+ //Draws the Blue Ghost
+  image(pinkGhostImg, 500, 430, 90, 90);
+
+   //Draws the Blue Ghost
+  image(greenGhostImg, 210, 610, 90, 90);
+
+   //Draws the Blue Ghost
+  image(orangeGhostImg, 810, 800, 90, 90);
+
+
      }
     
 
