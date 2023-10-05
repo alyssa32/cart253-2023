@@ -7,53 +7,94 @@
  */
 
 "use strict";
-let food = {
-  x: 80,
-  y: 490,
+let food1 = {
+  x: 600,
+  y: 60,
   size: 15,
   r: 255,
   g: 227,
   b: 115,
+  eaten: false,
+};
+
+let food2 = {
+  x: 100,
+  y: 240,
+  size: 15,
+  r: 255,
+  g: 227,
+  b: 115,
+  eaten: false,
+};
+
+let food3 = {
+  x: 500,
+  y: 420,
+  size: 15,
+  r: 255,
+  g: 227,
+  b: 115,
+  eaten: false,
+};
+
+let food4 = {
+  x: 600,
+  y: 600,
+  size: 15,
+  r: 255,
+  g: 227,
+  b: 115,
+  eaten: false,
+};
+
+let food5 = {
+  x: 230,
+  y: 740,
+  size: 15,
+  r: 255,
+  g: 227,
+  b: 115,
+  eaten: false,
 };
 
 let boxOne = {
   x: 0,
-  y: 200,
-  w: 200,
-  h: 50,
+  y: 130,
+  w: 450,
+  h: 40,
   r: 5,
   g: 68,
-  b: 255,
+  b: 255
 };
 
 let boxTwo = {
   x: 100,
-  y: 380,
-  w: 400,
-  h: 50,
+  y: 310,
+  w: 500,
+  h: 40,
   r: 5,
   g: 68,
-  b: 255,
+  b: 255
 };
 
 let boxThree = {
-  x: 710,
-  y: 560,
-  w: 300,
-  h: 50,
+  x: 400,
+  y: 490,
+  w: 410,
+  h: 40,
   r: 5,
   g: 68,
-  b: 255,
+  b: 255
 };
 
 let boxFour = {
-  x: 300,
-  y: 740,
+  x: 200,
+  y: 650,
   w: 300,
-  h: 50,
+  h: 40,
   r: 5,
   g: 68,
-  b: 255,
+  b: 255
 };
 
 let chickenImg = {
@@ -62,44 +103,49 @@ let chickenImg = {
   w: 10,
   h: 5,
   minHeight: 10,
-  maxHeight: 990,
+  maxHeight: 990
 };
 
-let blueGhostImg = {
+let blueGhost = {
   x: 10,
-  y: 250,
+  y: 195,
   w: 90,
   h: 90,
-  speed: 2,
+  speed: 4
 };
 
-let pinkGhostImg = {
+let pinkGhost = {
   x: 500,
-  y: 430,
+  y: 375,
   w: 90,
   h: 90,
-  speed: 2,
+  speed: 4
 };
 
-let greenGhostImg = {
+let greenGhost = {
   x: 210,
-  y: 610,
+  y: 550,
   w: 90,
   h: 90,
-  speed: 2,
+  speed: 4
 };
 
-let orangeGhostImg = {
-  x: 810,
-  y: 800,
-  w: 190,
+let orangeGhost = {
+  x: 670,
+  y: 700,
+  w: 90,
   h: 90,
-  speed: 2,
+  speed: 4
 };
 
-let canvasX = 1000;
-let canvasY = 1000;
+let canvasX = 800;
+let canvasY = 800;
+let blueGhostImg;
+let pinkGhostImg;
+let greenGhostImg;
+let orangeGhostImg;
 
+let foodArray = [food1, food2, food3, food4, food5]; 
 /**
  * Preloads the Chicken and Ghost Images
  */
@@ -112,10 +158,12 @@ function preload() {
 }
 
 /**
- * Draws the Canvas Size
+ * Draws the Canvas Size and Hides the Cursor
  */
 function setup() {
   createCanvas(canvasX, canvasY);
+  noCursor();
+  
 }
 
 /**
@@ -125,61 +173,53 @@ function draw() {
   // Draws the Black Background
   background(0);
 
-  // ================= FOOD ===========================
 
-  //Draws the Food Nuggets using a Loop
-  noStroke();
-  fill(food.r, food.g, food.b);
+   // ================= FOOD ===========================
+//Calls the Food Function
+  checkEaten();
+   drawFood();
+ 
+    // ================= CHICKEN ========================
 
-  let x = food.x;
-  let numSegments = 13;
+    // Constrain the chicken's x-coordinate
+    chickenImg.x = constrain(chickenImg.x, 0, canvasX - chickenImg.width);
 
-  for (let i = 0; i < numSegments; i++) {
-    ellipse(x, food.y, food.size);
-    x = x + 70;
-  }
+    // Constrain the chicken's y-coordinate
+    chickenImg.y = constrain(chickenImg.y, 0, canvasY - chickenImg.height);
 
-  // ================= CHICKEN ========================
+    //Draws the Chicken
+    image(
+      chickenImg,
+      chickenImg.x,
+      chickenImg.y,
+      chickenImg.width,
+      chickenImg.height
+    );
 
-  // Constrain the chicken's x-coordinate
-  chickenImg.x = constrain(chickenImg.x, 0, canvasX - chickenImg.width);
+    // ======================== BOX =====================
 
-  // Constrain the chicken's y-coordinate
-  chickenImg.y = constrain(chickenImg.y, 0, canvasY - chickenImg.height);
+    //Draws the First Box
+    stroke(boxOne.r, boxOne.g, boxOne.b);
+    strokeWeight(4);
+    fill(0);
+    rect(boxOne.x, boxOne.y, boxOne.w, boxOne.h);
 
-  //Draws the Chicken
-  image(
-    chickenImg,
-    chickenImg.x,
-    chickenImg.y,
-    chickenImg.width,
-    chickenImg.height
-  );
+    //Draws the Second Box
+    rect(boxTwo.x, boxTwo.y, boxTwo.w, boxTwo.h);
 
-  // ======================== BOX =====================
+    //Draws the Third Box
+    rect(boxThree.x, boxThree.y, boxThree.w, boxThree.h);
 
-  //Draws the First Box
-  stroke(boxOne.r, boxOne.g, boxOne.b);
-  strokeWeight(4);
-  fill(0);
-  rect(boxOne.x, boxOne.y, boxOne.w, boxOne.h);
+    //Draws the Fourth Box
+    rect(boxFour.x, boxFour.y, boxFour.w, boxFour.h);
 
-  //Draws the Second Box
-  rect(boxTwo.x, boxTwo.y, boxTwo.w, boxTwo.h);
+    // ====================== GHOST ==================
 
-  //Draws the Third Box
-  rect(boxThree.x, boxThree.y, boxThree.w, boxThree.h);
+    // Calls the drawGhosts() function to draw all the ghosts
+    drawGhosts();
 
-  //Draws the Fourth Box
-  rect(boxFour.x, boxFour.y, boxFour.w, boxFour.h);
-
-  // ====================== GHOST ==================
-
-  // Calls the drawGhosts() function to draw all the ghosts
-  drawGhosts();
-
-  // Calls the updateGhosts() funtion to make them move side to side
-  updateGhosts();
+    // Calls the updateGhosts() funtion to make them move side to side
+    updateGhosts();
 }
 
 // ============ CHICKEN COLLISION WITH BOXES ============
@@ -240,63 +280,79 @@ function drawGhosts() {
   // Draws the Blue Ghost
   image(
     blueGhostImg,
-    blueGhostImg.x,
-    blueGhostImg.y,
-    blueGhostImg.w,
-    blueGhostImg.h
+    blueGhost.x,
+    blueGhost.y,
+    blueGhost.w,
+    blueGhost.h
   );
 
   // Draws the Pink Ghost
   image(
     pinkGhostImg,
-    pinkGhostImg.x,
-    pinkGhostImg.y,
-    pinkGhostImg.w,
-    pinkGhostImg.h
+    pinkGhost.x,
+    pinkGhost.y,
+    pinkGhost.w,
+    pinkGhost.h
   );
 
   // Draws the Green Ghost
   image(
     greenGhostImg,
-    greenGhostImg.x,
-    greenGhostImg.y,
-    greenGhostImg.w,
-    greenGhostImg.h
+    greenGhost.x,
+    greenGhost.y,
+    greenGhost.w,
+    greenGhost.h
   );
 
   // Draws the Orange Ghost
   image(
     orangeGhostImg,
-    orangeGhostImg.x,
-    orangeGhostImg.y,
-    orangeGhostImg.w,
-    orangeGhostImg.h
+    orangeGhost.x,
+    orangeGhost.y,
+    orangeGhost.w,
+    orangeGhost.h
   );
 }
 
 // Update the position of the ghosts
 function updateGhosts() {
-  // Move the blue ghost
-  blueGhostImg.x += blueGhostImg.speed;
-  if (blueGhostImg.x > canvasX - blueGhostImg.w || blueGhostImg.x < 0) {
-    blueGhostImg.speed *= -1;
-  }
+ // Move the blue ghost
+    blueGhost.x += blueGhost.speed;
+    if (blueGhost.x > canvasX - blueGhost.w || blueGhost.x < 0) {
+      blueGhost.speed *= -1;
+    }
+    // Move the pink ghost
+    pinkGhost.x += pinkGhost.speed;
+    if (pinkGhost.x > canvasX - pinkGhost.w || pinkGhost.x < 0) {
+      pinkGhost.speed *= -1;
+    }
+    // Move the green ghost
+    greenGhost.x += greenGhost.speed;
+    if (greenGhost.x > canvasX - greenGhost.w || greenGhost.x < 0) {
+      greenGhost.speed *= -1;
+    }
+    // Move the orange ghost
+    orangeGhost.x += orangeGhost.speed;
+    if (orangeGhost.x > canvasX - orangeGhost.w || orangeGhost.x < 0) {
+      orangeGhost.speed *= -1;
+    }
+}
 
-  // Move the pink ghost
-  pinkGhostImg.x += pinkGhostImg.speed;
-  if (pinkGhostImg.x > canvasX - pinkGhostImg.w || pinkGhostImg.x < 0) {
-    pinkGhostImg.speed *= -1;
-  }
+function checkEaten() {
 
-  // Move the green ghost
-  greenGhostImg.x += greenGhostImg.speed;
-  if (greenGhostImg.x > canvasX - greenGhostImg.w || greenGhostImg.x < 0) {
-    greenGhostImg.speed *= -1;
-  }
+}
 
-  // Move the orange ghost
-  orangeGhostImg.x += orangeGhostImg.speed;
-  if (orangeGhostImg.x > canvasX - orangeGhostImg.w || orangeGhostImg.x < 0) {
-    orangeGhostImg.speed *= -1;
-  }
+function drawFood() {
+  //Draws Food 
+  noStroke();
+   for (let i = 0; i < 5; i++) {
+    if (foodArray[i].eaten === true) {
+      fill(0);
+    } else {
+      fill(food1.r, food1.g, food1.b)
+    }
+    ellipse(foodArray[i].x, foodArray[i].y, foodArray[i].size);
+}
+
+   
 }
