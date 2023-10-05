@@ -97,6 +97,9 @@ let orangeGhostImg = {
   speed: 2,
 };
 
+let canvasX = 1000;
+let canvasY = 1000;
+
 /**
  * Preloads the Chicken and Ghost Images
  */
@@ -112,7 +115,7 @@ function preload() {
  * Description of setup
  */
 function setup() {
-  createCanvas(1000, 1000);
+  createCanvas(canvasX, canvasY);
 }
 
 /**
@@ -134,21 +137,24 @@ function draw() {
     x = x + 70;
   }
 
+  // ========== CHICKEN ==========
+
+  // Constrain the chicken's x-coordinate
+  chickenImg.x = constrain(chickenImg.x, 0, canvasX - chickenImg.width);
+
+  // Constrain the chicken's y-coordinate
+  chickenImg.y = constrain(chickenImg.y, 0, canvasY - chickenImg.height);
+
   //Draws the Chicken
-  image(chickenImg, mouseX, mouseY, chickenImg.w, chickenImg.h);
-  imageMode(CENTER);
-  chickenImg.y = mouseY;
-  chickenImg.y = constrain(
-    chickenImg.y,
-    chickenImg.minHeight,
-    chickenImg.maxHeight
-  );
-  chickenImg.x = mouseX;
-  chickenImg.x = constrain(
+  image(
+    chickenImg,
     chickenImg.x,
-    chickenImg.minHeight,
-    chickenImg.maxHeight
+    chickenImg.y,
+    chickenImg.width,
+    chickenImg.height
   );
+
+  // ========== BOX ==========
 
   //Draws the First Box
   stroke(boxOne.r, boxOne.g, boxOne.b);
@@ -165,25 +171,107 @@ function draw() {
   //Draws the Fourth Box
   rect(boxFour.x, boxFour.y, boxFour.w, boxFour.h);
 
-  //Draws the Blue Ghost
-  image(blueGhostImg, 50, 300, 90, 90);
+  // ========== GHOST ==========
 
-  //Draws the Pink Ghost
-  image(pinkGhostImg, 500, 480, 90, 90);
+  // Calls the drawGhosts() function to draw all the ghosts
+  drawGhosts();
 
-  //Draws the Green Ghost
-  image(greenGhostImg, 210, 660, 90, 90);
+  // Calls the updateGhosts() funtion to make them move side to side
+  updateGhosts();
+}
 
-  //Draws the Orange Ghost
-  image(orangeGhostImg, 810, 850, 90, 90);
+// ============ Chicken Collision with Boxes ============
 
-  orangeGhostImg.x = orangeGhostImg.x + orangeGhostImg.speed;
+// Function called every time the mouse moves and is not clicked
+function mouseMoved() {
+  // Update the chicken's position based on the mouse movement
+  chickenImg.x = mouseX;
+  chickenImg.y = mouseY;
 
-  if (orangeGhostImg.x > width) {
-    orangeGhostImg.speed = -orangeGhostImg.speed;
+  // Check collision with box one
+  if (
+    chickenImg.x + chickenImg.width > boxOne.x &&
+    chickenImg.x < boxOne.x + boxOne.w &&
+    chickenImg.y + chickenImg.height > boxOne.y &&
+    chickenImg.y < boxOne.y + boxOne.h
+  ) {
+    // Adjust chicken's position to avoid collision with boxOne
+    chickenImg.x = boxOne.x + boxOne.w;
+  }
+  // Check collision with box two
+  if (
+    chickenImg.x + chickenImg.width > boxTwo.x &&
+    chickenImg.x < boxTwo.x + boxTwo.w &&
+    chickenImg.y + chickenImg.height > boxTwo.y &&
+    chickenImg.y < boxTwo.y + boxTwo.h
+  ) {
+    // Adjust chicken's position to avoid collision with box tne
+    chickenImg.x = boxTwo.x + boxTwo.w;
+  }
+}
+
+// Draw the ghosts
+function drawGhosts() {
+  // Draws the Blue Ghost
+  image(
+    blueGhostImg,
+    blueGhostImg.x,
+    blueGhostImg.y,
+    blueGhostImg.w,
+    blueGhostImg.h
+  );
+
+  // Draws the Pink Ghost
+  image(
+    pinkGhostImg,
+    pinkGhostImg.x,
+    pinkGhostImg.y,
+    pinkGhostImg.w,
+    pinkGhostImg.h
+  );
+
+  // Draws the Green Ghost
+  image(
+    greenGhostImg,
+    greenGhostImg.x,
+    greenGhostImg.y,
+    greenGhostImg.w,
+    greenGhostImg.h
+  );
+
+  // Draws the Orange Ghost
+  image(
+    orangeGhostImg,
+    orangeGhostImg.x,
+    orangeGhostImg.y,
+    orangeGhostImg.w,
+    orangeGhostImg.h
+  );
+}
+
+// Update the position of the ghosts
+function updateGhosts() {
+  // Move the blue ghost
+  blueGhostImg.x += blueGhostImg.speed;
+  if (blueGhostImg.x > canvasX - blueGhostImg.w || blueGhostImg.x < 0) {
+    blueGhostImg.speed *= -1;
   }
 
-  if (orangeGhostImg.x < 0) {
-    orangeGhostImg.speed = -orangeGhostImg.speed;
+  // Move the pink ghost
+  pinkGhostImg.x += pinkGhostImg.speed;
+  if (pinkGhostImg.x > canvasX - pinkGhostImg.w || pinkGhostImg.x < 0) {
+    pinkGhostImg.speed *= -1;
+  }
+
+  // Move the green ghost
+  greenGhostImg.x += greenGhostImg.speed;
+  if (greenGhostImg.x > canvasX - greenGhostImg.w || greenGhostImg.x < 0) {
+    greenGhostImg.speed *= -1;
+  }
+
+  // Move the orange ghost
+  orangeGhostImg.x += orangeGhostImg.speed;
+  if (orangeGhostImg.x > canvasX - orangeGhostImg.w || orangeGhostImg.x < 0) {
+    orangeGhostImg.speed *= -1;
   }
 }
