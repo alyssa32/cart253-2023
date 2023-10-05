@@ -9,7 +9,7 @@
 "use strict";
 let food = {
   x: 80,
-  y: 470,
+  y: 490,
   size: 15,
   r: 255,
   g: 227,
@@ -18,7 +18,7 @@ let food = {
 
 let boxOne = {
   x: 0,
-  y: 180,
+  y: 200,
   w: 200,
   h: 50,
   r: 5,
@@ -28,7 +28,7 @@ let boxOne = {
 
 let boxTwo = {
   x: 100,
-  y: 360,
+  y: 380,
   w: 400,
   h: 50,
   r: 5,
@@ -37,8 +37,8 @@ let boxTwo = {
 };
 
 let boxThree = {
-  x: 700,
-  y: 540,
+  x: 710,
+  y: 560,
   w: 300,
   h: 50,
   r: 5,
@@ -48,7 +48,7 @@ let boxThree = {
 
 let boxFour = {
   x: 300,
-  y: 720,
+  y: 740,
   w: 300,
   h: 50,
   r: 5,
@@ -112,18 +112,20 @@ function preload() {
 }
 
 /**
- * Description of setup
+ * Draws the Canvas Size
  */
 function setup() {
   createCanvas(canvasX, canvasY);
 }
 
 /**
- * Description of draw()
+ * Draws the Characters and Obstacles, and Animates Them
  */
 function draw() {
   // Draws the Black Background
   background(0);
+
+  // ================= FOOD ===========================
 
   //Draws the Food Nuggets using a Loop
   noStroke();
@@ -137,7 +139,7 @@ function draw() {
     x = x + 70;
   }
 
-  // ========== CHICKEN ==========
+  // ================= CHICKEN ========================
 
   // Constrain the chicken's x-coordinate
   chickenImg.x = constrain(chickenImg.x, 0, canvasX - chickenImg.width);
@@ -154,7 +156,7 @@ function draw() {
     chickenImg.height
   );
 
-  // ========== BOX ==========
+  // ======================== BOX =====================
 
   //Draws the First Box
   stroke(boxOne.r, boxOne.g, boxOne.b);
@@ -171,7 +173,7 @@ function draw() {
   //Draws the Fourth Box
   rect(boxFour.x, boxFour.y, boxFour.w, boxFour.h);
 
-  // ========== GHOST ==========
+  // ====================== GHOST ==================
 
   // Calls the drawGhosts() function to draw all the ghosts
   drawGhosts();
@@ -180,7 +182,7 @@ function draw() {
   updateGhosts();
 }
 
-// ============ Chicken Collision with Boxes ============
+// ============ CHICKEN COLLISION WITH BOXES ============
 
 // Function called every time the mouse moves and is not clicked
 function mouseMoved() {
@@ -195,9 +197,10 @@ function mouseMoved() {
     chickenImg.y + chickenImg.height > boxOne.y &&
     chickenImg.y < boxOne.y + boxOne.h
   ) {
-    // Adjust chicken's position to avoid collision with boxOne
+    // Adjust chicken's position to avoid collision with box one
     chickenImg.x = boxOne.x + boxOne.w;
   }
+
   // Check collision with box two
   if (
     chickenImg.x + chickenImg.width > boxTwo.x &&
@@ -205,8 +208,30 @@ function mouseMoved() {
     chickenImg.y + chickenImg.height > boxTwo.y &&
     chickenImg.y < boxTwo.y + boxTwo.h
   ) {
-    // Adjust chicken's position to avoid collision with box tne
+    // Adjust chicken's position to avoid collision with box two
     chickenImg.x = boxTwo.x + boxTwo.w;
+  }
+
+  // Check collision with box three
+  if (
+    chickenImg.x + chickenImg.width > boxThree.x &&
+    chickenImg.x < boxThree.x + boxThree.w &&
+    chickenImg.y + chickenImg.height > boxThree.y &&
+    chickenImg.y < boxThree.y + boxThree.h
+  ) {
+    // Adjust chicken's position to avoid collision with box three
+    chickenImg.x = boxThree.x + boxThree.w;
+  }
+
+  // Check collision with box four
+  if (
+    chickenImg.x + chickenImg.width > boxFour.x &&
+    chickenImg.x < boxFour.x + boxFour.w &&
+    chickenImg.y + chickenImg.height > boxFour.y &&
+    chickenImg.y < boxFour.y + boxFour.h
+  ) {
+    // Adjust chicken's position to avoid collision with box four
+    chickenImg.x = boxFour.x + boxFour.w;
   }
 }
 
