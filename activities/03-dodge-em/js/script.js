@@ -64,7 +64,7 @@ let boxOne = {
   h: 40,
   r: 5,
   g: 68,
-  b: 255
+  b: 255,
 };
 
 let boxTwo = {
@@ -74,7 +74,7 @@ let boxTwo = {
   h: 40,
   r: 5,
   g: 68,
-  b: 255
+  b: 255,
 };
 
 let boxThree = {
@@ -84,7 +84,7 @@ let boxThree = {
   h: 40,
   r: 5,
   g: 68,
-  b: 255
+  b: 255,
 };
 
 let boxFour = {
@@ -94,7 +94,7 @@ let boxFour = {
   h: 40,
   r: 5,
   g: 68,
-  b: 255
+  b: 255,
 };
 
 let chickenImg = {
@@ -103,7 +103,7 @@ let chickenImg = {
   w: 10,
   h: 5,
   minHeight: 10,
-  maxHeight: 990
+  maxHeight: 990,
 };
 
 let blueGhost = {
@@ -111,7 +111,7 @@ let blueGhost = {
   y: 195,
   w: 90,
   h: 90,
-  speed: 4
+  speed: 4,
 };
 
 let pinkGhost = {
@@ -119,7 +119,7 @@ let pinkGhost = {
   y: 375,
   w: 90,
   h: 90,
-  speed: 4
+  speed: 4,
 };
 
 let greenGhost = {
@@ -127,7 +127,7 @@ let greenGhost = {
   y: 550,
   w: 90,
   h: 90,
-  speed: 4
+  speed: 4,
 };
 
 let orangeGhost = {
@@ -135,7 +135,7 @@ let orangeGhost = {
   y: 700,
   w: 90,
   h: 90,
-  speed: 4
+  speed: 4,
 };
 
 let canvasX = 800;
@@ -145,7 +145,7 @@ let pinkGhostImg;
 let greenGhostImg;
 let orangeGhostImg;
 
-let foodArray = [food1, food2, food3, food4, food5]; 
+let foodArray = [food1, food2, food3, food4, food5];
 /**
  * Preloads the Chicken and Ghost Images
  */
@@ -163,7 +163,6 @@ function preload() {
 function setup() {
   createCanvas(canvasX, canvasY);
   noCursor();
-  
 }
 
 /**
@@ -173,53 +172,55 @@ function draw() {
   // Draws the Black Background
   background(0);
 
-
-   // ================= FOOD ===========================
-//Calls the Food Function
+  // ================= FOOD ===========================
+  //Calls the Food Function
   checkEaten();
-   drawFood();
- 
-    // ================= CHICKEN ========================
+  drawFood();
 
-    // Constrain the chicken's x-coordinate
-    chickenImg.x = constrain(chickenImg.x, 0, canvasX - chickenImg.width);
+  // ================= CHICKEN ========================
 
-    // Constrain the chicken's y-coordinate
-    chickenImg.y = constrain(chickenImg.y, 0, canvasY - chickenImg.height);
+  // Constrain the chicken's x-coordinate
+  chickenImg.x = constrain(chickenImg.x, 0, canvasX - chickenImg.width);
 
-    //Draws the Chicken
-    image(
-      chickenImg,
-      chickenImg.x,
-      chickenImg.y,
-      chickenImg.width,
-      chickenImg.height
-    );
+  // Constrain the chicken's y-coordinate
+  chickenImg.y = constrain(chickenImg.y, 0, canvasY - chickenImg.height);
 
-    // ======================== BOX =====================
+  //Draws the Chicken
+  image(
+    chickenImg,
+    chickenImg.x,
+    chickenImg.y,
+    chickenImg.width,
+    chickenImg.height
+  );
 
-    //Draws the First Box
-    stroke(boxOne.r, boxOne.g, boxOne.b);
-    strokeWeight(4);
-    fill(0);
-    rect(boxOne.x, boxOne.y, boxOne.w, boxOne.h);
+  // ======================== BOX =====================
 
-    //Draws the Second Box
-    rect(boxTwo.x, boxTwo.y, boxTwo.w, boxTwo.h);
+  //Draws the First Box
+  stroke(boxOne.r, boxOne.g, boxOne.b);
+  strokeWeight(4);
+  fill(0);
+  rect(boxOne.x, boxOne.y, boxOne.w, boxOne.h);
 
-    //Draws the Third Box
-    rect(boxThree.x, boxThree.y, boxThree.w, boxThree.h);
+  //Draws the Second Box
+  rect(boxTwo.x, boxTwo.y, boxTwo.w, boxTwo.h);
 
-    //Draws the Fourth Box
-    rect(boxFour.x, boxFour.y, boxFour.w, boxFour.h);
+  //Draws the Third Box
+  rect(boxThree.x, boxThree.y, boxThree.w, boxThree.h);
 
-    // ====================== GHOST ==================
+  //Draws the Fourth Box
+  rect(boxFour.x, boxFour.y, boxFour.w, boxFour.h);
 
-    // Calls the drawGhosts() function to draw all the ghosts
-    drawGhosts();
+  // ====================== GHOST ==================
 
-    // Calls the updateGhosts() funtion to make them move side to side
-    updateGhosts();
+  // Calls the drawGhosts() function to draw all the ghosts
+  drawGhosts();
+
+  // Calls the moveGhosts() funtion to make the ghosts move side to side
+  moveGhost(blueGhost);
+  moveGhost(pinkGhost);
+  moveGhost(greenGhost);
+  moveGhost(orangeGhost);
 }
 
 // ============ CHICKEN COLLISION WITH BOXES ============
@@ -278,31 +279,13 @@ function mouseMoved() {
 // Draw the ghosts
 function drawGhosts() {
   // Draws the Blue Ghost
-  image(
-    blueGhostImg,
-    blueGhost.x,
-    blueGhost.y,
-    blueGhost.w,
-    blueGhost.h
-  );
+  image(blueGhostImg, blueGhost.x, blueGhost.y, blueGhost.w, blueGhost.h);
 
   // Draws the Pink Ghost
-  image(
-    pinkGhostImg,
-    pinkGhost.x,
-    pinkGhost.y,
-    pinkGhost.w,
-    pinkGhost.h
-  );
+  image(pinkGhostImg, pinkGhost.x, pinkGhost.y, pinkGhost.w, pinkGhost.h);
 
   // Draws the Green Ghost
-  image(
-    greenGhostImg,
-    greenGhost.x,
-    greenGhost.y,
-    greenGhost.w,
-    greenGhost.h
-  );
+  image(greenGhostImg, greenGhost.x, greenGhost.y, greenGhost.w, greenGhost.h);
 
   // Draws the Orange Ghost
   image(
@@ -315,44 +298,26 @@ function drawGhosts() {
 }
 
 // Update the position of the ghosts
-function updateGhosts() {
- // Move the blue ghost
-    blueGhost.x += blueGhost.speed;
-    if (blueGhost.x > canvasX - blueGhost.w || blueGhost.x < 0) {
-      blueGhost.speed *= -1;
-    }
-    // Move the pink ghost
-    pinkGhost.x += pinkGhost.speed;
-    if (pinkGhost.x > canvasX - pinkGhost.w || pinkGhost.x < 0) {
-      pinkGhost.speed *= -1;
-    }
-    // Move the green ghost
-    greenGhost.x += greenGhost.speed;
-    if (greenGhost.x > canvasX - greenGhost.w || greenGhost.x < 0) {
-      greenGhost.speed *= -1;
-    }
-    // Move the orange ghost
-    orangeGhost.x += orangeGhost.speed;
-    if (orangeGhost.x > canvasX - orangeGhost.w || orangeGhost.x < 0) {
-      orangeGhost.speed *= -1;
-    }
+
+function moveGhost(ghost) {
+  ghost.x += ghost.speed;
+
+  if (ghost.x > canvasX - ghost.w || ghost.x < 0) {
+    ghost.speed *= -1;
+  }
 }
 
-function checkEaten() {
-
-}
+function checkEaten() {}
 
 function drawFood() {
-  //Draws Food 
+  //Draws Food
   noStroke();
-   for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 5; i++) {
     if (foodArray[i].eaten === true) {
       fill(0);
     } else {
-      fill(food1.r, food1.g, food1.b)
+      fill(food1.r, food1.g, food1.b);
     }
     ellipse(foodArray[i].x, foodArray[i].y, foodArray[i].size);
-}
-
-   
+  }
 }
