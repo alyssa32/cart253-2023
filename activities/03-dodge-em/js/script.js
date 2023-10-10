@@ -101,6 +101,9 @@ let chickenImg = {
   y: 250,
   w: 10,
   h: 5,
+  vx: 0,
+  vy: 0,
+  speed: 3,
   minHeight: 10,
   maxHeight: 990,
 };
@@ -182,7 +185,7 @@ function setup() {
 function draw() {
   // Draws the Black Background
   background(0);
-
+  handleInput();
   // ================= FOOD ===========================
   //Calls the Food Function
   checkEaten();
@@ -290,6 +293,28 @@ function mouseMoved(box) {
   // ) {
   //   // Adjust chicken's position to avoid collision with box four
   //   chickenImg.x = boxFour.x + boxFour.w;
+  // }
+}
+// =================== KEYBOARD ARROWS ==========================
+/** 
+//  // KeyBoard Arrows control the Chicken
+// */
+function handleInput() {
+  // if (KeyIsDown(LEFT_ARROW)) {
+  //   chickenImg.vx = -chickenImg.speed;
+  // }
+  // else if (KeyIsDown(RIGHT_ARROW)) {
+  //   chickenImg.vx = chickenImg.speed;
+  // }
+  // else {
+  //   chickenImg.vx = 0;
+  // }
+  // if (KeyIsDown(UP_ARROW)) {
+  //   chickenImg.vy = -chickenImg.speed;
+  // } else if (KeyIsDown(DOWN_ARROW)) {
+  //   chickenImg.vy = chickenImg.speed;
+  // } else {
+  //   chickenImg.vy = 0;
   // }
 }
 /** 
