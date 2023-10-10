@@ -2,8 +2,7 @@
  * Pac-Man
  * Alyssa Durdey
  *
- * This is a template. You must fill in the title, author,
- * and this description to match your project!
+ * A playable Pac-Man-like game! By controling the chicken, the player must eat all the seeds whilst avoiding the dangerous ghosts.
  */
 
 "use strict";
@@ -138,6 +137,18 @@ let orangeGhost = {
   speed: 4,
 };
 
+let win = {
+  x: 400,
+  y: 400,
+  string: `You Win!`,
+};
+
+let lose = {
+  x: 400,
+  y: 400,
+  string: `Game Over`,
+};
+
 let canvasX = 800;
 let canvasY = 800;
 let blueGhostImg;
@@ -176,6 +187,8 @@ function draw() {
   //Calls the Food Function
   checkEaten();
   drawFood();
+  //Calls the checkWin function
+  checkWin();
 
   // ================= CHICKEN ========================
 
@@ -211,6 +224,11 @@ function draw() {
   //Draws the Fourth Box
   rect(boxFour.x, boxFour.y, boxFour.w, boxFour.h);
 
+  //Calls the mouseMoved function
+  mouseMoved(boxOne);
+  mouseMoved(boxTwo);
+  mouseMoved(boxThree);
+  mouseMoved(boxFour);
   // ====================== GHOST ==================
 
   // Calls the drawGhosts() function to draw all the ghosts
@@ -229,54 +247,50 @@ function draw() {
 // ============ CHICKEN COLLISION WITH BOXES ============
 
 // Function called every time the mouse moves and is not clicked
-function mouseMoved() {
+function mouseMoved(box) {
   // Update the chicken's position based on the mouse movement
   chickenImg.x = mouseX;
   chickenImg.y = mouseY;
-
   // Check collision with box one
   if (
-    chickenImg.x + chickenImg.width > boxOne.x &&
-    chickenImg.x < boxOne.x + boxOne.w &&
-    chickenImg.y + chickenImg.height > boxOne.y &&
-    chickenImg.y < boxOne.y + boxOne.h
+    chickenImg.x + chickenImg.width > box.x &&
+    chickenImg.x < box.x + box.w &&
+    chickenImg.y + chickenImg.height > box.y &&
+    chickenImg.y < box.y + box.h
   ) {
     // Adjust chicken's position to avoid collision with box one
-    chickenImg.x = boxOne.x + boxOne.w;
+    chickenImg.x = box.x + box.w;
   }
-
-  // Check collision with box two
-  if (
-    chickenImg.x + chickenImg.width > boxTwo.x &&
-    chickenImg.x < boxTwo.x + boxTwo.w &&
-    chickenImg.y + chickenImg.height > boxTwo.y &&
-    chickenImg.y < boxTwo.y + boxTwo.h
-  ) {
-    // Adjust chicken's position to avoid collision with box two
-    chickenImg.x = boxTwo.x + boxTwo.w;
-  }
-
-  // Check collision with box three
-  if (
-    chickenImg.x + chickenImg.width > boxThree.x &&
-    chickenImg.x < boxThree.x + boxThree.w &&
-    chickenImg.y + chickenImg.height > boxThree.y &&
-    chickenImg.y < boxThree.y + boxThree.h
-  ) {
-    // Adjust chicken's position to avoid collision with box three
-    chickenImg.x = boxThree.x + -boxThree.w;
-  }
-
-  // Check collision with box four
-  if (
-    chickenImg.x + chickenImg.width > boxFour.x &&
-    chickenImg.x < boxFour.x + boxFour.w &&
-    chickenImg.y + chickenImg.height > boxFour.y &&
-    chickenImg.y < boxFour.y + boxFour.h
-  ) {
-    // Adjust chicken's position to avoid collision with box four
-    chickenImg.x = boxFour.x + boxFour.w;
-  }
+  // // Check collision with box two
+  // if (
+  //   chickenImg.x + chickenImg.width > boxTwo.x &&
+  //   chickenImg.x < boxTwo.x + boxTwo.w &&
+  //   chickenImg.y + chickenImg.height > boxTwo.y &&
+  //   chickenImg.y < boxTwo.y + boxTwo.h
+  // ) {
+  //   // Adjust chicken's position to avoid collision with box two
+  //   chickenImg.x = boxTwo.x + boxTwo.w;
+  // }
+  // // Check collision with box three
+  // if (
+  //   chickenImg.x + chickenImg.width > boxThree.x &&
+  //   chickenImg.x < boxThree.x + boxThree.w &&
+  //   chickenImg.y + chickenImg.height > boxThree.y &&
+  //   chickenImg.y < boxThree.y + boxThree.h
+  // ) {
+  //   // Adjust chicken's position to avoid collision with box three
+  //   chickenImg.x = boxThree.x + -boxThree.w;
+  // }
+  // // Check collision with box four
+  // if (
+  //   chickenImg.x + chickenImg.width > boxFour.x &&
+  //   chickenImg.x < boxFour.x + boxFour.w &&
+  //   chickenImg.y + chickenImg.height > boxFour.y &&
+  //   chickenImg.y < boxFour.y + boxFour.h
+  // ) {
+  //   // Adjust chicken's position to avoid collision with box four
+  //   chickenImg.x = boxFour.x + boxFour.w;
+  // }
 }
 /** 
  // Draws the Ghost Images
@@ -295,9 +309,18 @@ function moveGhost(ghost) {
   }
 }
 /** 
- // Description
+ // Checks if the Foods are Eaten
 */
-function checkEaten() {}
+function checkEaten() {
+  if (
+    chickenImg.x + chickenImg.width > food1.x &&
+    chickenImg.x < food1.x + food1.size &&
+    chickenImg.y + chickenImg.height > food1.y &&
+    chickenImg.y < food1.y + food1.size
+  ) {
+    food1.eaten === true;
+  }
+}
 
 /** 
  // Draws the Food
@@ -312,4 +335,16 @@ function drawFood() {
     }
     ellipse(foodArray[i].x, foodArray[i].y, foodArray[i].size);
   }
+}
+
+/** 
+ // Draws the Winning End Screen
+*/
+function checkWin() {
+  // if (food1.eaten && food2.eaten && food3.eaten && food4.eaten) {
+  // //     textSize(60);
+  // textAlign(CENTER);
+  // textStyle(BOLD);
+  // text(win.string, win.x, win.y);
+  // // }
 }
