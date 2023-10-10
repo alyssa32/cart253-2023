@@ -214,7 +214,10 @@ function draw() {
   // ====================== GHOST ==================
 
   // Calls the drawGhosts() function to draw all the ghosts
-  drawGhosts();
+  drawGhost(blueGhostImg, blueGhost);
+  drawGhost(pinkGhostImg, pinkGhost);
+  drawGhost(greenGhostImg, greenGhost);
+  drawGhost(orangeGhostImg, orangeGhost);
 
   // Calls the moveGhosts() funtion to make the ghosts move side to side
   moveGhost(blueGhost);
@@ -261,7 +264,7 @@ function mouseMoved() {
     chickenImg.y < boxThree.y + boxThree.h
   ) {
     // Adjust chicken's position to avoid collision with box three
-    chickenImg.x = boxThree.x + boxThree.w;
+    chickenImg.x = boxThree.x + -boxThree.w;
   }
 
   // Check collision with box four
@@ -275,30 +278,15 @@ function mouseMoved() {
     chickenImg.x = boxFour.x + boxFour.w;
   }
 }
-
-// Draw the ghosts
-function drawGhosts() {
-  // Draws the Blue Ghost
-  image(blueGhostImg, blueGhost.x, blueGhost.y, blueGhost.w, blueGhost.h);
-
-  // Draws the Pink Ghost
-  image(pinkGhostImg, pinkGhost.x, pinkGhost.y, pinkGhost.w, pinkGhost.h);
-
-  // Draws the Green Ghost
-  image(greenGhostImg, greenGhost.x, greenGhost.y, greenGhost.w, greenGhost.h);
-
-  // Draws the Orange Ghost
-  image(
-    orangeGhostImg,
-    orangeGhost.x,
-    orangeGhost.y,
-    orangeGhost.w,
-    orangeGhost.h
-  );
+/** 
+ // Draws the Ghost Images
+*/
+function drawGhost(ghostImg, ghost) {
+  image(ghostImg, ghost.x, ghost.y, ghost.w, ghost.h);
 }
-
-// Update the position of the ghosts
-
+/** 
+ // Moves the Ghosts Side-to-Side
+*/
 function moveGhost(ghost) {
   ghost.x += ghost.speed;
 
@@ -306,11 +294,15 @@ function moveGhost(ghost) {
     ghost.speed *= -1;
   }
 }
-
+/** 
+ // Description
+*/
 function checkEaten() {}
 
+/** 
+ // Draws the Food
+*/
 function drawFood() {
-  //Draws Food
   noStroke();
   for (let i = 0; i < 5; i++) {
     if (foodArray[i].eaten === true) {
