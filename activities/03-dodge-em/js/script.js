@@ -114,6 +114,7 @@ let blueGhost = {
   w: 90,
   h: 90,
   speed: 4,
+  collide: false,
 };
 
 let pinkGhost = {
@@ -122,6 +123,7 @@ let pinkGhost = {
   w: 90,
   h: 90,
   speed: 4,
+  collide: false,
 };
 
 let greenGhost = {
@@ -130,6 +132,7 @@ let greenGhost = {
   w: 90,
   h: 90,
   speed: 4,
+  collide: false,
 };
 
 let orangeGhost = {
@@ -138,6 +141,7 @@ let orangeGhost = {
   w: 90,
   h: 90,
   speed: 4,
+  collide: false,
 };
 
 let win = {
@@ -183,16 +187,19 @@ function setup() {
  * Draws the Characters and Obstacles, and Animates Them
  */
 function draw() {
-  // Draws the Black Background
+  // ================= CALLING FUNCTIONS========================
+  // Draws the black background
   background(0);
+  //Calls the handle function for the keyboard
   handleInput();
-  // ================= FOOD ===========================
-  //Calls the Food Function
+  //Calls the function to check if the food is eaten
   checkEaten();
+  //Calls the function to draw the food nuggets
   drawFood();
-  //Calls the checkWin function
+  //Calls the function displaying the wiining end screen
   checkWin();
-
+  //Calls the function displaying the losing end screen
+  checkGameOver();
   // ================= CHICKEN ========================
 
   // Constrain the chicken's x-coordinate
@@ -232,7 +239,7 @@ function draw() {
   mouseMoved(boxTwo);
   mouseMoved(boxThree);
   mouseMoved(boxFour);
-  // ====================== GHOST ==================
+  // ====================== GHOST ==================\
 
   // Calls the drawGhosts() function to draw all the ghosts
   drawGhost(blueGhostImg, blueGhost);
@@ -245,56 +252,93 @@ function draw() {
   moveGhost(pinkGhost);
   moveGhost(greenGhost);
   moveGhost(orangeGhost);
+
+  // Calls the function to check if any ghosts collide with the chicken
+  checkGhostCollision(blueGhost);
+  checkGhostCollision(pinkGhost);
+  checkGhostCollision(greenGhost);
+  checkGhostCollision(orangeGhost);
 }
 
-// ============ CHICKEN COLLISION WITH BOXES ============
-
-// Function called every time the mouse moves and is not clicked
-function mouseMoved(box) {
-  console.log(box);
+// ================== COLLISION ====================
+/** 
+// Checks if one object collides with another
+*/
+function checkCollision(obj1, obj2) {
+  if (
+    obj1.x + obj1.width > obj2.x &&
+    obj1.x < obj2.x + obj2.size &&
+    obj1.y + obj1.height > obj2.y &&
+    obj1.y < obj2.y + obj2.size
+  ) {
+    return true;
+  }
+  return false;
+}
+/** 
+// Check's if Chicken Collides with Boxes
+*/
+function mouseMoved() {
   // Update the chicken's position based on the mouse movement
   chickenImg.x = mouseX;
   chickenImg.y = mouseY;
   // Check collision with box one
   if (
-    chickenImg.x + chickenImg.width > box.x &&
-    chickenImg.x < box.x + box.w &&
-    chickenImg.y + chickenImg.height > box.y &&
-    chickenImg.y < box.y + box.h
+    chickenImg.x + chickenImg.width > boxOne.x &&
+    chickenImg.x < boxOne.x + boxOne.w &&
+    chickenImg.y + chickenImg.height > boxOne.y &&
+    chickenImg.y < boxOne.y + boxOne.h
   ) {
     // Adjust chicken's position to avoid collision with box one
-    chickenImg.x = box.x + box.w;
+    chickenImg.x = boxOne.x + boxOne.w;
   }
-  // // Check collision with box two
-  // if (
-  //   chickenImg.x + chickenImg.width > boxTwo.x &&
-  //   chickenImg.x < boxTwo.x + boxTwo.w &&
-  //   chickenImg.y + chickenImg.height > boxTwo.y &&
-  //   chickenImg.y < boxTwo.y + boxTwo.h
-  // ) {
-  //   // Adjust chicken's position to avoid collision with box two
-  //   chickenImg.x = boxTwo.x + boxTwo.w;
-  // }
-  // // Check collision with box three
-  // if (
-  //   chickenImg.x + chickenImg.width > boxThree.x &&
-  //   chickenImg.x < boxThree.x + boxThree.w &&
-  //   chickenImg.y + chickenImg.height > boxThree.y &&
-  //   chickenImg.y < boxThree.y + boxThree.h
-  // ) {
-  //   // Adjust chicken's position to avoid collision with box three
-  //   chickenImg.x = boxThree.x + -boxThree.w;
-  // }
-  // // Check collision with box four
-  // if (
-  //   chickenImg.x + chickenImg.width > boxFour.x &&
-  //   chickenImg.x < boxFour.x + boxFour.w &&
-  //   chickenImg.y + chickenImg.height > boxFour.y &&
-  //   chickenImg.y < boxFour.y + boxFour.h
-  // ) {
-  //   // Adjust chicken's position to avoid collision with box four
-  //   chickenImg.x = boxFour.x + boxFour.w;
-  // }
+  // Check collision with box two
+  if (
+    chickenImg.x + chickenImg.width > boxTwo.x &&
+    chickenImg.x < boxTwo.x + boxTwo.w &&
+    chickenImg.y + chickenImg.height > boxTwo.y &&
+    chickenImg.y < boxTwo.y + boxTwo.h
+  ) {
+    // Adjust chicken's position to avoid collision with box two
+    chickenImg.x = boxTwo.x + boxTwo.w;
+  }
+  // Check collision with box three
+  if (
+    chickenImg.x + chickenImg.width > boxThree.x &&
+    chickenImg.x < boxThree.x + boxThree.w &&
+    chickenImg.y + chickenImg.height > boxThree.y &&
+    chickenImg.y < boxThree.y + boxThree.h
+  ) {
+    // Adjust chicken's position to avoid collision with box three
+    chickenImg.x = boxThree.x + -boxThree.w;
+  }
+  // Check collision with box four
+  if (
+    chickenImg.x + chickenImg.width > boxFour.x &&
+    chickenImg.x < boxFour.x + boxFour.w &&
+    chickenImg.y + chickenImg.height > boxFour.y &&
+    chickenImg.y < boxFour.y + boxFour.h
+  ) {
+    // Adjust chicken's position to avoid collision with box four
+    chickenImg.x = boxFour.x + boxFour.w;
+  }
+}
+/** 
+ // Checks if Chicken Collides with Food
+*/
+function checkEaten() {
+  for (let i = 0; i < 5; i++) {
+    if (checkCollision(chickenImg, foodArray[i])) {
+      foodArray[i].eaten = true;
+    }
+  }
+}
+function checkGhostCollision(ghost) {
+  for (let i = 0; i < 3; i++) {
+    if (checkCollision(chickenImg, ghost)) {
+      ghost.collide = true;
+    }
+  }
 }
 // =================== KEYBOARD ARROWS ==========================
 /** 
@@ -318,6 +362,7 @@ function handleInput() {
   //   chickenImg.vy = 0;
   // }
 }
+// ================= GHOST ===========================
 /** 
  // Draws the Ghost Images
 */
@@ -334,59 +379,9 @@ function moveGhost(ghost) {
     ghost.speed *= -1;
   }
 }
+// ================= FOOD ===========================
 /** 
- // Checks if the Foods are Eaten
-*/
-function checkEaten() {
-  // Checks if the first food is eaten
-  if (
-    chickenImg.x + chickenImg.width > food1.x &&
-    chickenImg.x < food1.x + food1.size &&
-    chickenImg.y + chickenImg.height > food1.y &&
-    chickenImg.y < food1.y + food1.size
-  ) {
-    food1.eaten = true;
-  }
-  // Checks if the second food is eaten
-  if (
-    chickenImg.x + chickenImg.width > food2.x &&
-    chickenImg.x < food2.x + food2.size &&
-    chickenImg.y + chickenImg.height > food2.y &&
-    chickenImg.y < food2.y + food2.size
-  ) {
-    food2.eaten = true;
-  }
-  // Checks if the third food is eaten
-  if (
-    chickenImg.x + chickenImg.width > food3.x &&
-    chickenImg.x < food3.x + food3.size &&
-    chickenImg.y + chickenImg.height > food3.y &&
-    chickenImg.y < food3.y + food3.size
-  ) {
-    food3.eaten = true;
-  }
-  // Checks if the fourth food is eaten
-  if (
-    chickenImg.x + chickenImg.width > food4.x &&
-    chickenImg.x < food4.x + food4.size &&
-    chickenImg.y + chickenImg.height > food4.y &&
-    chickenImg.y < food4.y + food4.size
-  ) {
-    food4.eaten = true;
-  }
-  // Checks if the fifth food is eaten
-  if (
-    chickenImg.x + chickenImg.width > food5.x &&
-    chickenImg.x < food5.x + food5.size &&
-    chickenImg.y + chickenImg.height > food5.y &&
-    chickenImg.y < food5.y + food5.size
-  ) {
-    food5.eaten = true;
-  }
-}
-
-/** 
- // Draws the Food
+ // Draws the food and if enten, turns the colour black
 */
 function drawFood() {
   noStroke();
@@ -399,15 +394,30 @@ function drawFood() {
     ellipse(foodArray[i].x, foodArray[i].y, foodArray[i].size);
   }
 }
-
+//======================= END SCREENS =============================
 /** 
- // Draws the Winning End Screen
+ // Draws the winning end screen if all foods are eaten without touching a single ghost
 */
 function checkWin() {
-  if (food1.eaten && food2.eaten && food3.eaten && food4.eaten) {
+  if (food1.eaten && food2.eaten && food3.eaten && food4.eaten && food5.eaten) {
     textSize(60);
     textAlign(CENTER);
     textStyle(BOLD);
     text(win.string, win.x, win.y);
   }
+}
+/**
+ *  // Draws the losing end screen if any ghost is touched
+ */
+function checkGameOver() {
+  if (
+    checkCollision(chickenImg, blueGhost) ||
+    checkCollision(chickenImg, pinkGhost) ||
+    checkCollision(chickenImg, greenGhost) ||
+    checkCollision(chickenImg, orangeGhost)
+  )
+    textSize(60);
+  textAlign(CENTER);
+  textStyle(BOLD);
+  text(lose.string, lose.x, lose.y);
 }
