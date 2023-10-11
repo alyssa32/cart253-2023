@@ -251,6 +251,7 @@ function draw() {
 
 // Function called every time the mouse moves and is not clicked
 function mouseMoved(box) {
+  console.log(box);
   // Update the chicken's position based on the mouse movement
   chickenImg.x = mouseX;
   chickenImg.y = mouseY;
@@ -337,13 +338,50 @@ function moveGhost(ghost) {
  // Checks if the Foods are Eaten
 */
 function checkEaten() {
+  // Checks if the first food is eaten
   if (
     chickenImg.x + chickenImg.width > food1.x &&
     chickenImg.x < food1.x + food1.size &&
     chickenImg.y + chickenImg.height > food1.y &&
     chickenImg.y < food1.y + food1.size
   ) {
-    food1.eaten === true;
+    food1.eaten = true;
+  }
+  // Checks if the second food is eaten
+  if (
+    chickenImg.x + chickenImg.width > food2.x &&
+    chickenImg.x < food2.x + food2.size &&
+    chickenImg.y + chickenImg.height > food2.y &&
+    chickenImg.y < food2.y + food2.size
+  ) {
+    food2.eaten = true;
+  }
+  // Checks if the third food is eaten
+  if (
+    chickenImg.x + chickenImg.width > food3.x &&
+    chickenImg.x < food3.x + food3.size &&
+    chickenImg.y + chickenImg.height > food3.y &&
+    chickenImg.y < food3.y + food3.size
+  ) {
+    food3.eaten = true;
+  }
+  // Checks if the fourth food is eaten
+  if (
+    chickenImg.x + chickenImg.width > food4.x &&
+    chickenImg.x < food4.x + food4.size &&
+    chickenImg.y + chickenImg.height > food4.y &&
+    chickenImg.y < food4.y + food4.size
+  ) {
+    food4.eaten = true;
+  }
+  // Checks if the fifth food is eaten
+  if (
+    chickenImg.x + chickenImg.width > food5.x &&
+    chickenImg.x < food5.x + food5.size &&
+    chickenImg.y + chickenImg.height > food5.y &&
+    chickenImg.y < food5.y + food5.size
+  ) {
+    food5.eaten = true;
   }
 }
 
@@ -366,10 +404,10 @@ function drawFood() {
  // Draws the Winning End Screen
 */
 function checkWin() {
-  // if (food1.eaten && food2.eaten && food3.eaten && food4.eaten) {
-  // //     textSize(60);
-  // textAlign(CENTER);
-  // textStyle(BOLD);
-  // text(win.string, win.x, win.y);
-  // // }
+  if (food1.eaten && food2.eaten && food3.eaten && food4.eaten) {
+    textSize(60);
+    textAlign(CENTER);
+    textStyle(BOLD);
+    text(win.string, win.x, win.y);
+  }
 }
