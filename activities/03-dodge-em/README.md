@@ -1,3 +1,9 @@
 # Template p5 project
 
-This is the README file for the entire project. For more official projects you should write information here about the nature of the project, your name, any special explanations of how the project works, etc.
+/\*\*
+
+- Pac-Chicken
+- Alyssa Durdey
+-
+- Pac-Chicken, a playable Pac-Man-like game! By controling the chicken with the arrow keys, the player must eat all the seeds whilst avoiding the dangerous ghosts. To avoid the ghosts, the player can collide with the boxes to teleport strategically.
+  \*/

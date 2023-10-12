@@ -1,8 +1,8 @@
 /**
- * Pac-Man
+ * Pac-Chicken
  * Alyssa Durdey
  *
- * A playable Pac-Man-like game! By controling the chicken, the player must eat all the seeds whilst avoiding the dangerous ghosts.
+ * Pac-Chicken, a playable Pac-Man-like game! By controling the chicken with the arrow keys, the player must eat all the seeds whilst avoiding the dangerous ghosts. To avoid the ghosts, the player can collide with the boxes to teleport strategically.
  */
 
 "use strict";
@@ -10,6 +10,7 @@ let food1 = {
   x: 600,
   y: 60,
   w: 15,
+  h: 15,
   r: 255,
   g: 227,
   b: 115,
@@ -20,6 +21,7 @@ let food2 = {
   x: 100,
   y: 240,
   w: 15,
+  h: 15,
   r: 255,
   g: 227,
   b: 115,
@@ -30,6 +32,7 @@ let food3 = {
   x: 500,
   y: 420,
   w: 15,
+  h: 15,
   r: 255,
   g: 227,
   b: 115,
@@ -40,6 +43,7 @@ let food4 = {
   x: 600,
   y: 600,
   w: 15,
+  h: 15,
   r: 255,
   g: 227,
   b: 115,
@@ -50,6 +54,7 @@ let food5 = {
   x: 230,
   y: 740,
   w: 15,
+  h: 15,
   r: 255,
   g: 227,
   b: 115,
@@ -216,7 +221,7 @@ function draw() {
   // Constrain the chicken's y-coordinate
   chickenImg.y = constrain(chickenImg.y, 0, canvasY - chickenImg.height);
 
-  //Draws the Chicken
+  //Draws the Chicken Image
   image(
     chickenImg,
     chickenImg.x,
@@ -242,11 +247,9 @@ function draw() {
   //Draws the Fourth Box
   rect(boxFour.x, boxFour.y, boxFour.w, boxFour.h);
 
-  //Calls the mouseMoved function
-  mouseMoved(boxOne);
-  mouseMoved(boxTwo);
-  mouseMoved(boxThree);
-  mouseMoved(boxFour);
+  //Check all the box collisions
+  checkBoxCollisions();
+
   // ====================== GHOST ==================\
 
   // Calls the drawGhosts() function to draw all the ghosts
@@ -277,60 +280,30 @@ function checkCollisionWithChicken(obj1) {
     chickenImg.x + chickenImg.width > obj1.x &&
     chickenImg.x < obj1.x + obj1.w &&
     chickenImg.y + chickenImg.height > obj1.y &&
-    chickenImg.y < obj1.y + obj1.w
+    chickenImg.y < obj1.y + obj1.h
   ) {
     return true;
   }
   return false;
 }
 /** 
-// Check's if Chicken Collides with Boxes
+// Checks if the hicken collides with the boxes, and then teleports it to the side
 */
-function mouseMoved() {
-  // Update the chicken's position based on the mouse movement
-  // chickenImg.x = mouseX;
-  // chickenImg.y = mouseY;
-  // Check collision with box one
-  if (
-    chickenImg.x + chickenImg.width > boxOne.x &&
-    chickenImg.x < boxOne.x + boxOne.w &&
-    chickenImg.y + chickenImg.height > boxOne.y &&
-    chickenImg.y < boxOne.y + boxOne.h
-  ) {
-    // Adjust chicken's position to avoid collision with box one
-    chickenImg.x = boxOne.x + boxTwo.w;
+function checkBoxCollisions() {
+  if (checkCollisionWithChicken(boxOne)) {
+    chickenImg.x = boxOne.x + boxOne.w;
   }
-  // Check collision with box two
-  if (
-    chickenImg.x + chickenImg.width > boxTwo.x &&
-    chickenImg.x < boxTwo.x + boxTwo.w &&
-    chickenImg.y + chickenImg.height > boxTwo.y &&
-    chickenImg.y < boxTwo.y + boxTwo.h
-  ) {
-    // Adjust chicken's position to avoid collision with box two
+  if (checkCollisionWithChicken(boxTwo)) {
     chickenImg.x = boxTwo.x + boxTwo.w;
   }
-  // Check collision with box three
-  if (
-    chickenImg.x + chickenImg.width > boxThree.x &&
-    chickenImg.x < boxThree.x + boxThree.w &&
-    chickenImg.y + chickenImg.height > boxThree.y &&
-    chickenImg.y < boxThree.y + boxThree.h
-  ) {
-    // Adjust chicken's position to avoid collision with box three
-    chickenImg.x = boxThree.x + -85;
+  if (checkCollisionWithChicken(boxThree)) {
+    chickenImg.x = boxThree.x - 85;
   }
-  // Check collision with box four
-  if (
-    chickenImg.x + chickenImg.width > boxFour.x &&
-    chickenImg.x < boxFour.x + boxFour.w &&
-    chickenImg.y + chickenImg.height > boxFour.y &&
-    chickenImg.y < boxFour.y + boxFour.h
-  ) {
-    // Adjust chicken's position to avoid collision with box four
+  if (checkCollisionWithChicken(boxFour)) {
     chickenImg.x = boxFour.x + boxFour.w;
   }
 }
+
 /** 
  // Checks if Chicken Collides with Food
 */
@@ -341,6 +314,7 @@ function checkEaten() {
     }
   }
 }
+
 /** 
  // Checks if Chicken Collides with any ghosts
 */
@@ -355,20 +329,20 @@ function checkGhostCollision(ghost) {
 //  // KeyBoard Arrows control the Chicken
 // */
 function handleInput() {
+  let speed = 6.2;
+
   if (keyIsDown(LEFT_ARROW)) {
-    chickenImg.x -= 6.2;
+    chickenImg.x -= speed;
   }
   if (keyIsDown(RIGHT_ARROW)) {
-    chickenImg.x += 6.2;
+    chickenImg.x += speed;
   }
   if (keyIsDown(UP_ARROW)) {
-    chickenImg.y -= 6.2;
+    chickenImg.y -= speed;
   }
   if (keyIsDown(DOWN_ARROW)) {
-    chickenImg.y += 6.2;
+    chickenImg.y += speed;
   }
-  // chickenImg.x += chickenImg.vx;
-  // chickenImg.y += chickenImg.vy;
 }
 // ================= GHOST ===========================
 /** 
@@ -410,6 +384,7 @@ function checkWin() {
   if (food1.eaten && food2.eaten && food3.eaten && food4.eaten && food5.eaten) {
     textSize(60);
     textAlign(CENTER);
+    fill(0);
     stroke(win.r, win.g, win.b);
     textStyle(BOLD);
     text(win.string, win.x, win.y);
@@ -428,8 +403,8 @@ function checkGameOver() {
   ) {
     textSize(60);
     textAlign(CENTER);
-    stroke(lose.r, lose.g, lose.b);
     fill(0);
+    stroke(lose.r, lose.g, lose.b);
     textStyle(BOLD);
     text(lose.string, lose.x, lose.y);
     noLoop();
