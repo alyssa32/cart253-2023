@@ -9,7 +9,7 @@
 let food1 = {
   x: 600,
   y: 60,
-  size: 15,
+  w: 15,
   r: 255,
   g: 227,
   b: 115,
@@ -19,7 +19,7 @@ let food1 = {
 let food2 = {
   x: 100,
   y: 240,
-  size: 15,
+  w: 15,
   r: 255,
   g: 227,
   b: 115,
@@ -29,7 +29,7 @@ let food2 = {
 let food3 = {
   x: 500,
   y: 420,
-  size: 15,
+  w: 15,
   r: 255,
   g: 227,
   b: 115,
@@ -39,7 +39,7 @@ let food3 = {
 let food4 = {
   x: 600,
   y: 600,
-  size: 15,
+  w: 15,
   r: 255,
   g: 227,
   b: 115,
@@ -49,7 +49,7 @@ let food4 = {
 let food5 = {
   x: 230,
   y: 740,
-  size: 15,
+  w: 15,
   r: 255,
   g: 227,
   b: 115,
@@ -97,8 +97,8 @@ let boxFour = {
 };
 
 let chickenImg = {
-  x: 500,
-  y: 250,
+  x: 10,
+  y: 20,
   w: 10,
   h: 5,
   vx: 0,
@@ -113,7 +113,7 @@ let blueGhost = {
   y: 195,
   w: 90,
   h: 90,
-  speed: 4,
+  speed: 5,
   collide: false,
 };
 
@@ -122,7 +122,7 @@ let pinkGhost = {
   y: 375,
   w: 90,
   h: 90,
-  speed: 4,
+  speed: 5,
   collide: false,
 };
 
@@ -131,7 +131,7 @@ let greenGhost = {
   y: 550,
   w: 90,
   h: 90,
-  speed: 4,
+  speed: 5,
   collide: false,
 };
 
@@ -140,19 +140,25 @@ let orangeGhost = {
   y: 700,
   w: 90,
   h: 90,
-  speed: 4,
+  speed: 5,
   collide: false,
 };
 
 let win = {
   x: 400,
-  y: 400,
+  y: 440,
+  r: 255,
+  g: 227,
+  b: 115,
   string: `You Win!`,
 };
 
 let lose = {
   x: 400,
-  y: 400,
+  y: 440,
+  r: 255,
+  g: 227,
+  b: 115,
   string: `Game Over`,
 };
 
@@ -181,6 +187,8 @@ function preload() {
 function setup() {
   createCanvas(canvasX, canvasY);
   noCursor();
+  chickenImg.x = 10;
+  chickenImg.y = 20;
 }
 
 /**
@@ -264,12 +272,12 @@ function draw() {
 /** 
 // Checks if one object collides with another
 */
-function checkCollision(obj1, obj2) {
+function checkCollisionWithChicken(obj1) {
   if (
-    obj1.x + obj1.width > obj2.x &&
-    obj1.x < obj2.x + obj2.size &&
-    obj1.y + obj1.height > obj2.y &&
-    obj1.y < obj2.y + obj2.size
+    chickenImg.x + chickenImg.width > obj1.x &&
+    chickenImg.x < obj1.x + obj1.w &&
+    chickenImg.y + chickenImg.height > obj1.y &&
+    chickenImg.y < obj1.y + obj1.w
   ) {
     return true;
   }
@@ -280,8 +288,8 @@ function checkCollision(obj1, obj2) {
 */
 function mouseMoved() {
   // Update the chicken's position based on the mouse movement
-  chickenImg.x = mouseX;
-  chickenImg.y = mouseY;
+  // chickenImg.x = mouseX;
+  // chickenImg.y = mouseY;
   // Check collision with box one
   if (
     chickenImg.x + chickenImg.width > boxOne.x &&
@@ -290,7 +298,7 @@ function mouseMoved() {
     chickenImg.y < boxOne.y + boxOne.h
   ) {
     // Adjust chicken's position to avoid collision with box one
-    chickenImg.x = boxOne.x + boxOne.w;
+    chickenImg.x = boxOne.x + boxTwo.w;
   }
   // Check collision with box two
   if (
@@ -310,7 +318,7 @@ function mouseMoved() {
     chickenImg.y < boxThree.y + boxThree.h
   ) {
     // Adjust chicken's position to avoid collision with box three
-    chickenImg.x = boxThree.x + -boxThree.w;
+    chickenImg.x = boxThree.x + -85;
   }
   // Check collision with box four
   if (
@@ -327,40 +335,40 @@ function mouseMoved() {
  // Checks if Chicken Collides with Food
 */
 function checkEaten() {
-  for (let i = 0; i < 5; i++) {
-    if (checkCollision(chickenImg, foodArray[i])) {
+  for (let i = 0; i < foodArray.length; i++) {
+    if (checkCollisionWithChicken(foodArray[i])) {
       foodArray[i].eaten = true;
     }
   }
 }
+/** 
+ // Checks if Chicken Collides with any ghosts
+*/
 function checkGhostCollision(ghost) {
-  for (let i = 0; i < 3; i++) {
-    if (checkCollision(chickenImg, ghost)) {
-      ghost.collide = true;
-    }
+  if (checkCollisionWithChicken(ghost)) {
+    ghost.collide = true;
   }
 }
+
 // =================== KEYBOARD ARROWS ==========================
 /** 
 //  // KeyBoard Arrows control the Chicken
 // */
 function handleInput() {
-  // if (KeyIsDown(LEFT_ARROW)) {
-  //   chickenImg.vx = -chickenImg.speed;
-  // }
-  // else if (KeyIsDown(RIGHT_ARROW)) {
-  //   chickenImg.vx = chickenImg.speed;
-  // }
-  // else {
-  //   chickenImg.vx = 0;
-  // }
-  // if (KeyIsDown(UP_ARROW)) {
-  //   chickenImg.vy = -chickenImg.speed;
-  // } else if (KeyIsDown(DOWN_ARROW)) {
-  //   chickenImg.vy = chickenImg.speed;
-  // } else {
-  //   chickenImg.vy = 0;
-  // }
+  if (keyIsDown(LEFT_ARROW)) {
+    chickenImg.x -= 6.2;
+  }
+  if (keyIsDown(RIGHT_ARROW)) {
+    chickenImg.x += 6.2;
+  }
+  if (keyIsDown(UP_ARROW)) {
+    chickenImg.y -= 6.2;
+  }
+  if (keyIsDown(DOWN_ARROW)) {
+    chickenImg.y += 6.2;
+  }
+  // chickenImg.x += chickenImg.vx;
+  // chickenImg.y += chickenImg.vy;
 }
 // ================= GHOST ===========================
 /** 
@@ -391,7 +399,7 @@ function drawFood() {
     } else {
       fill(food1.r, food1.g, food1.b);
     }
-    ellipse(foodArray[i].x, foodArray[i].y, foodArray[i].size);
+    ellipse(foodArray[i].x, foodArray[i].y, foodArray[i].w);
   }
 }
 //======================= END SCREENS =============================
@@ -402,8 +410,10 @@ function checkWin() {
   if (food1.eaten && food2.eaten && food3.eaten && food4.eaten && food5.eaten) {
     textSize(60);
     textAlign(CENTER);
+    stroke(win.r, win.g, win.b);
     textStyle(BOLD);
     text(win.string, win.x, win.y);
+    noLoop();
   }
 }
 /**
@@ -411,13 +421,17 @@ function checkWin() {
  */
 function checkGameOver() {
   if (
-    checkCollision(chickenImg, blueGhost) ||
-    checkCollision(chickenImg, pinkGhost) ||
-    checkCollision(chickenImg, greenGhost) ||
-    checkCollision(chickenImg, orangeGhost)
-  )
+    blueGhost.collide ||
+    pinkGhost.collide ||
+    greenGhost.collide ||
+    orangeGhost.collide
+  ) {
     textSize(60);
-  textAlign(CENTER);
-  textStyle(BOLD);
-  text(lose.string, lose.x, lose.y);
+    textAlign(CENTER);
+    stroke(lose.r, lose.g, lose.b);
+    fill(0);
+    textStyle(BOLD);
+    text(lose.string, lose.x, lose.y);
+    noLoop();
+  }
 }
