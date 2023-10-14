@@ -7,6 +7,9 @@
  */
 
 "use strict";
+let canvasX = 800;
+let canvasY = 800;
+
 let bg = {
   r: 135,
   g: 199,
@@ -59,7 +62,7 @@ function preload() {
  * Sets the canvas size
  */
 function setup() {
-  createCanvas(800, 800);
+  createCanvas(canvasX, canvasY);
 }
 
 /**
@@ -84,12 +87,19 @@ function draw() {
   // ======================== CHICKEN =========================
   //Draws the chicken image
   image(chickenImg, chicken.x, chicken.y, chicken.w, chicken.h);
+  //Calls the function to control the chicken using the arrow keys
+  handleInput();
+  // Constrain the chicken's x-coordinate
+  chicken.x = constrain(chicken.x, 0, canvasX - chicken.w);
+  // Constrain the chicken's y-coordinate
+  chicken.y = constrain(chicken.y, 0, canvasY - chicken.h);
 
   // ======================== CHICK =========================
-  //Draws the chicken image
+  //Draws the chick image
   image(chickImg, chick.x, chick.y, chick.w, chick.h);
+
   // ======================== FARMER =========================
-  //Draws the chicken image
+  //Draws the farmer image
   image(farmerImg, farmer.x, farmer.y, farmer.w, farmer.h);
 }
 
@@ -102,5 +112,25 @@ function bgSquaresLoop(x, y) {
     fill(bgSquares.r, bgSquares.g, bgSquares.b);
     rect(x, y, bgSquares.w, bgSquares.h);
     x = x + 160;
+  }
+}
+// =================== KEYBOARD ARROWS ==========================
+/** 
+//  // KeyBoard Arrows control the Chicken
+// */
+function handleInput() {
+  let speed = 6.2;
+
+  if (keyIsDown(LEFT_ARROW)) {
+    chicken.x -= speed;
+  }
+  if (keyIsDown(RIGHT_ARROW)) {
+    chicken.x += speed;
+  }
+  if (keyIsDown(UP_ARROW)) {
+    chicken.y -= speed;
+  }
+  if (keyIsDown(DOWN_ARROW)) {
+    chicken.y += speed;
   }
 }
