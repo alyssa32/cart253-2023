@@ -14,19 +14,49 @@ let bg = {
 };
 
 let bgSquares = {
-  r: 90,
-  g: 161,
-  b: 87,
+  r: 111,
+  g: 176,
+  b: 112,
   w: 80,
   h: 80,
+  amount: 5,
 };
+
+let chicken = {
+  x: 5,
+  y: 0,
+  w: 70,
+  h: 70,
+};
+
+let chick = {
+  x: 730,
+  y: 730,
+  w: 60,
+  h: 60,
+};
+
+let farmer = {
+  x: 405,
+  y: 405,
+  w: 70,
+  h: 70,
+};
+
+let chickenImg;
+let chickImg;
+let farmerImg;
 /**
- * Description of preload
+ * Preloads the image of the chicken, chick, and farmer
  */
-function preload() {}
+function preload() {
+  chickenImg = loadImage("assets/images/chicken.png");
+  chickImg = loadImage("assets/images/chick.png");
+  farmerImg = loadImage("assets/images/farmer.png");
+}
 
 /**
- * Description of setup
+ * Sets the canvas size
  */
 function setup() {
   createCanvas(800, 800);
@@ -36,7 +66,7 @@ function setup() {
  * Description of draw()
  */
 function draw() {
-  // =================== BACKGROUND =========================
+  // ======================== BACKGROUND =========================
   //Draws the light green background
   background(bg.r, bg.g, bg.b);
   //Calls the loop functions to draw the dark green squares of the background
@@ -50,13 +80,24 @@ function draw() {
   bgSquaresLoop(80, 560);
   bgSquaresLoop(0, 640);
   bgSquaresLoop(80, 720);
+
+  // ======================== CHICKEN =========================
+  //Draws the chicken image
+  image(chickenImg, chicken.x, chicken.y, chicken.w, chicken.h);
+
+  // ======================== CHICK =========================
+  //Draws the chicken image
+  image(chickImg, chick.x, chick.y, chick.w, chick.h);
+  // ======================== FARMER =========================
+  //Draws the chicken image
+  image(farmerImg, farmer.x, farmer.y, farmer.w, farmer.h);
 }
 
 /**
  * Draws the background's rows of dark squares using a For Loop
  */
 function bgSquaresLoop(x, y) {
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < bgSquares.amount; i++) {
     noStroke();
     fill(bgSquares.r, bgSquares.g, bgSquares.b);
     rect(x, y, bgSquares.w, bgSquares.h);
