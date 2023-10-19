@@ -181,14 +181,15 @@ function draw() {
 function keyPressed() {
   console.log("key is pressed");
   if (keyIsDown(ENTER)) {
-    state === simulation;
+    console.log("enter key is pressed");
+    state = "simulation";
   }
 }
 /** 
 //  // KeyBoard Arrows control the Chicken
 // */
 function handleInput() {
-  let speed = 5;
+  let speed = 2;
 
   if (keyIsDown(LEFT_ARROW)) {
     chicken.x -= speed;
