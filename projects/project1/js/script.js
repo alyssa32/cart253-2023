@@ -79,7 +79,7 @@ let intro = {
 
 let chicken = {
   x: 5,
-  y: 0,
+  y: 80,
   w: 70,
   h: 70,
   captured: false,
@@ -87,18 +87,18 @@ let chicken = {
 };
 
 let chick = {
-  x: 730,
-  y: 730,
+  x: 570,
+  y: 570,
   w: 60,
   h: 60,
   captured: false,
 };
 
 let farmer = {
-  x: 405,
-  y: 405,
-  w: 70,
-  h: 70,
+  x: 400,
+  y: 400,
+  w: 80,
+  h: 80,
 };
 
 let win = {
@@ -118,6 +118,18 @@ let loseChicken = {
   x1: 400,
   y1: 380,
   string2: `The farmer caught you and sold you to the neighbour.`,
+  x2: 400,
+  y2: 450,
+  r: 58,
+  g: 105,
+  b: 58,
+};
+
+let loseChick = {
+  string1: `YOU LOST!`,
+  x1: 400,
+  y1: 380,
+  string2: `The farmer caught your chick and sold it to the neighbour.`,
   x2: 400,
   y2: 450,
   r: 58,
@@ -166,13 +178,13 @@ function draw() {
   }
   // ======================== CALLING FUNCTIONS =========================
   //Calls the function to control the chicken using the arrow keys
-  handleInput();
+  keyPressed();
   //Calls the function that checks if chicken colllides with chick
   chickenChickCollide();
   //Calls the function that checks if chicken colllides with farmer
   chickenFarmerCollide();
-  //Calls the function that displays the end screen if chicken collides with farmer
-  chickenGameOver();
+  //Calls the function that checks if chick colllides with farmer
+  chickFarmerCollide();
 }
 // =================== KEYBOARD BUTTONS ==========================
 /** 
@@ -188,20 +200,71 @@ function keyPressed() {
 /** 
 //  // KeyBoard Arrows control the Chicken
 // */
-function handleInput() {
-  let speed = 2;
+function keyReleased() {
+  let move = 80;
 
-  if (keyIsDown(LEFT_ARROW)) {
-    chicken.x -= speed;
+  if (keyCode === LEFT_ARROW) {
+    chicken.x -= move;
   }
-  if (keyIsDown(RIGHT_ARROW)) {
-    chicken.x += speed;
+  if (keyCode === RIGHT_ARROW) {
+    chicken.x += move;
   }
-  if (keyIsDown(UP_ARROW)) {
-    chicken.y -= speed;
+  if (keyCode === UP_ARROW) {
+    chicken.y -= move;
   }
-  if (keyIsDown(DOWN_ARROW)) {
-    chicken.y += speed;
+  if (keyCode === DOWN_ARROW) {
+    chicken.y += move;
+  }
+  //Basic command to generate the movement of the NPCs
+  movementFarmer();
+  movementChick();
+  return false;
+}
+// =================== NPC MOVEMENT ========================
+//Assigns random directions for the NPCs to move after the player moves
+function movementFarmer() {
+  let moveSquare = 160;
+  let direction = round(random(1, 4));
+  //Moves the farmer two squares to the left
+  if (direction === 1) {
+    farmer.x -= moveSquare;
+  }
+  //Moves the farmer two squares to the right
+  if (direction === 2) {
+    farmer.x += moveSquare;
+  }
+  //Moves the farmer two squares down
+  if (direction === 3) {
+    farmer.y += moveSquare;
+  }
+  //Moves the farmer two squares up
+  if (direction === 4) {
+    farmer.y -= moveSquare;
+  }
+}
+//Assigns random directions for the NPCs to move after the player moves
+function movementChick() {
+  let moveSquare = 80;
+  let direction = round(random(1, 4));
+  //Moves the chick one square diagonal up-left
+  if (direction === 1) {
+    chick.x -= moveSquare;
+    chick.y -= moveSquare;
+  }
+  //Moves the chick one square diagonal up-right
+  if (direction === 2) {
+    chick.x += moveSquare;
+    chick.y -= moveSquare;
+  }
+  //Moves the chick one square diagonal down-left
+  if (direction === 3) {
+    chick.x -= moveSquare;
+    chick.y += moveSquare;
+  }
+  //Moves the chick one square diagonal down-right
+  if (direction === 4) {
+    chick.x += moveSquare;
+    chick.y += moveSquare;
   }
 }
 // =================== COLLISIONS ==========================
@@ -250,16 +313,25 @@ function simulation() {
   // ======================== CHICK =========================
   //Draws the chick image
   image(chickImg, chick.x, chick.y, chick.w, chick.h);
+  // Constrain the chick's x-coordinate
+  chick.x = constrain(chick.x, 0, canvasX - chick.w);
+  // Constrain the chick's y-coordinate
+  chick.y = constrain(chick.y, 0, canvasY - chick.h);
 
   // ======================== FARMER =========================
   //Draws the farmer image
   image(farmerImg, farmer.x, farmer.y, farmer.w, farmer.h);
-
+  // Constrain the farmer's x-coordinate
+  farmer.x = constrain(farmer.x, 0, canvasX - farmer.w);
+  // Constrain the chick's y-coordinate
+  farmer.y = constrain(farmer.y, 0, canvasY - farmer.h);
   // ======================== CALLING SCREEN FUNCTIONS =========================
   //Calls the function that displays the winning end screen if chicken collides with chick
   winGame();
   //Calls the function that displays the end screen if chicken collides with farmer
   chickenGameOver();
+  //Calls the function that displays the end screen if chick collides with farmer
+  chickGameOver();
 }
 // ======================== BACKGROUND LOOPS =========================
 /**
@@ -272,11 +344,8 @@ function bgSquaresLoop(x, y) {
     rect(x, y, bgSquares.w, bgSquares.h);
     x = x + 160;
   }
-  //Calls the function to control the chicken using the arrow keys
-  handleInput();
   //Calls the function that checks if chicken colllides with chick
   chickenChickCollide();
-
   //Calls the function that checks if chicken colllides with farmer
   chickenFarmerCollide();
 }
@@ -294,6 +363,11 @@ function chickenFarmerCollide() {
 function chickenChickCollide() {
   if (checkCollision(chicken, chick)) {
     chicken.win = true;
+  }
+}
+function chickFarmerCollide() {
+  if (checkCollision(chick, farmer)) {
+    chick.captured = true;
   }
 }
 // =================== TITLE SCREENS ==========================
@@ -375,6 +449,23 @@ function chickenGameOver() {
     text(loseChicken.string1, loseChicken.x1, loseChicken.y1);
     textSize(30);
     text(loseChicken.string2, loseChicken.x2, loseChicken.y2);
+    noLoop();
+  }
+}
+/** 
+// Draws the losing end screen if the chick collides with the farmer
+// */
+function chickGameOver() {
+  if (chick.captured) {
+    background(bgSquares.r, bgSquares.g, bgSquares.b);
+    textSize(60);
+    textAlign(CENTER);
+    noStroke(0);
+    fill(loseChick.r, loseChick.g, loseChick.b);
+    textStyle(BOLD);
+    text(loseChick.string1, loseChick.x1, loseChick.y1);
+    textSize(25);
+    text(loseChick.string2, loseChick.x2, loseChick.y2);
     noLoop();
   }
 }
