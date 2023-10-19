@@ -152,79 +152,36 @@ function setup() {
  * Description of draw()
  */
 function draw() {
+  // ======================== STATES =========================
+  // Switches from the ttle screen, to the simulation, to the end screens
   if (state === "introduction") {
     introduction();
   } else if (state === "simulation") {
     simulation();
   } else if (state === "winGame") {
+    winGame();
   } else if (state === "chickenGameOver") {
+    chickenGameOver();
   } else if (state === "chickGameOver") {
   }
-
   // ======================== CALLING FUNCTIONS =========================
   //Calls the function to control the chicken using the arrow keys
   handleInput();
   //Calls the function that checks if chicken colllides with chick
   chickenChickCollide();
-  //Calls the function that displays the winning end screen if chicken collides with chick
-  winGame();
   //Calls the function that checks if chicken colllides with farmer
   chickenFarmerCollide();
   //Calls the function that displays the end screen if chicken collides with farmer
   chickenGameOver();
-
-  keyPressed();
-
-  // ======================== BACKGROUND =========================
-  //Draws the light green background
-  background(bg.r, bg.g, bg.b);
-  //Calls the loop functions to draw the dark green squares of the background
-  bgSquaresLoop(0, 0);
-  bgSquaresLoop(80, 80);
-  bgSquaresLoop(0, 160);
-  bgSquaresLoop(80, 240);
-  bgSquaresLoop(0, 320);
-  bgSquaresLoop(80, 400);
-  bgSquaresLoop(0, 480);
-  bgSquaresLoop(80, 560);
-  bgSquaresLoop(0, 640);
-  bgSquaresLoop(80, 720);
-
-  // ======================== CHICKEN =========================
-  //Draws the chicken image
-  image(chickenImg, chicken.x, chicken.y, chicken.w, chicken.h);
-  // Constrain the chicken's x-coordinate
-  chicken.x = constrain(chicken.x, 0, canvasX - chicken.w);
-  // Constrain the chicken's y-coordinate
-  chicken.y = constrain(chicken.y, 0, canvasY - chicken.h);
-
-  // ======================== CHICK =========================
-  //Draws the chick image
-  image(chickImg, chick.x, chick.y, chick.w, chick.h);
-
-  // ======================== FARMER =========================
-  //Draws the farmer image
-  image(farmerImg, farmer.x, farmer.y, farmer.w, farmer.h);
-}
-// ======================== BACKGROUND LOOPS =========================
-/**
- * Draws the background's rows of dark squares using a For Loop
- */
-function bgSquaresLoop(x, y) {
-  for (let i = 0; i < bgSquares.amount; i++) {
-    noStroke();
-    fill(bgSquares.r, bgSquares.g, bgSquares.b);
-    rect(x, y, bgSquares.w, bgSquares.h);
-    x = x + 160;
-  }
 }
 // =================== KEYBOARD BUTTONS ==========================
 /** 
 //  // "Enter" key transitions from the intro page, to the simulation
 // */
 function keyPressed() {
-  if (key === "enter") {
-    state = "simulation";
+  console.log("key is pressed");
+  if (keyIsDown(ENTER)) {
+    state === simulation;
   }
 }
 /** 
@@ -262,9 +219,58 @@ function checkCollision(obj1, obj2) {
   return false;
 }
 /** 
- // Handles the movement of the chicken and checks for collisions between characters 
+ // Handles the Game part of the project
 */
 function simulation() {
+  // ======================== SIMULATION BACKGROUND =========================
+  //Draws the light green background
+  background(bg.r, bg.g, bg.b);
+  //Calls the loop functions to draw the dark green squares of the background
+  bgSquaresLoop(0, 0);
+  bgSquaresLoop(80, 80);
+  bgSquaresLoop(0, 160);
+  bgSquaresLoop(80, 240);
+  bgSquaresLoop(0, 320);
+  bgSquaresLoop(80, 400);
+  bgSquaresLoop(0, 480);
+  bgSquaresLoop(80, 560);
+  bgSquaresLoop(0, 640);
+  bgSquaresLoop(80, 720);
+
+  // ======================== CHICKEN =========================
+  //Draws the chicken image
+
+  image(chickenImg, chicken.x, chicken.y, chicken.w, chicken.h);
+  // Constrain the chicken's x-coordinate
+  chicken.x = constrain(chicken.x, 0, canvasX - chicken.w);
+  // Constrain the chicken's y-coordinate
+  chicken.y = constrain(chicken.y, 0, canvasY - chicken.h);
+
+  // ======================== CHICK =========================
+  //Draws the chick image
+  image(chickImg, chick.x, chick.y, chick.w, chick.h);
+
+  // ======================== FARMER =========================
+  //Draws the farmer image
+  image(farmerImg, farmer.x, farmer.y, farmer.w, farmer.h);
+
+  // ======================== CALLING SCREEN FUNCTIONS =========================
+  //Calls the function that displays the winning end screen if chicken collides with chick
+  winGame();
+  //Calls the function that displays the end screen if chicken collides with farmer
+  chickenGameOver();
+}
+// ======================== BACKGROUND LOOPS =========================
+/**
+ * Draws the background's rows of dark squares using a For Loop
+ */
+function bgSquaresLoop(x, y) {
+  for (let i = 0; i < bgSquares.amount; i++) {
+    noStroke();
+    fill(bgSquares.r, bgSquares.g, bgSquares.b);
+    rect(x, y, bgSquares.w, bgSquares.h);
+    x = x + 160;
+  }
   //Calls the function to control the chicken using the arrow keys
   handleInput();
   //Calls the function that checks if chicken colllides with chick
@@ -291,23 +297,28 @@ function chickenChickCollide() {
 }
 // =================== TITLE SCREENS ==========================
 /** 
-// Draws the title screen with the intro and instructions
+// Draws the title screen with the narrative and instructions
 // */
 function introduction() {
   background(bg.r, bg.g, bg.b);
+  //Text explaining the situation
   textSize(33);
   textAlign(CENTER);
   noStroke(0);
   fill(intro.r, intro.g, intro.b);
   textStyle(BOLD);
   text(intro.string1, intro.x1, intro.y1);
+  //Text stating to use arrow keys
   textSize(21);
   textStyle(BOLD);
   text(intro.string2, intro.x2, intro.y2);
+  //Text explaining the movements of the characters
   fill(intro.r3, intro.g3, intro.b3);
   text(intro.string3, intro.x3, intro.y3);
+  //Text stateting to avoid the farmer
   fill(intro.r, intro.g, intro.b);
   text(intro.string4, intro.x4, intro.y4);
+  //Text explaing to hit the "enter" key to continue
   textSize(26);
   text(intro.string5, intro.x5, intro.y5);
   //Enter button image displayed on the title screen
@@ -330,13 +341,14 @@ function introduction() {
   image(chickImg, introChick.x, introChick.y, introChick.w, introChick.h);
   //Farmer image displayed on the title screen
   image(farmerImg, introFarmer.x, introFarmer.y, introFarmer.w, introFarmer.h);
-  log.console("test");
+  //Commands the "enter" key to switch to the simulation
 }
 /** 
 // Draws the winning end screen if the chicken collides with the chick
 // */
 function winGame() {
   if (chicken.win) {
+    background(bg.r, bg.g, bg.b);
     textSize(60);
     textAlign(CENTER);
     noStroke(0);
@@ -353,6 +365,7 @@ function winGame() {
 // */
 function chickenGameOver() {
   if (chicken.captured) {
+    background(bgSquares.r, bgSquares.g, bgSquares.b);
     textSize(60);
     textAlign(CENTER);
     noStroke(0);
