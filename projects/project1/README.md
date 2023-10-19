@@ -1,3 +1,5 @@
-# Template p5 project
+# The Run Away Chickens
 
-This is the README file for the entire project. For more official projects you should write information here about the nature of the project, your name, any special explanations of how the project works, etc.
+By Alyssa Durdey
+
+By using the arrow keys, the player must control the chicken to get to its chick. Taking turns, the chicken can only move one square at a time, whilst the chick randomly moves one space diagonally. However, both the chicken and the chick must avoid the farmer, who moves two spaces at a time in any direction.
