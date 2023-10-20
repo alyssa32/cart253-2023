@@ -1,5 +1,5 @@
 /**
- * The Runaway Chickens
+ * Runaway Chickens
  * Alyssa Durdey
  *
  * By using the arrow keys, the player must control the chicken to get to its chick. Taking turns, the chicken can only move one square at a time, whilst the chick randomly moves one space diagonally. However, both the chicken and the chick must avoid the farmer, who moves two spaces at a time in any direction.
@@ -22,6 +22,13 @@ let bgSquares = {
   w: 80,
   h: 80,
   amount: 5,
+};
+
+let introBg1 = {
+  x: 220,
+  y: 430,
+  w: 100,
+  h: 50,
 };
 
 let introChicken = {
@@ -51,15 +58,22 @@ let enterButton = {
   h: 90,
 };
 
+let enterButtonRestart = {
+  x: 325,
+  y: 550,
+  w: 90,
+  h: 90,
+};
+
 let intro = {
-  string1: `You and your chick made an escape from \n the chicken farm! As you're running away \n from Jean-Guy the farmer, you look back \nonly to notice your chick is running far \n behind you because of its little legs.`,
+  string1: `You and your chick made an escape from \n the chicken farm! As you're running away \n from Jean-Paul the farmer, you look back \nonly to notice your chick is running far \n behind you because of its little legs.`,
   x1: 400,
   y1: 110,
   r: 41,
   g: 148,
   b: 56,
   string2:
-    "Using the arrow keys, make your way to your chick before Jean-Guy does.",
+    "Using the arrow keys, make your way to your chick before Jean-Paul does.",
   x2: 400,
   y2: 340,
   string3:
@@ -94,8 +108,54 @@ let chick = {
   captured: false,
 };
 
+let soldChick = {
+  x: 300,
+  y: 450,
+  w: 30,
+  h: 30,
+  captured: false,
+};
+
+let soldChicken = {
+  x: 280,
+  y: 430,
+  w: 50,
+  h: 50,
+  captured: false,
+};
+
+let winChick = {
+  x: 360,
+  y: 410,
+  w: 40,
+  h: 40,
+  captured: false,
+};
+
+let winChicken = {
+  x: 410,
+  y: 380,
+  w: 70,
+  h: 70,
+  captured: false,
+};
+
 let farmer = {
   x: 400,
+  y: 400,
+  w: 80,
+  h: 80,
+};
+
+let loseFarmer = {
+  x: 330,
+  y: 400,
+  w: 80,
+  h: 80,
+};
+
+let loseFarmer2 = {
+  x: 440,
   y: 400,
   w: 80,
   h: 80,
@@ -104,10 +164,13 @@ let farmer = {
 let win = {
   string1: `YOU WON!`,
   x1: 400,
-  y1: 380,
+  y1: 250,
   string2: `You ran away with your chick to start a free-range life.`,
   x2: 400,
-  y2: 450,
+  y2: 320,
+  string3: `Press the               key to restart`,
+  x3: 400,
+  y3: 600,
   r: 255,
   g: 226,
   b: 145,
@@ -116,10 +179,14 @@ let win = {
 let loseChicken = {
   string1: `YOU LOST!`,
   x1: 400,
-  y1: 380,
-  string2: `The farmer caught you and sold you to the neighbour.`,
+  y1: 230,
+  string2: `The farmer caught you and sold you
+   to the neighbour, Jean-Francois.`,
   x2: 400,
-  y2: 450,
+  y2: 300,
+  string3: `Press the               key to restart`,
+  x3: 400,
+  y3: 600,
   r: 58,
   g: 105,
   b: 58,
@@ -128,10 +195,14 @@ let loseChicken = {
 let loseChick = {
   string1: `YOU LOST!`,
   x1: 400,
-  y1: 380,
-  string2: `The farmer caught your chick and sold it to the neighbour.`,
+  y1: 230,
+  string2: `The farmer caught your chick and sold it
+   to the neighbour, Jean-Francois.`,
   x2: 400,
-  y2: 450,
+  y2: 300,
+  string3: `Press the               key to restart`,
+  x3: 400,
+  y3: 600,
   r: 58,
   g: 105,
   b: 58,
@@ -142,7 +213,10 @@ let state = "introduction";
 let chickenImg;
 let chickImg;
 let farmerImg;
+let farmer2Img;
+let introBg1Img;
 let enterButtonImg;
+
 /**
  * Preloads the image of the chicken, chick, and farmer
  */
@@ -150,7 +224,9 @@ function preload() {
   chickenImg = loadImage("assets/images/chicken.png");
   chickImg = loadImage("assets/images/chick.png");
   farmerImg = loadImage("assets/images/farmer.png");
+  farmer2Img = loadImage("assets/images/farmer2.png");
   enterButtonImg = loadImage("assets/images/enterButton.png");
+  //introBg1Img = loadImage("assets/images/introBg1");
 }
 
 /**
@@ -193,7 +269,6 @@ function draw() {
 function keyPressed() {
   console.log("key is pressed");
   if (keyIsDown(ENTER)) {
-    console.log("enter key is pressed");
     state = "simulation";
   }
 }
@@ -396,6 +471,8 @@ function introduction() {
   //Text explaing to hit the "enter" key to continue
   textSize(26);
   text(intro.string5, intro.x5, intro.y5);
+  //Title box image in the intro
+  //image(introBg1Img, introBg1.x, introBg1.y, introBg1.w, introBg1.h);
   //Enter button image displayed on the title screen
   image(
     enterButtonImg,
@@ -416,22 +493,35 @@ function introduction() {
   image(chickImg, introChick.x, introChick.y, introChick.w, introChick.h);
   //Farmer image displayed on the title screen
   image(farmerImg, introFarmer.x, introFarmer.y, introFarmer.w, introFarmer.h);
-  //Commands the "enter" key to switch to the simulation
 }
 /** 
 // Draws the winning end screen if the chicken collides with the chick
 // */
 function winGame() {
   if (chicken.win) {
-    background(bg.r, bg.g, bg.b);
+    background(bgSquares.r, bgSquares.g, bgSquares.b);
     textSize(60);
     textAlign(CENTER);
     noStroke(0);
     fill(win.r, win.g, win.b);
     textStyle(BOLD);
     text(win.string1, win.x1, win.y1);
-    textSize(30);
+    textSize(25);
     text(win.string2, win.x2, win.y2);
+    textSize(30);
+    text(win.string3, win.x3, win.y3);
+    //Display chicken image on winning screen
+    image(chickenImg, winChicken.x, winChicken.y, winChicken.w, winChicken.h);
+    //Display chick image on winning screen
+    image(chickImg, winChick.x, winChick.y, winChick.w, winChick.h);
+    //Enter button image displayed on the winning screen
+    image(
+      enterButtonImg,
+      enterButtonRestart.x,
+      enterButtonRestart.y,
+      enterButtonRestart.w,
+      enterButtonRestart.h
+    );
     noLoop();
   }
 }
@@ -449,7 +539,34 @@ function chickenGameOver() {
     text(loseChicken.string1, loseChicken.x1, loseChicken.y1);
     textSize(30);
     text(loseChicken.string2, loseChicken.x2, loseChicken.y2);
+    text(loseChicken.string3, loseChicken.x3, loseChicken.y3);
     noLoop();
+    //Red Farmer image displayed on the title screen
+    image(
+      farmer2Img,
+      loseFarmer2.x,
+      loseFarmer2.y,
+      loseFarmer2.w,
+      loseFarmer2.h
+    );
+    //Blue Farmer image displayed on the title screen
+    image(farmerImg, loseFarmer.x, loseFarmer.y, loseFarmer.w, loseFarmer.h);
+    //Chicken image displayed on the losing screen
+    image(
+      chickenImg,
+      soldChicken.x,
+      soldChicken.y,
+      soldChicken.w,
+      soldChicken.h
+    );
+    //Enter button image displayed on the losing screen
+    image(
+      enterButtonImg,
+      enterButtonRestart.x,
+      enterButtonRestart.y,
+      enterButtonRestart.w,
+      enterButtonRestart.h
+    );
   }
 }
 /** 
@@ -464,8 +581,30 @@ function chickGameOver() {
     fill(loseChick.r, loseChick.g, loseChick.b);
     textStyle(BOLD);
     text(loseChick.string1, loseChick.x1, loseChick.y1);
-    textSize(25);
+    textSize(30);
     text(loseChick.string2, loseChick.x2, loseChick.y2);
+    text(loseChick.string3, loseChick.x3, loseChick.y3);
+    //Red Farmer image displayed on the title screen
+    image(
+      farmer2Img,
+      loseFarmer2.x,
+      loseFarmer2.y,
+      loseFarmer2.w,
+      loseFarmer2.h
+    );
+    //Blue Farmer image displayed on the title screen
+    image(farmerImg, loseFarmer.x, loseFarmer.y, loseFarmer.w, loseFarmer.h);
+    //Chicken image displayed on the losing screen
+    image(chickImg, soldChick.x, soldChick.y, soldChick.w, soldChick.h);
+    //Enter button image displayed on the losing screen
+    image(
+      enterButtonImg,
+      enterButtonRestart.x,
+      enterButtonRestart.y,
+      enterButtonRestart.w,
+      enterButtonRestart.h
+    );
+
     noLoop();
   }
 }

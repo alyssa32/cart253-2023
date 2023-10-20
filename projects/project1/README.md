@@ -1,4 +1,4 @@
-# The Run Away Chickens
+# Runaway Chickens
 
 By Alyssa Durdey
 
