@@ -25,10 +25,10 @@ let bgSquares = {
 };
 
 let introBg1 = {
-  x: 220,
-  y: 430,
-  w: 100,
-  h: 50,
+  x: 50,
+  y: 50,
+  w: 720,
+  h: 260,
 };
 
 let introChicken = {
@@ -171,9 +171,9 @@ let win = {
   string3: `Press the               key to restart`,
   x3: 400,
   y3: 600,
-  r: 255,
-  g: 226,
-  b: 145,
+  r: 58,
+  g: 105,
+  b: 58,
 };
 
 let loseChicken = {
@@ -216,7 +216,6 @@ let farmerImg;
 let farmer2Img;
 let introBg1Img;
 let enterButtonImg;
-
 /**
  * Preloads the image of the chicken, chick, and farmer
  */
@@ -226,16 +225,14 @@ function preload() {
   farmerImg = loadImage("assets/images/farmer.png");
   farmer2Img = loadImage("assets/images/farmer2.png");
   enterButtonImg = loadImage("assets/images/enterButton.png");
-  //introBg1Img = loadImage("assets/images/introBg1");
+  introBg1Img = loadImage("assets/images/introBg1.png");
 }
-
 /**
  * Sets the canvas size
  */
 function setup() {
   createCanvas(canvasX, canvasY);
 }
-
 /**
  * Description of draw()
  */
@@ -253,23 +250,31 @@ function draw() {
   } else if (state === "chickGameOver") {
   }
   // ======================== CALLING FUNCTIONS =========================
-  //Calls the function to control the chicken using the arrow keys
-  keyPressed();
   //Calls the function that checks if chicken colllides with chick
   chickenChickCollide();
   //Calls the function that checks if chicken colllides with farmer
   chickenFarmerCollide();
   //Calls the function that checks if chick colllides with farmer
   chickFarmerCollide();
+  console.log(state);
 }
 // =================== KEYBOARD BUTTONS ==========================
 /** 
 //  // "Enter" key transitions from the intro page, to the simulation
 // */
 function keyPressed() {
-  console.log("key is pressed");
-  if (keyIsDown(ENTER)) {
-    state = "simulation";
+  if (keyCode === ENTER) {
+    console.log("pressed");
+    //Chick or Chicken gets captured or chicken wins -> set it back to initial screen
+    if (chick.captured || chicken.captured || chicken.win) {
+      chicken.win = false;
+      chick.captured = false;
+      chicken.captured = false;
+
+      state = "introduction";
+    } else {
+      state = "simulation";
+    }
   }
 }
 /** 
@@ -290,10 +295,17 @@ function keyReleased() {
   if (keyCode === DOWN_ARROW) {
     chicken.y += move;
   }
-  //Basic command to generate the movement of the NPCs
-  movementFarmer();
-  movementChick();
-  return false;
+
+  if (
+    keyCode === LEFT_ARROW ||
+    keyCode === RIGHT_ARROW ||
+    keyCode === UP_ARROW ||
+    keyCode === DOWN_ARROW
+  ) {
+    //Basic command to generate the movement of the NPCs
+    movementFarmer();
+    movementChick();
+  }
 }
 // =================== NPC MOVEMENT ========================
 //Assigns random directions for the NPCs to move after the player moves
@@ -375,16 +387,13 @@ function simulation() {
   bgSquaresLoop(80, 560);
   bgSquaresLoop(0, 640);
   bgSquaresLoop(80, 720);
-
   // ======================== CHICKEN =========================
   //Draws the chicken image
-
   image(chickenImg, chicken.x, chicken.y, chicken.w, chicken.h);
   // Constrain the chicken's x-coordinate
   chicken.x = constrain(chicken.x, 0, canvasX - chicken.w);
   // Constrain the chicken's y-coordinate
   chicken.y = constrain(chicken.y, 0, canvasY - chicken.h);
-
   // ======================== CHICK =========================
   //Draws the chick image
   image(chickImg, chick.x, chick.y, chick.w, chick.h);
@@ -392,7 +401,6 @@ function simulation() {
   chick.x = constrain(chick.x, 0, canvasX - chick.w);
   // Constrain the chick's y-coordinate
   chick.y = constrain(chick.y, 0, canvasY - chick.h);
-
   // ======================== FARMER =========================
   //Draws the farmer image
   image(farmerImg, farmer.x, farmer.y, farmer.w, farmer.h);
@@ -451,8 +459,10 @@ function chickFarmerCollide() {
 // */
 function introduction() {
   background(bg.r, bg.g, bg.b);
+  //Title box image in the intro
+  image(introBg1Img, introBg1.x, introBg1.y, introBg1.w, introBg1.h);
   //Text explaining the situation
-  textSize(33);
+  textSize(28);
   textAlign(CENTER);
   noStroke(0);
   fill(intro.r, intro.g, intro.b);
@@ -471,8 +481,6 @@ function introduction() {
   //Text explaing to hit the "enter" key to continue
   textSize(26);
   text(intro.string5, intro.x5, intro.y5);
-  //Title box image in the intro
-  //image(introBg1Img, introBg1.x, introBg1.y, introBg1.w, introBg1.h);
   //Enter button image displayed on the title screen
   image(
     enterButtonImg,
@@ -522,7 +530,6 @@ function winGame() {
       enterButtonRestart.w,
       enterButtonRestart.h
     );
-    noLoop();
   }
 }
 /** 
@@ -540,7 +547,7 @@ function chickenGameOver() {
     textSize(30);
     text(loseChicken.string2, loseChicken.x2, loseChicken.y2);
     text(loseChicken.string3, loseChicken.x3, loseChicken.y3);
-    noLoop();
+    //noLoop();
     //Red Farmer image displayed on the title screen
     image(
       farmer2Img,
@@ -604,7 +611,5 @@ function chickGameOver() {
       enterButtonRestart.w,
       enterButtonRestart.h
     );
-
-    noLoop();
   }
 }
