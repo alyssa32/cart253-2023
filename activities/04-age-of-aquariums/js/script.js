@@ -63,12 +63,12 @@ let blueFish = {
   h: 60,
 };
 
-// let goldFish0 = {
-//   x: 200,
-//   y: 200,
-//   w: 40,
-//   h: 30,
-// };
+let goldFish0 = {
+  x: 200,
+  y: 300,
+  w: 45,
+  h: 30,
+};
 
 let goldFish1 = {
   x: 300,
@@ -78,23 +78,34 @@ let goldFish1 = {
 };
 
 let snail = {
-  x: 20,
-  y: 740,
+  x: 520,
+  y: 700,
   w: 60,
   h: 40,
+  speed: 1,
+};
+
+let sand = {
+  x: 0,
+  y: 740,
+  w: 1000,
+  h: 80,
+  r: 237,
+  g: 219,
+  b: 147,
 };
 
 let food = {
   x: 200,
-  y: 200,
-  w: 40,
-  h: 40,
+  y: 0,
+  w: 20,
+  h: 20,
 };
 
-let goldFish0 = [];
+let school = [];
 let schoolSize = 4;
 
-let state = "introduction";
+let state = "simulation";
 
 let blueFishImg;
 let goldFish0Img;
@@ -141,27 +152,15 @@ function draw() {
   keyPressed();
 }
 /**
- * Creates the title page
+  // ======================== INTRODUCTION =========================
  */
 function introduction() {
   //Panel image
-  image(introPanelImg, introPanel.x, introPanel.y, introPanel.w, introPanel.h);
+  drawImage(introPanelImg, introPanel);
   //Blue Fish image
-  image(
-    blueFishImg,
-    blueFishIntro.x,
-    blueFishIntro.y,
-    blueFishIntro.w,
-    blueFishIntro.h
-  );
+  drawImage(blueFishIntroImg, blueFishIntro);
   //Enter button image
-  image(
-    enterButtonImg,
-    enterButton.x,
-    enterButton.y,
-    enterButton.w,
-    enterButton.h
-  );
+  drawImage(enterButtonImg, enterButton);
   //narrative text
   textSize(40);
   textAlign(CENTER);
@@ -174,13 +173,51 @@ function introduction() {
   text(intro.string2, intro.x2, intro.y2);
   text(intro.string3, intro.x3, intro.y3);
 }
-/**
- * Creates the simulation page
- */
+// =================== SIMULATION ==========================
+//Draws all the images and calls all the function on the simulation page
+// *
 function simulation() {
-  image(blueFishImg, blueFish.x, blueFish.y, blueFish.w, blueFish.h);
-  image(goldFish0Img, goldFish0.x, goldFish0.y, goldFish0.w, goldFish0.h);
-  image(goldFish1Img, goldFish1.x, goldFish1.y, goldFish1.w, goldFish1.h);
+  //draws the sand
+  fill(sand.r, sand.g, sand.b);
+  noStroke();
+  rect(sand.x, sand.y, sand.w, sand.h);
+  //draws the snail
+  drawImage(snailImg, snail);
+  //contrain snail's x-coordinates within canvas
+  snail.x = constrain(snail.x, 0, canvasX - snail.w);
+  //Moves the snail side-to-side
+  snail.x += snail.speed;
+  if (snail.x > canvasX - snail.w || snail.x < 0) {
+    snail.speed *= -1;
+  }
+  drawImage(foodImg, food);
+  drawImage(goldFish0Img, goldFish0);
+  //contrain goldfish0 within canvas
+  contrain(goldFish0);
+  //draws the goldfish1
+  drawImage(goldFish1Img, goldFish1);
+  //contrain goldfish1 within canvas
+  contrain(goldFish1);
+  //draws the blue fish
+  drawImage(blueFishImg, blueFish);
+  //contrain blue fish within canvas
+  contrain(blueFish);
+  //draws the goldfish
+}
+// =================== DRAWING IMAGES ==========================
+// General function to draw images
+// *
+function drawImage(img, character) {
+  image(img, character.x, character.y, character.w, character.h);
+}
+// =================== CONSTRAIN WITHIN CANVAS ==========================
+// General function to constrain characters within the canvas
+// *
+function contrain(character) {
+  // Constrain the blue fish's x-coordinate
+  character.x = constrain(character.x, 0, canvasX - character.w);
+  // Constrain the blue fish's y-coordinate
+  character.y = constrain(character.y, 0, canvasY - 130);
 }
 // =================== KEYBOARD BUTTONS ==========================
 //KeyBoard Arrows control the blue fish
