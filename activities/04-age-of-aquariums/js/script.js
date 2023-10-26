@@ -165,12 +165,26 @@ let blueFishEating = {
   h: 60,
 };
 
-let state = "introduction";
+let snailEaten = {
+  x: 410,
+  y: 400,
+  w: 160,
+  string: "Noooooo! Not Gary!",
+  x2: 508,
+  y2: 290,
+  h: 70,
+  r: 10,
+  g: 79,
+  b: 120,
+};
+
+let state = "snailLoseScreen";
 
 let blueFishImg;
 let goldFish0Img;
 let goldFish1Img;
 let snailImg;
+let snailEatenImg;
 let foodImg;
 let introPanelImg;
 let enterButtonImg;
@@ -184,6 +198,7 @@ function preload() {
   goldFish0Img = loadImage("assets/images/goldFish-0.png");
   goldFish1Img = loadImage("assets/images/goldFish-1.png");
   snailImg = loadImage("assets/images/snail.png");
+  snailEatenImg = loadImage("assets/images/snailEaten.png");
   foodImg = loadImage("assets/images/food.png");
   introPanelImg = loadImage("assets/images/introPanel.png");
   enterButtonImg = loadImage("assets/images/enterButton.png");
@@ -362,4 +377,17 @@ function goldFishLoseScreen() {
 }
 //Losing End Screen is the player touches the snail
 // *
-function snailLoseScreen() {}
+function snailLoseScreen() {
+  //Blue Fish eating snail image
+  drawImage(snailEatenImg, snailEaten);
+  //Enter button image
+  drawImage(enterButtonImg, enterButton);
+  textSize(40);
+  text(snailEaten.string, snailEaten.x2, snailEaten.y2);
+  textSize(30);
+  textAlign(CENTER);
+  noStroke(0);
+  fill(snailEaten.r, snailEaten.g, snailEaten.b);
+  textStyle(BOLD);
+  text(win.string2, win.x2, win.y2);
+}
