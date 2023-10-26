@@ -68,6 +68,7 @@ let goldFish0 = {
   y: 300,
   w: 45,
   h: 30,
+  eaten: false,
 };
 
 let goldFish1 = {
@@ -75,6 +76,7 @@ let goldFish1 = {
   y: 300,
   w: 50,
   h: 35,
+  eaten: false,
 };
 
 let snail = {
@@ -83,6 +85,7 @@ let snail = {
   w: 60,
   h: 40,
   speed: 1,
+  eaten: false,
 };
 
 let sand = {
@@ -159,9 +162,9 @@ let goldFishLose = {
 };
 
 let blueFishEating = {
-  x: 500,
+  x: 460,
   y: 400,
-  w: 80,
+  w: 90,
   h: 60,
 };
 
@@ -178,7 +181,7 @@ let snailEaten = {
   b: 120,
 };
 
-let state = "snailLoseScreen";
+let state = "simulation";
 
 let blueFishImg;
 let goldFish0Img;
@@ -233,6 +236,9 @@ function draw() {
   // ======================== CALLING FUNCTIONS =========================
   //Calls the function to make the blue fish continuously move
   keyPressed();
+  AteFriend(goldFish0);
+  AteFriend(goldFish1);
+  AteFriend(snail);
 }
 /**
   // ======================== INTRODUCTION =========================
@@ -252,7 +258,7 @@ function introduction() {
   textStyle(BOLD);
   text(intro.string1, intro.x1, intro.y1);
   textSize(30);
-  fill(intro.r2, intro.g2, intro.b2);
+  fill(snailEaten.r, snailEaten.g, snailEaten.b);
   text(intro.string2, intro.x2, intro.y2);
   text(intro.string3, intro.x3, intro.y3);
 }
@@ -282,16 +288,18 @@ function simulation() {
   }
   drawImage(goldFish0Img, goldFish0);
   //contrain goldfish0 within canvas
-  contrain(goldFish0);
+  constrain(goldFish0);
   //draws the goldfish1
   drawImage(goldFish1Img, goldFish1);
   //contrain goldfish1 within canvas
-  contrain(goldFish1);
+  constrain(goldFish1);
   //draws the blue fish
   drawImage(blueFishImg, blueFish);
   //contrain blue fish within canvas
-  contrain(blueFish);
-  //draws the goldfish
+  constrain(blueFish);
+  //Calls the function that displays the end screen if the blue fish ate any friends
+  goldFishLoseScreen();
+  snailLoseScreen();
 }
 // =================== DRAWING IMAGES ==========================
 // General function to draw images
@@ -302,11 +310,34 @@ function drawImage(img, character) {
 // =================== CONSTRAIN WITHIN CANVAS ==========================
 // General function to constrain characters within the canvas
 // *
-function contrain(character) {
+function constrain(character) {
   // Constrain the blue fish's x-coordinate
   character.x = constrain(character.x, 0, canvasX - character.w);
   // Constrain the blue fish's y-coordinate
   character.y = constrain(character.y, 0, canvasY - 130);
+}
+// =================== COLLISIONS ==========================
+/** 
+//  // Checks if one object collides with another
+// */
+function checkCollision(character) {
+  if (
+    blueFish.x + blueFish.w > character.x &&
+    blueFish.x < character.x + character.w &&
+    blueFish.y + blueFish.h > character.y &&
+    blueFish.y < character.y + character.h
+  ) {
+    return true;
+  }
+  return false;
+}
+/** 
+//  // Checks blue fish collides with a friend (lose)
+// */
+function AteFriend(character) {
+  if (checkCollision(character)) {
+    character.eaten = true;
+  }
 }
 // =================== KEYBOARD BUTTONS ==========================
 //KeyBoard Arrows control the blue fish
@@ -338,6 +369,8 @@ function keyPressed() {
 //Winning End Screen
 // *
 function winScreen() {
+  //draws the light blue background
+  background(bg.r, bg.g, bg.b);
   //Blue Fish image
   drawImage(blueFishImg, blueFish);
   //Goldfish0 image
@@ -361,33 +394,41 @@ function winScreen() {
 //Losing End Screen is the player touches a gold fish
 // *
 function goldFishLoseScreen() {
-  //Blue Fish image
-  drawImage(blueFishEatingImg, blueFishEating);
-  //Enter button image
-  drawImage(enterButtonImg, enterButton);
-  //ending text
-  textSize(40);
-  textAlign(CENTER);
-  noStroke(0);
-  fill(win.r, win.g, win.b);
-  textStyle(BOLD);
-  text(random(tragedies), goldFishLose.x, goldFishLose.y);
-  textSize(30);
-  text(win.string2, win.x2, win.y2);
+  if (goldFish0.eaten || goldFish1.eaten) {
+    //draws the light blue background
+    background(bg.r, bg.g, bg.b);
+    //Blue Fish image
+    drawImage(blueFishEatingImg, blueFishEating);
+    //Enter button image
+    drawImage(enterButtonImg, enterButton);
+    //ending text
+    textSize(40);
+    textAlign(CENTER);
+    noStroke(0);
+    fill(win.r, win.g, win.b);
+    textStyle(BOLD);
+    text(random(tragedies), goldFishLose.x, goldFishLose.y);
+    textSize(30);
+    text(win.string2, win.x2, win.y2);
+  }
 }
 //Losing End Screen is the player touches the snail
 // *
 function snailLoseScreen() {
-  //Blue Fish eating snail image
-  drawImage(snailEatenImg, snailEaten);
-  //Enter button image
-  drawImage(enterButtonImg, enterButton);
-  textSize(40);
-  text(snailEaten.string, snailEaten.x2, snailEaten.y2);
-  textSize(30);
-  textAlign(CENTER);
-  noStroke(0);
-  fill(snailEaten.r, snailEaten.g, snailEaten.b);
-  textStyle(BOLD);
-  text(win.string2, win.x2, win.y2);
+  if (snail.eaten) {
+    //draws the blue background
+    background(bg.r, bg.g, bg.b);
+    //Blue Fish eating snail image
+    drawImage(snailEatenImg, snailEaten);
+    //Enter button image
+    drawImage(enterButtonImg, enterButton);
+    fill(snailEaten.r, snailEaten.g, snailEaten.b);
+    textSize(40);
+    text(snailEaten.string, snailEaten.x2, snailEaten.y2);
+    textSize(30);
+    textAlign(CENTER);
+    noStroke(0);
+    textStyle(BOLD);
+    text(win.string2, win.x2, win.y2);
+  }
 }
