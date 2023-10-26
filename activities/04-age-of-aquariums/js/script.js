@@ -100,12 +100,72 @@ let food = {
   y: 0,
   w: 20,
   h: 20,
+  speed: 2,
+  eaten: false,
 };
 
-let school = [];
-let schoolSize = 4;
+let win = {
+  string1: `Congradulations! \n You ate all your food and you didn't \n bite your friends.`,
+  x1: 500,
+  y1: 180,
+  r: 237,
+  g: 219,
+  b: 147,
+  string2: "Press the              key to restart",
+  x2: 508,
+  y2: 690,
+};
 
-let state = "simulation";
+let goldFish0Win = {
+  x: 590,
+  y: 415,
+  w: 45,
+  h: 30,
+};
+
+let goldFish1Win = {
+  x: 430,
+  y: 415,
+  w: 50,
+  h: 35,
+};
+
+let snailWin = {
+  x: 360,
+  y: 415,
+  w: 50,
+  h: 35,
+};
+
+let tragedies = [
+  `On no! \n You mistook Jonathan for food.`,
+  `You swallowed Lee-Ann whole! \n We didn't like her anyways...`,
+  `Oh my! \n Jennie might be small but she's not food!`,
+  `Such a shame, we will miss Harold.`,
+  `No your food isn't alive, \n you just ate Samantha.`,
+  `Owen didn't appreciate you eating him.`,
+  `*Blub Blub* \n That was Judy screeming as you ate her.`,
+];
+
+let goldFishLose = {
+  x1: 500,
+  y1: 180,
+  r: 237,
+  g: 219,
+  b: 147,
+  string2: "Press the              key to restart",
+  x2: 508,
+  y2: 690,
+};
+
+let blueFishEating = {
+  x: 500,
+  y: 400,
+  w: 80,
+  h: 60,
+};
+
+let state = "introduction";
 
 let blueFishImg;
 let goldFish0Img;
@@ -114,6 +174,7 @@ let snailImg;
 let foodImg;
 let introPanelImg;
 let enterButtonImg;
+let blueFishEatingImg;
 
 /**
  * Preloads the images of the characters and food
@@ -126,6 +187,7 @@ function preload() {
   foodImg = loadImage("assets/images/food.png");
   introPanelImg = loadImage("assets/images/introPanel.png");
   enterButtonImg = loadImage("assets/images/enterButton.png");
+  blueFishEatingImg = loadImage("assets/images/blueFishEating.png");
 }
 
 /**
@@ -146,6 +208,12 @@ function draw() {
     introduction();
   } else if (state === "simulation") {
     simulation();
+  } else if (state === "winScreen") {
+    winScreen();
+  } else if (state === "goldFishLoseScreen") {
+    goldFishLoseScreen();
+  } else if (state === "snailLoseScreen") {
+    snailLoseScreen();
   }
   // ======================== CALLING FUNCTIONS =========================
   //Calls the function to make the blue fish continuously move
@@ -158,7 +226,7 @@ function introduction() {
   //Panel image
   drawImage(introPanelImg, introPanel);
   //Blue Fish image
-  drawImage(blueFishIntroImg, blueFishIntro);
+  drawImage(blueFishImg, blueFishIntro);
   //Enter button image
   drawImage(enterButtonImg, enterButton);
   //narrative text
@@ -190,7 +258,13 @@ function simulation() {
   if (snail.x > canvasX - snail.w || snail.x < 0) {
     snail.speed *= -1;
   }
+  //draws the food pebble
   drawImage(foodImg, food);
+  //Moves the food downwards and stops on the sand
+  food.y += food.speed;
+  if (food.y > canvasY - 81) {
+    food.speed = 0;
+  }
   drawImage(goldFish0Img, goldFish0);
   //contrain goldfish0 within canvas
   contrain(goldFish0);
@@ -245,3 +319,47 @@ function keyPressed() {
     state = "simulation";
   }
 }
+// =================== END SCREENS ==========================
+//Winning End Screen
+// *
+function winScreen() {
+  //Blue Fish image
+  drawImage(blueFishImg, blueFish);
+  //Goldfish0 image
+  drawImage(goldFish0Img, goldFish0Win);
+  //Goldfish1 image
+  drawImage(goldFish1Img, goldFish1Win);
+  //Snail image
+  drawImage(snailImg, snailWin);
+  //Enter button image
+  drawImage(enterButtonImg, enterButton);
+  //ending text
+  textSize(40);
+  textAlign(CENTER);
+  noStroke(0);
+  fill(win.r, win.g, win.b);
+  textStyle(BOLD);
+  text(win.string1, win.x1, win.y1);
+  textSize(30);
+  text(win.string2, win.x2, win.y2);
+}
+//Losing End Screen is the player touches a gold fish
+// *
+function goldFishLoseScreen() {
+  //Blue Fish image
+  drawImage(blueFishEatingImg, blueFishEating);
+  //Enter button image
+  drawImage(enterButtonImg, enterButton);
+  //ending text
+  textSize(40);
+  textAlign(CENTER);
+  noStroke(0);
+  fill(win.r, win.g, win.b);
+  textStyle(BOLD);
+  text(random(tragedies), goldFishLose.x, goldFishLose.y);
+  textSize(30);
+  text(win.string2, win.x2, win.y2);
+}
+//Losing End Screen is the player touches the snail
+// *
+function snailLoseScreen() {}
