@@ -88,6 +88,14 @@ let snail = {
   eaten: false,
 };
 
+let food = {
+  x: 500,
+  y: 0,
+  w: 20,
+  h: 20,
+  speed: 2,
+};
+
 let sand = {
   x: 0,
   y: 740,
@@ -96,15 +104,6 @@ let sand = {
   r: 237,
   g: 219,
   b: 147,
-};
-
-let food = {
-  x: 200,
-  y: 0,
-  w: 20,
-  h: 20,
-  speed: 2,
-  eaten: false,
 };
 
 let win = {
@@ -147,7 +146,7 @@ let tragedies = [
   `Such a shame, we will miss Harold.`,
   `No your food isn't alive, \n you just ate Samantha.`,
   `Owen didn't appreciate you eating him.`,
-  `*Blub Blub* \n That was Judy screeming as you ate her.`,
+  `*Blub Blub* \n That was Judy's as you ate her.`,
 ];
 
 let goldFishLose = {
@@ -159,6 +158,8 @@ let goldFishLose = {
   string2: "Press the              key to restart",
   x2: 508,
   y2: 690,
+  x3: 500,
+  y3: 200,
 };
 
 let blueFishEating = {
@@ -181,8 +182,14 @@ let snailEaten = {
   b: 120,
 };
 
-let state = "simulation";
+// Food objects
+let food1;
+let food2;
+let food3;
+let food4;
+let food5;
 
+//images
 let blueFishImg;
 let goldFish0Img;
 let goldFish1Img;
@@ -192,6 +199,8 @@ let foodImg;
 let introPanelImg;
 let enterButtonImg;
 let blueFishEatingImg;
+
+let state = "introduction";
 
 /**
  * Preloads the images of the characters and food
@@ -213,9 +222,24 @@ function preload() {
  */
 function setup() {
   createCanvas(canvasX, canvasY);
+
+  food1 = createFood(50, 300);
+  food2 = createFood(150, 300);
+  food3 = createFood(250, 300);
+  food4 = createFood(350, 300);
+  food5 = createFood(450, 300);
+}
+function createFood(x, y) {
+  let food = {
+    x: x,
+    y: y,
+    size: 50,
+    eaten: false,
+  };
+  return food;
 }
 /**
- * Description of draw()
+ * calls different states
  */
 function draw() {
   //draws the light blue background
@@ -279,13 +303,10 @@ function simulation() {
   if (snail.x > canvasX - snail.w || snail.x < 0) {
     snail.speed *= -1;
   }
-  //draws the food pebble
+  //draws the food image
   drawImage(foodImg, food);
-  //Moves the food downwards and stops on the sand
-  food.y += food.speed;
-  if (food.y > canvasY - 81) {
-    food.speed = 0;
-  }
+  moveFood();
+  //draws goldFish0
   drawImage(goldFish0Img, goldFish0);
   //contrain goldfish0 within canvas
   constrain(goldFish0);
@@ -339,6 +360,14 @@ function AteFriend(character) {
     character.eaten = true;
   }
 }
+
+//Moves the food downwards and stops on the sand
+function moveFood() {
+  food.y += food.speed;
+  if (food.y > canvasY - 81) {
+    food.speed = 0;
+  }
+}
 // =================== KEYBOARD BUTTONS ==========================
 //KeyBoard Arrows control the blue fish
 // *
@@ -362,6 +391,13 @@ function keyPressed() {
   }
   //Enter button changes the state from introduction ---> simulation
   if (keyCode === ENTER) {
+    if (goldFish0.eaten || goldFish1.eaten || snail.eaten) {
+      winScreen = false;
+      goldFishLoseScreen = false;
+      snailLoseScreen = false;
+    }
+    state = "introduction";
+  } else {
     state = "simulation";
   }
 }
@@ -407,7 +443,7 @@ function goldFishLoseScreen() {
     noStroke(0);
     fill(win.r, win.g, win.b);
     textStyle(BOLD);
-    text(random(tragedies), goldFishLose.x, goldFishLose.y);
+    text(tragedies[0], goldFishLose.x3, goldFishLose.y3);
     textSize(30);
     text(win.string2, win.x2, win.y2);
   }
