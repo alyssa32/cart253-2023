@@ -181,6 +181,7 @@ let amountOfFood = 5;
 
 //Creates an array for the fish and sets the amount
 let fishArray = [];
+let fishImgArray = [];
 let amountOfFish = 10;
 
 //images
@@ -227,9 +228,16 @@ function setup() {
     foodArray[i] = newFood;
   }
   //For loop that creates new fish at random coordinates within the canvas and puts them into an array
-  for (let i = 0; i < amountOfFish.length; i++) {
+  for (let i = 0; i < amountOfFish; i++) {
     let newFish = createFish(random(canvasX), random(canvasY));
     fishArray[i] = newFish;
+  }
+
+  fishImgArray[0] = goldFish0Img;
+  fishImgArray[1] = goldFish1Img;
+
+  for (let i = 0; i < fishImgArray; i++) {
+    console.log(fishImgArray[i]);
   }
 }
 //Sets the size and speed of the foods
@@ -246,13 +254,15 @@ function createFood(x, y) {
 }
 
 function createFish(x, y) {
+  let randomWidth = random(20, 50);
+
   let fish = {
     x: x,
     y: y,
     vx: 0,
     xy: 0,
-    w: random(20),
-    h: random(20),
+    w: randomWidth,
+    h: randomWidth / 2,
     eaten: false,
     speed: random(4),
   };
@@ -332,14 +342,6 @@ function simulation() {
   drawFish();
   //call the function which moves the food downwards
   moveFish();
-  //draws goldFish0
-  drawImage(goldFish0Img, goldFish0);
-  //contrain goldfish0 within canvas
-  constrain(goldFish0);
-  //draws the goldfish1
-  drawImage(goldFish1Img, goldFish1);
-  //contrain goldfish1 within canvas
-  constrain(goldFish1);
   //draws the blue fish
   drawImage(blueFishImg, blueFish);
   //contrain blue fish within canvas
@@ -356,10 +358,25 @@ function drawImage(img, character) {
 }
 //Draws the food using the array
 function drawFish() {
+  let randomNum = random(0, 1);
+
   for (let i = 0; i < fishArray.length; i++) {
-    drawImage(goldFish0Img, fishArray[i]);
+    drawImage(fishImgArray[0], fishArray[i]);
   }
 }
+
+function checkIfAnyFishHasBeenEaten() {
+  let hasBeenEaten = false;
+
+  for (let i = 0; i < fishArray.length; i++) {
+    if (fishArray[i].eaten) {
+      hasBeenEaten = true;
+    }
+  }
+
+  return hasBeenEaten;
+}
+
 // =================== CONSTRAIN WITHIN CANVAS ==========================
 // General function to constrain characters within the canvas
 // *
@@ -370,11 +387,31 @@ function constrain(character) {
   character.y = constrain(character.y, 0, canvasY - 130);
 }
 function moveFish() {
-  // Choose whether to change direction
-  let change = random(0, 1);
-  if (change < 0.05) {
-    fishArray[i].vx = random(-fishArray[i].speed, fishArray[i].speed);
-    fishArray[i].vy = random(-fishArray[i].speed, fishArray[i].speed);
+  for (let i = 0; i < fishArray.length; i++) {
+    // // Choose whether to change direction
+    // let change = random(0, 1);
+
+    // if (change < 0.05) {
+    //   fishArray[i].vx = random(-fishArray[i].speed, fishArray[i].speed); //[-4, 4]
+    //   fishArray[i].vy = random(-fishArray[i].speed, fishArray[i].speed);
+    // }
+    // // Move the fish
+    // fishArray[i].x = constrain(fishArray[i].x + fishArray[i].vx, 0, canvasX - fishArray[i].w);
+    // fishArray[i].y = constrain(fishArray[i].y + fishArray[i].vy, 0, canvasY - fishArray[i].h);
+    // Constrain the fish to the canvas
+    // fishArray[i].x = constrain(fishArray[i].x, 0, width);
+    // fishArray[i].y = constrain(fishArray[i].y, 0, height);
+
+    fishArray[i].x = constrain(
+      fishArray[i].x + random(-fishArray[i].speed, fishArray[i].speed),
+      0,
+      canvasX - fishArray[i].w
+    );
+    fishArray[i].y = constrain(
+      fishArray[i].y + random(-fishArray[i].speed, fishArray[i].speed),
+      0,
+      canvasY - fishArray[i].h
+    );
   }
 }
 //Draws the food using the array
@@ -382,12 +419,6 @@ function drawFood() {
   for (let i = 0; i < foodArray.length; i++) {
     drawImage(foodImg, foodArray[i]);
   }
-  // Move the fish
-  fishArray[i].x = fishArray[i].x + fishArray[i].vx;
-  fishArray[i].y = fishArray[i].y + fishArray[i].vy;
-  // Constrain the fish to the canvas
-  fishArray[i].x = constrain(fishArray[i].x, 0, width);
-  fishArray[i].y = constrain(fishArray[i].y, 0, height);
 }
 // =================== COLLISIONS ==========================
 /** 
@@ -432,27 +463,33 @@ function keyPressed() {
     blueFish.x -= speed;
   }
   //moves right
-  if (keyCode === RIGHT_ARROW) {
+  else if (keyCode === RIGHT_ARROW) {
     blueFish.x += speed;
   }
   //moves up
-  if (keyCode === UP_ARROW) {
+  else if (keyCode === UP_ARROW) {
     blueFish.y -= speed;
   }
   //moves down
-  if (keyCode === DOWN_ARROW) {
+  else if (keyCode === DOWN_ARROW) {
     blueFish.y += speed;
   }
   //Enter button changes the state from introduction ---> simulation
-  if (keyCode === ENTER) {
-    if (goldFish0.eaten || goldFish1.eaten || snail.eaten) {
-      winScreen = false;
-      goldFishLoseScreen = false;
-      snailLoseScreen = false;
+  else if (keyCode === ENTER) {
+    if (checkIfAnyFishHasBeenEaten() || snail.eaten) {
+      //winScreen = false;
+
+      //Reset all the fish.eaten values back to false, so that we can play again
+      for (let i = 0; i < fishArray.length; i++) {
+        fishArray[i].eaten = false;
+      }
+
+      snail.eaten = false;
+
+      state = "introduction";
+    } else {
+      state = "simulation";
     }
-    state = "introduction";
-  } else {
-    state = "simulation";
   }
 }
 // =================== END SCREENS ==========================
