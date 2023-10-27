@@ -88,14 +88,6 @@ let snail = {
   eaten: false,
 };
 
-let food = {
-  x: 500,
-  y: 0,
-  w: 20,
-  h: 20,
-  speed: 2,
-};
-
 let sand = {
   x: 0,
   y: 740,
@@ -182,12 +174,14 @@ let snailEaten = {
   b: 120,
 };
 
-// Food objects
-let food1;
-let food2;
-let food3;
-let food4;
-let food5;
+//Create foodArray that contains all the foodObjects, and each foodObject contains a "food" that has all
+//the information about each food, such as x, y, w, h, size, ...
+let foodArray = [];
+let amountOfFood = 5;
+
+//Creates an array for the fish and sets the amount
+let fishArray = [];
+let amountOfFish = 10;
 
 //images
 let blueFishImg;
@@ -223,21 +217,48 @@ function preload() {
 function setup() {
   createCanvas(canvasX, canvasY);
 
-  food1 = createFood(50, 300);
-  food2 = createFood(150, 300);
-  food3 = createFood(250, 300);
-  food4 = createFood(350, 300);
-  food5 = createFood(450, 300);
+  // Loop based on the foodAmount we want, then create a food at a random x within the canvas and y to 300
+  // then store the food location in the foodObject, and finally add the foodObject at the current index
+  // of the array, and repeat until the amount of food.
+  for (let i = 0; i < amountOfFood; i++) {
+    //Create a new food
+    let newFood = createFood(random(canvasX), 0);
+    //Add new food inside of the array
+    foodArray[i] = newFood;
+  }
+  //For loop that creates new fish at random coordinates within the canvas and puts them into an array
+  for (let i = 0; i < amountOfFish.length; i++) {
+    let newFish = createFish(random(canvasX), random(canvasY));
+    fishArray[i] = newFish;
+  }
 }
+//Sets the size and speed of the foods
 function createFood(x, y) {
   let food = {
     x: x,
     y: y,
-    size: 50,
+    w: 20,
+    h: 20,
     eaten: false,
+    speed: random(2),
   };
   return food;
 }
+
+function createFish(x, y) {
+  let fish = {
+    x: x,
+    y: y,
+    vx: 0,
+    xy: 0,
+    w: random(20),
+    h: random(20),
+    eaten: false,
+    speed: random(4),
+  };
+  return fish;
+}
+
 /**
  * calls different states
  */
@@ -304,8 +325,13 @@ function simulation() {
     snail.speed *= -1;
   }
   //draws the food image
-  drawImage(foodImg, food);
+  drawFood();
+  //call the function which moves the food downwards
   moveFood();
+  //draws the fish image
+  drawFish();
+  //call the function which moves the food downwards
+  moveFish();
   //draws goldFish0
   drawImage(goldFish0Img, goldFish0);
   //contrain goldfish0 within canvas
@@ -328,6 +354,12 @@ function simulation() {
 function drawImage(img, character) {
   image(img, character.x, character.y, character.w, character.h);
 }
+//Draws the food using the array
+function drawFish() {
+  for (let i = 0; i < fishArray.length; i++) {
+    drawImage(goldFish0Img, fishArray[i]);
+  }
+}
 // =================== CONSTRAIN WITHIN CANVAS ==========================
 // General function to constrain characters within the canvas
 // *
@@ -336,6 +368,26 @@ function constrain(character) {
   character.x = constrain(character.x, 0, canvasX - character.w);
   // Constrain the blue fish's y-coordinate
   character.y = constrain(character.y, 0, canvasY - 130);
+}
+function moveFish() {
+  // Choose whether to change direction
+  let change = random(0, 1);
+  if (change < 0.05) {
+    fishArray[i].vx = random(-fishArray[i].speed, fishArray[i].speed);
+    fishArray[i].vy = random(-fishArray[i].speed, fishArray[i].speed);
+  }
+}
+//Draws the food using the array
+function drawFood() {
+  for (let i = 0; i < foodArray.length; i++) {
+    drawImage(foodImg, foodArray[i]);
+  }
+  // Move the fish
+  fishArray[i].x = fishArray[i].x + fishArray[i].vx;
+  fishArray[i].y = fishArray[i].y + fishArray[i].vy;
+  // Constrain the fish to the canvas
+  fishArray[i].x = constrain(fishArray[i].x, 0, width);
+  fishArray[i].y = constrain(fishArray[i].y, 0, height);
 }
 // =================== COLLISIONS ==========================
 /** 
@@ -363,9 +415,11 @@ function AteFriend(character) {
 
 //Moves the food downwards and stops on the sand
 function moveFood() {
-  food.y += food.speed;
-  if (food.y > canvasY - 81) {
-    food.speed = 0;
+  for (let i = 0; i < foodArray.length; i++) {
+    foodArray[i].y += foodArray[i].speed;
+    if (foodArray[i].y > canvasY - 81) {
+      foodArray[i].speed = 0;
+    }
   }
 }
 // =================== KEYBOARD BUTTONS ==========================
