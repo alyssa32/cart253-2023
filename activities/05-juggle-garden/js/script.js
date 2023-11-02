@@ -21,6 +21,14 @@ let flower = {
   widthMin: 40,
   widthMax: 60,
 };
+
+let beePosition = {
+  xMin: 100,
+  xMax: 770,
+  yMin: 100,
+  yMax: 770,
+};
+
 let shrink = {
   max: 0,
   min: 0.1,
@@ -32,6 +40,10 @@ let garden = {
   tulips: [],
   // Number of flowers in the garden
   numTulips: 20,
+  // An array to store the individual bees
+  bees: [],
+  // Number of bees in the garden
+  numBees: 10,
   // Color of the background
   bg: {
     r: 135,
@@ -56,7 +68,6 @@ function preload() {
   stemImg = loadImage("assets/images/stem.png");
   pixelBeeImg = loadImage("assets/images/pixelBee.png");
 }
-
 /**
  * Description of setup
  */
@@ -74,6 +85,13 @@ function setup() {
     //Will add the new tulip to the array of tulips
     garden.tulips.push(tulip);
   }
+  //Create the Bees
+  for (let i = 0; i < garden.numBees; i++) {
+    let x = random(beePosition.xMin, beePosition.xMax);
+    let y = random(beePosition.yMin, beePosition.yMax);
+    let bee = new Bee(x, y);
+    garden.bees.push(bee);
+  }
 }
 /**
  * Description of draw()
@@ -87,6 +105,23 @@ function draw() {
     if (tulip.alive) {
       tulip.shrink();
       tulip.display();
+    }
+  }
+  //Counts through all the bees
+  for (let i = 0; i < garden.bees.length; i++) {
+    //If the bee is alive, they will shrink, move, and dbe isplayed
+    let bee = garden.bees[i];
+    if (bee.alive) {
+      bee.shrink();
+      bee.move();
+      bee.display();
+      //Each be will be checking for every tulip in the garden and will try to pollinate
+      for (let j = 0; j < garden.tulips.length; j++) {
+        let tulip = garden.tulips[j];
+        if (tulip.alive) {
+          bee.tryToPollinate(tulip);
+        }
+      }
     }
   }
 }

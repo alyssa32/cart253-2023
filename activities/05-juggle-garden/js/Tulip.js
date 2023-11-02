@@ -3,22 +3,50 @@ class Tulip {
     this.x = x;
     this.y = y;
     this.flowerWidth = flowerWidth;
+    this.flowerWidthMax = 60;
+    this.flowerWidthMin = 10;
     this.flowerHeight = flowerHeight;
+    this.flowerHeighthMax = 80;
+    this.flowerHeighthMin = 10;
     this.stemWidth = 10;
     this.stemHeight = stemHeight;
     this.alive = true;
   }
+  //Will constantly shrink the tulips if not pollinated by a bee
   shrink() {
     //Choses a random amount to shrink the width and height of the tulip
     let shrinkage = random(shrink.min, shrink.max);
     this.flowerWidth = this.flowerWidth - shrinkage;
     this.flowerHeight = this.flowerHeight - shrinkage;
     //If the width or height of any tulip = 0, then the flower dies
-    if (this.flowerWidth <= 0 || this.flowerHeight <= 0) {
+    if (
+      this.flowerWidth <= this.flowerWidthMin ||
+      this.flowerHeight <= this.flowerHeightMin
+    ) {
       this.alive = false;
     }
   }
-
+  //Will grow the tulips if pollinated by a bee
+  pollinate() {
+    let growth = random(0, 0.5);
+    //The rate at which the tulip's width grows
+    this.flowerWidth = this.flowerWidth + growth;
+    //Sets a min and max width size to the tulip
+    this.flowerWidth = contrain(
+      this.flowerWidth,
+      this.flowerWidthMin,
+      this.flowerWidthMax
+    );
+    //The rate at which the tulip's height grows
+    this.flowerHeight = this.flowerHeight + growth;
+    //Sets a min and max height size to the tulip
+    this.flowerHeight = contrain(
+      this.flowerHeight,
+      this.flowerHeightMin,
+      this.flowerHeightMax
+    );
+  }
+  //Displays the flower and stem of the tulip using images
   display() {
     push();
     imageMode(CENTER);
