@@ -21,6 +21,10 @@ let flower = {
   widthMin: 40,
   widthMax: 60,
 };
+let shrink = {
+  max: 0,
+  min: 0.1,
+};
 
 // The garden
 let garden = {
@@ -80,6 +84,9 @@ function draw() {
   //Loops through all the tulips and displays them
   for (let i = 0; i < garden.tulips.length; i++) {
     let tulip = garden.tulips[i];
-    tulip.display();
+    if (tulip.alive) {
+      tulip.shrink();
+      tulip.display();
+    }
   }
 }
