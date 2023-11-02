@@ -11,6 +11,17 @@
 let canvasX = 800;
 let canvasY = 800;
 
+let flower = {
+  xMin: 30,
+  xMax: 770,
+  yMin: 70,
+  yMax: 790,
+  heightMin: 40,
+  heightMax: 80,
+  widthMin: 40,
+  widthMax: 60,
+};
+
 // The garden
 let garden = {
   // An array to store the individual flowers
@@ -49,24 +60,16 @@ function setup() {
   createCanvas(canvasX, canvasY);
   //Will create tulips by looping through the set numbers
   for (let i = 0; i < garden.numTulips; i++) {
+    let x = random(flower.xMin, flower.xMax);
+    let y = random(flower.yMin, flower.yMax);
+    let flowerWidth = random(flower.widthMin, flower.widthMax);
+    let flowerHeight = random(flower.heightMin, flower.heightMax);
+    let stemHeight = 50;
     //Creates a new tulip
-    let tulip = createTulip();
+    let tulip = new Tulip(x, y, flowerWidth, flowerHeight, stemHeight);
     //Will add the new tulip to the array of tulips
     garden.tulips.push(tulip);
   }
-}
-//Creates a new tulip and returns it
-function createTulip() {
-  //Creates the tulip object
-  let tulip = {
-    x: random(0, width),
-    y: random(0, height),
-    w: 30,
-    h: 30,
-    stemWidth: 10,
-    stemHeight: 50,
-  };
-  return tulip;
 }
 /**
  * Description of draw()
@@ -77,11 +80,6 @@ function draw() {
   //Loops through all the tulips and displays them
   for (let i = 0; i < garden.tulips.length; i++) {
     let tulip = garden.tulips[i];
-    displayTulip(tulip);
+    tulip.display();
   }
-}
-
-function displayTulip(tulip) {
-  push();
-  image(stemImg, tulip.x, tulip.y, tulip.stemWidth, tulip.stemHeight);
 }
