@@ -42,6 +42,33 @@ let enterButton = {
   w: 90,
   h: 90,
 };
+
+let lose = {
+  string1: `OH NO! You touched a bee!`,
+  x1: 400,
+  y1: 350,
+  r: 41,
+  g: 148,
+  b: 56,
+  string2: "Blue to the sky, orange to the thigh!",
+  x2: 400,
+  y2: 420,
+  string3: "ON NO! The tulips and Bees are extinct!",
+  x3: 400,
+  y3: 350,
+  string4: "Don't expect any tulips on Valentine's Day.",
+  x4: 400,
+  y4: 420,
+};
+
+//Bee image on losing screen
+let beeGameOver = {
+  x: 510,
+  y: 350,
+  w: 60,
+  h: 60,
+};
+
 //The random max and min of the flowers' sizes
 let flower = {
   xMin: 30,
@@ -166,8 +193,15 @@ function draw() {
     loseFlowers();
   }
 }
+//A general function to display an image
 function drawImage(objImg, obj) {
   image(objImg, obj.y, obj.x, obj.w, obj.h);
+}
+//Switches states when the "enter" key is pressed
+function keyPressed() {
+  if (keyCode === ENTER) {
+    state = "simulation";
+  }
 }
 //Displays the title page
 function introduction() {
@@ -190,8 +224,6 @@ function introduction() {
 }
 //All code necessary to run the simulation
 function simulation() {
-  //Displays the watering can
-  wateringCan.display();
   //Loops through all the tulips and displays them
   for (let i = 0; i < garden.tulips.length; i++) {
     let tulip = garden.tulips[i];
@@ -217,6 +249,8 @@ function simulation() {
       }
     }
   }
+  //Displays the watering can
+  wateringCan.display();
 }
 //Checks through all the flowers if the mouse is pressed
 function mousePressed() {
@@ -226,6 +260,26 @@ function mousePressed() {
   }
 }
 //Displays the losing screen if player gets touched by a bee
-function loseBee() {}
+function loseBee() {
+  textSize(35);
+  textAlign(CENTER);
+  noStroke(0);
+  fill(intro.r, intro.g, intro.b);
+  textStyle(BOLD);
+  text(lose.string1, lose.x1, lose.y1);
+  textSize(28);
+  text(lose.string2, lose.x2, lose.y2);
+  drawImage(pixelBeeImg, beeGameOver);
+}
 //Displays a different losing screen if all flowers dissapear
-function loseFlowers() {}
+function loseFlowers() {
+  textSize(35);
+  textAlign(CENTER);
+  noStroke(0);
+  fill(intro.r, intro.g, intro.b);
+  textStyle(BOLD);
+  text(lose.string3, lose.x3, lose.y3);
+  textSize(28);
+  text(lose.string4, lose.x4, lose.y4);
+  drawImage(redTulipImg, beeGameOver);
+}
