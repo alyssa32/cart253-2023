@@ -41,7 +41,7 @@ let garden = {
   // An array to store the individual flowers
   tulips: [],
   // Number of flowers in the garden
-  numTulips: 30,
+  numTulips: 40,
   // An array to store the individual bees
   bees: [],
   // Number of bees in the garden
@@ -106,6 +106,8 @@ function setup() {
     let bee = new Bee(x, y);
     garden.bees.push(bee);
   }
+  //Draws the watering can image and sets it to the cursor's location
+  let water = new WateringCan();
 }
 /**
  * Description of draw()

@@ -7,8 +7,8 @@ class Tulip {
     this.flowerWidthMax = 60;
     this.flowerWidthMin = 10;
     this.flowerHeight = flowerHeight;
-    this.flowerHeighthMax = 80;
-    this.flowerHeighthMin = 10;
+    this.flowerHeightMax = 80;
+    this.flowerHeightMin = 10;
     this.stemWidth = 10;
     this.stemHeight = stemHeight;
     this.alive = true;
@@ -30,7 +30,7 @@ class Tulip {
   }
   //Will grow the tulips if pollinated by a bee
   pollinate() {
-    let growth = random(0, 0.5);
+    let growth = 5;
     //The rate at which the tulip's width grows
     this.flowerWidth = this.flowerWidth + growth;
     //Sets a min and max width size to the tulip

@@ -5,15 +5,15 @@ class Bee {
     this.y = y;
     this.width = 40;
     this.height = 40;
-    this.widthMin = 10;
+    this.widthMin = 20;
     this.widthMax = 50;
-    this.heightMin = 10;
+    this.heightMin = 20;
     this.heightMax = 50;
     this.vx = 0;
     this.vy = 0;
     this.speed = 5;
     this.shrinkRate = 0.05;
-    this.growRate = 0.05;
+    this.growRate = 3;
     this.jitteriness = 0.1; // How likely the bee is to change direction
     this.alive = true;
   }

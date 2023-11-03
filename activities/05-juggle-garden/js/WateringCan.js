@@ -7,8 +7,8 @@ class WateringCan {
     this.widthMax = 60;
     this.widthMin = 10;
     this.height = 40;
-    this.heighthMax = 80;
-    this.heighthMin = 10;
+    this.heightMax = 80;
+    this.heightMin = 10;
     this.alive = true;
   }
   //Displays the watering can
