@@ -14,7 +14,7 @@ class WateringCan {
   //Displays the watering can
   display() {
     push();
-    imageMode(CENTER);
+    imageMode(CORNER);
     //This image draws the stem
     image(wateringCanImg, mouseX, mouseY, this.width, this.height);
     pop();
@@ -25,5 +25,16 @@ class WateringCan {
     if (d < this.width / 2 || d < this.height / 2) {
       tulip.pollinate();
     }
+  }
+  touchedBee() {
+    if (
+      this.x + this.width > Bee.x &&
+      this.x < Bee.x + Bee.flowerWidth &&
+      this.y + this.height > Bee.y &&
+      this.y < Bee.y + Bee.flowerHeight
+    ) {
+      return true;
+    }
+    return false;
   }
 }

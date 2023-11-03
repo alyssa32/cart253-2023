@@ -67,7 +67,7 @@ let lose = {
 //Bee image on losing screen
 let beeGameOver = {
   x: 510,
-  y: 350,
+  y: 370,
   w: 60,
   h: 60,
 };
@@ -200,9 +200,10 @@ function draw() {
 function drawImage(objImg, obj) {
   image(objImg, obj.y, obj.x, obj.w, obj.h);
 }
-//Switches states when the "enter" key is pressed
+//Switches from intro to simulation when the "enter" key is pressed
 function keyPressed() {
-  if (keyCode === ENTER) {
+  if (keyCode === ENTER);
+  if (state === "introduction")  {
     state = "simulation";
   }
 }
@@ -241,6 +242,7 @@ function introduction() {
 }
 //All code necessary to run the simulation
 function simulation() {
+    noCursor();
   //Loops through all the tulips and displays them
   for (let i = 0; i < garden.tulips.length; i++) {
     let tulip = garden.tulips[i];
@@ -271,24 +273,28 @@ function simulation() {
   //Checks to switch to the losing end screen if all flowers are gone
   noMoreFlowers();
 }
-//Checks through all the flowers if the mouse is pressed
+//Checks through all the flowers to see if the cursor pressed it
 function mousePressed() {
   for (let i = 0; i < garden.tulips.length; i++) {
     let tulip = garden.tulips[i];
+    //Calling the function from the WateringCan.js class
     tulip.mousePressed();
   }
 }
 //Displays the losing screen if player gets touched by a bee
 function loseBee() {
-  textSize(35);
-  textAlign(CENTER);
-  noStroke(0);
-  fill(intro.r, intro.g, intro.b);
-  textStyle(BOLD);
-  text(lose.string1, lose.x1, lose.y1);
-  textSize(28);
-  text(lose.string2, lose.x2, lose.y2);
-  drawImage(pixelBeeImg, beeGameOver);
+    //If the watering can collides with a bee, then display the endscreen
+  if ((WateringCan.touchedBee() = true)) {
+    textSize(35);
+    textAlign(CENTER);
+    noStroke(0);
+    fill(intro.r, intro.g, intro.b);
+    textStyle(BOLD);
+    text(lose.string1, lose.x1, lose.y1);
+    textSize(28);
+    text(lose.string2, lose.x2, lose.y2);
+    drawImage(pixelBeeImg, beeGameOver);
+  }
 }
 //Displays a different losing screen if all flowers dissapear
 function loseFlowers() {
