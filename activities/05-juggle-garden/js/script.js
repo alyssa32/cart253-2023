@@ -10,6 +10,38 @@
 
 let canvasX = 800;
 let canvasY = 800;
+
+let intro = {
+  string1: `As the bees are endangered, so are the local tulips! \n Help prevent their extinction by watering the flowers.`,
+  x1: 390,
+  y1: 200,
+  r: 41,
+  g: 148,
+  b: 56,
+  string2: "But be careful not to touch any bees \nas you are allergic!",
+  x2: 400,
+  y2: 320,
+  string3: "Using the mouse, click on the flowers \nto make them grow.",
+  x3: 400,
+  y3: 530,
+  string4: "Press the               key to begin",
+  x4: 400,
+  y4: 658,
+};
+//the box image for the intro
+let introBg = {
+  x: 120,
+  y: 15,
+  w: 770,
+  h: 300,
+};
+
+let enterButton = {
+  x: 610,
+  y: 335,
+  w: 90,
+  h: 90,
+};
 //The random max and min of the flowers' sizes
 let flower = {
   xMin: 30,
@@ -62,9 +94,13 @@ let yellowTulipImg;
 let stemImg;
 let pixelBeeImg;
 let wateringCanImg;
+let enterButtonImg;
+let introBgImg;
+
+let state = "introduction";
 
 /**
- * Description of preload
+ * Preloads all used images
  */
 function preload() {
   redTulipImg = loadImage("assets/images/redTulip.png");
@@ -73,6 +109,8 @@ function preload() {
   stemImg = loadImage("assets/images/stem.png");
   pixelBeeImg = loadImage("assets/images/pixelBee.png");
   wateringCanImg = loadImage("assets/images/wateringCan.png");
+  enterButtonImg = loadImage("assets/images/enterButton.png");
+  introBgImg = loadImage("assets/images/introBg.png");
 }
 /**
  * Description of setup
@@ -112,11 +150,48 @@ function setup() {
   wateringCan = new WateringCan();
 }
 /**
- * Description of draw()
+ * Switches between the different states and draws the green background
  */
 function draw() {
   //Displays the green background
   background(garden.bg.r, garden.bg.g, garden.bg.b);
+  // Switches from the ttle screen, to the simulation, to the end screens
+  if (state === "introduction") {
+    introduction();
+  } else if (state === "simulation") {
+    simulation();
+  } else if (state === "loseBee") {
+    loseBee();
+  } else if (state === "loseFlowers") {
+    loseFlowers();
+  }
+}
+function drawImage(objImg, obj) {
+  image(objImg, obj.y, obj.x, obj.w, obj.h);
+}
+//Displays the title page
+function introduction() {
+  //displays the title box
+  drawImage(introBgImg, introBg);
+  //displays the enter button image
+  drawImage(enterButtonImg, enterButton);
+  //Narrative Text
+  textSize(28);
+  textAlign(CENTER);
+  noStroke(0);
+  fill(intro.r, intro.g, intro.b);
+  textStyle(BOLD);
+  text(intro.string1, intro.x1, intro.y1);
+  text(intro.string2, intro.x2, intro.y2);
+  //Instructions
+  text(intro.string3, intro.x3, intro.y3);
+  //Press Enter
+  text(intro.string4, intro.x4, intro.y4);
+}
+//All code necessary to run the simulation
+function simulation() {
+  //Displays the watering can
+  wateringCan.display();
   //Loops through all the tulips and displays them
   for (let i = 0; i < garden.tulips.length; i++) {
     let tulip = garden.tulips[i];
@@ -125,8 +200,6 @@ function draw() {
       tulip.display();
     }
   }
-  //Displays the watering can
-  wateringCan.display();
   //Counts through all the bees
   for (let i = 0; i < garden.bees.length; i++) {
     //If the bee is alive, they will shrink, move, and dbe isplayed
@@ -145,9 +218,14 @@ function draw() {
     }
   }
 }
+//Checks through all the flowers if the mouse is pressed
 function mousePressed() {
   for (let i = 0; i < garden.tulips.length; i++) {
     let tulip = garden.tulips[i];
     tulip.mousePressed();
   }
 }
+//Displays the losing screen if player gets touched by a bee
+function loseBee() {}
+//Displays a different losing screen if all flowers dissapear
+function loseFlowers() {}

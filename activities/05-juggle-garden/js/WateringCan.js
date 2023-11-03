@@ -21,7 +21,7 @@ class WateringCan {
   }
   //If the watering can touches a tulip,the flower will grow
   mousePressed(tulip) {
-    let d = dist(mouseX, mouseY, tulip.x, tulip.y);
+    let d = dist(this.x, this.y, tulip.x, tulip.y);
     if (d < this.width / 2 || d < this.height / 2) {
       tulip.pollinate();
     }
