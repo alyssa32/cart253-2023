@@ -10,13 +10,13 @@
 
 let canvasX = 800;
 let canvasY = 800;
-
+//The random max and min of the flowers' sizes
 let flower = {
   xMin: 30,
   xMax: 770,
   yMin: 70,
   yMax: 790,
-  heightMin: 40,
+  heightMin: 50,
   heightMax: 80,
   widthMin: 40,
   widthMax: 60,
@@ -28,6 +28,8 @@ let beePosition = {
   yMin: 100,
   yMax: 770,
 };
+
+let wateringCan;
 
 let shrink = {
   max: 0,
@@ -107,7 +109,7 @@ function setup() {
     garden.bees.push(bee);
   }
   //Draws the watering can image and sets it to the cursor's location
-  let water = new WateringCan();
+  wateringCan = new WateringCan();
 }
 /**
  * Description of draw()
@@ -123,6 +125,8 @@ function draw() {
       tulip.display();
     }
   }
+  //Displays the watering can
+  wateringCan.display();
   //Counts through all the bees
   for (let i = 0; i < garden.bees.length; i++) {
     //If the bee is alive, they will shrink, move, and dbe isplayed
@@ -139,5 +143,11 @@ function draw() {
         }
       }
     }
+  }
+}
+function mousePressed() {
+  for (let i = 0; i < garden.tulips.length; i++) {
+    let tulip = garden.tulips[i];
+    tulip.mousePressed();
   }
 }

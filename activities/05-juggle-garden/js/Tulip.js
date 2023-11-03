@@ -47,8 +47,6 @@ class Tulip {
       this.flowerHeightMin,
       this.flowerHeightMax
     );
-    console.log("my current height is " + this.flowerHeight);
-    console.log("my max height is " + this.flowerHeightMax);
   }
   //Displays the flower and stem of the tulip using images
   display() {

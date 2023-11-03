@@ -3,10 +3,10 @@ class WateringCan {
   constructor() {
     this.x = mouseX;
     this.y = mouseY;
-    this.width = 40;
+    this.width = 70;
     this.widthMax = 60;
     this.widthMin = 10;
-    this.height = 40;
+    this.height = 50;
     this.heightMax = 80;
     this.heightMin = 10;
     this.alive = true;
@@ -16,7 +16,14 @@ class WateringCan {
     push();
     imageMode(CENTER);
     //This image draws the stem
-    image(wateringCanImg, this.x, this.y, this.width, this.height);
+    image(wateringCanImg, mouseX, mouseY, this.width, this.height);
     pop();
+  }
+  //If the watering can touches a tulip,the flower will grow
+  mousePressed(tulip) {
+    let d = dist(mouseX, mouseY, tulip.x, tulip.y);
+    if (d < this.width / 2 || d < this.height / 2) {
+      tulip.pollinate();
+    }
   }
 }
