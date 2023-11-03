@@ -12,15 +12,18 @@ let canvasX = 800;
 let canvasY = 800;
 
 let intro = {
-  string1: `As the bees are endangered, so are the local tulips! \n Help prevent their extinction by watering the flowers.`,
+  string1: `Your mom is away for the weekend \n and asked you to take care of her garden. \n All you have to do is water the tulips. `,
   x1: 390,
-  y1: 200,
+  y1: 190,
   r: 41,
   g: 148,
   b: 56,
   string2: "But be careful not to touch any bees \nas you are allergic!",
   x2: 400,
   y2: 320,
+  r2: 218,
+  g2: 255,
+  b2: 181,
   string3: "Using the mouse, click on the flowers \nto make them grow.",
   x3: 400,
   y3: 530,
@@ -53,10 +56,10 @@ let lose = {
   string2: "Blue to the sky, orange to the thigh!",
   x2: 400,
   y2: 420,
-  string3: "ON NO! The tulips and Bees are extinct!",
+  string3: "ON NO! A tulip died!",
   x3: 400,
   y3: 350,
-  string4: "Don't expect any tulips on Valentine's Day.",
+  string4: "Mom won't be happy about this...",
   x4: 400,
   y4: 420,
 };
@@ -203,6 +206,16 @@ function keyPressed() {
     state = "simulation";
   }
 }
+//Switches to the loseFlowers endscreen when all flowers are gone
+function noMoreFlowers() {
+  for (let i = 0; i < garden.tulips.length; i++) {
+    let tulip = garden.tulips[i];
+    if (tulip.alive == false) {
+      state = "loseFlowers";
+    }
+  }
+}
+
 //Displays the title page
 function introduction() {
   //displays the title box
@@ -218,8 +231,12 @@ function introduction() {
   text(intro.string1, intro.x1, intro.y1);
   text(intro.string2, intro.x2, intro.y2);
   //Instructions
+  textStyle(NORMAL);
+  fill(intro.r2, intro.g2, intro.b2);
   text(intro.string3, intro.x3, intro.y3);
   //Press Enter
+  textStyle(BOLD);
+  fill(intro.r, intro.g, intro.b);
   text(intro.string4, intro.x4, intro.y4);
 }
 //All code necessary to run the simulation
@@ -251,6 +268,8 @@ function simulation() {
   }
   //Displays the watering can
   wateringCan.display();
+  //Checks to switch to the losing end screen if all flowers are gone
+  noMoreFlowers();
 }
 //Checks through all the flowers if the mouse is pressed
 function mousePressed() {
