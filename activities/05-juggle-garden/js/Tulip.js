@@ -1,4 +1,5 @@
 class Tulip {
+  // constructor() sets up the tulip starting properties
   constructor(x, y, flowerWidth, flowerHeight, stemHeight) {
     this.x = x;
     this.y = y;
@@ -11,6 +12,7 @@ class Tulip {
     this.stemWidth = 10;
     this.stemHeight = stemHeight;
     this.alive = true;
+    //this.icon = redTulipImg;
   }
   //Will constantly shrink the tulips if not pollinated by a bee
   shrink() {
@@ -32,7 +34,7 @@ class Tulip {
     //The rate at which the tulip's width grows
     this.flowerWidth = this.flowerWidth + growth;
     //Sets a min and max width size to the tulip
-    this.flowerWidth = contrain(
+    this.flowerWidth = constrain(
       this.flowerWidth,
       this.flowerWidthMin,
       this.flowerWidthMax
@@ -40,11 +42,13 @@ class Tulip {
     //The rate at which the tulip's height grows
     this.flowerHeight = this.flowerHeight + growth;
     //Sets a min and max height size to the tulip
-    this.flowerHeight = contrain(
+    this.flowerHeight = constrain(
       this.flowerHeight,
       this.flowerHeightMin,
       this.flowerHeightMax
     );
+    console.log("my current height is " + this.flowerHeight);
+    console.log("my max height is " + this.flowerHeightMax);
   }
   //Displays the flower and stem of the tulip using images
   display() {

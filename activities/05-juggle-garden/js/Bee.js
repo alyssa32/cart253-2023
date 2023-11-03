@@ -1,5 +1,5 @@
 class Bee {
-  // constructor() sets up our starting properties
+  // constructor() sets up bee starting properties
   constructor(x, y) {
     this.x = x;
     this.y = y;
@@ -13,7 +13,7 @@ class Bee {
     this.vy = 0;
     this.speed = 5;
     this.shrinkRate = 0.05;
-    this.growRate = 0.1;
+    this.growRate = 0.05;
     this.jitteriness = 0.1; // How likely the bee is to change direction
     this.alive = true;
   }
@@ -29,10 +29,10 @@ class Bee {
       this.alive = false;
     }
   }
-
+  //If the bee touches a tulip, it and the flower will grow
   tryToPollinate(tulip) {
     let d = dist(this.x, this.y, tulip.x, tulip.y);
-    if (d < this.width / 2 + this.height / 2 + tulip.width / 2 + tulip.height) {
+    if (d < this.width / 2 || d < this.height / 2) {
       this.grow();
       tulip.pollinate();
     }
@@ -40,13 +40,13 @@ class Bee {
   //The speed the bees grow at and their min/max size
   grow() {
     //The rate at which the bee's width grows
-    this.width = this.width + growRate;
+    this.width = this.width + this.growRate;
     //Sets a min and max width size to the bee
-    this.width = contrain(this.width, this.widthMin, this.widthMax);
+    this.width = constrain(this.width, this.widthMin, this.widthMax);
     //The rate at which the bee's height grows
-    this.height = this.height + growRate;
+    this.height = this.height + this.growRate;
     //Sets a min and max height size to the bee
-    this.height = contrain(this.height, this.heightMin, this.heightMax);
+    this.height = constrain(this.height, this.heightMin, this.heightMax);
   }
 
   // Moves the bee by potentially changing direction and then changing position based on velocity

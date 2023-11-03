@@ -36,10 +36,12 @@ let shrink = {
 
 // The garden
 let garden = {
+  // An array to store the three different coloured tulips
+  tulipImg: [],
   // An array to store the individual flowers
   tulips: [],
   // Number of flowers in the garden
-  numTulips: 20,
+  numTulips: 30,
   // An array to store the individual bees
   bees: [],
   // Number of bees in the garden
@@ -57,6 +59,7 @@ let blueTulipImg;
 let yellowTulipImg;
 let stemImg;
 let pixelBeeImg;
+let wateringCanImg;
 
 /**
  * Description of preload
@@ -67,12 +70,22 @@ function preload() {
   yellowTulipImg = loadImage("assets/images/yellowTulip.png");
   stemImg = loadImage("assets/images/stem.png");
   pixelBeeImg = loadImage("assets/images/pixelBee.png");
+  wateringCanImg = loadImage("assets/images/wateringCan.png");
 }
 /**
  * Description of setup
  */
 function setup() {
   createCanvas(canvasX, canvasY);
+
+  //Trying to create an array and loop through different tulip images
+  //   garden.tulipImg[0] = redTulipImg;
+  //   garden.tulipImg[1] = yellowTulipImg;
+  //   garden.tulipImg[2] = blueTulipImg;
+
+  //   for (let i = 0; i < garden.tulipImg; i++) {
+  //     console.log(garden.tulipImg[i]);
+
   //Will create tulips by looping through the set numbers
   for (let i = 0; i < garden.numTulips; i++) {
     let x = random(flower.xMin, flower.xMax);
@@ -82,6 +95,7 @@ function setup() {
     let stemHeight = 50;
     //Creates a new tulip
     let tulip = new Tulip(x, y, flowerWidth, flowerHeight, stemHeight);
+
     //Will add the new tulip to the array of tulips
     garden.tulips.push(tulip);
   }
