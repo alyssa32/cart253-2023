@@ -1,9 +1,8 @@
 /**
- * Title of Project
- * Author Name
+ * Mom's Garden
+ * Alyssa Durdey
  *
- * This is a template. You must fill in the title, author,
- * and this description to match your project!
+ * Mom went on a trip and tasked you to water her tulips. Using the mouse, click on the tulips to help them grow. There will be bees helping you as well. However, you must be careful as you are allergic simply to the touch of bees.
  */
 
 "use strict";
@@ -265,12 +264,16 @@ function simulation() {
           bee.tryToPollinate(tulip);
         }
       }
+      if (wateringCan.bitten == true) {
+        allergy();
+      }
     }
   }
   //Displays the watering can
   wateringCan.display();
   //Checks to switch to the losing end screen if all flowers are gone
   noMoreFlowers();
+  //Calls the function to constantly check if the state needs to be changed
   allergy();
 }
 //Checks through all the flowers to see if the cursor pressed it
@@ -284,6 +287,7 @@ function mousePressed() {
     }
   }
 }
+//When a bee collides with the cursor, change the state to "loseBee"
 function allergy() {
   if (wateringCan.bitten == true) {
     state = "loseBee";
