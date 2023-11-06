@@ -10,6 +10,7 @@ class WateringCan {
     this.heightMax = 80;
     this.heightMin = 10;
     this.alive = true;
+    this.bitten = false;
   }
   //Displays the watering can
   display() {
@@ -23,18 +24,14 @@ class WateringCan {
   mousePressed(tulip) {
     let d = dist(this.x, this.y, tulip.x, tulip.y);
     if (d < this.width / 2 || d < this.height / 2) {
-      tulip.pollinate();
+      tulip.pollinate(tulip);
     }
   }
-  touchedBee() {
-    if (
-      this.x + this.width > Bee.x &&
-      this.x < Bee.x + Bee.flowerWidth &&
-      this.y + this.height > Bee.y &&
-      this.y < Bee.y + Bee.flowerHeight
-    ) {
-      return true;
+  touchedBee(bee) {
+    let d = dist(this.x, this.y, bee.x, bee.y);
+    if (d < this.width / 2 || d < this.height / 2) {
+      this.bitten = true;
     }
-    return false;
+    console.log("touched a bee");
   }
 }

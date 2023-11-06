@@ -56,7 +56,7 @@ let lose = {
   string2: "Blue to the sky, orange to the thigh!",
   x2: 400,
   y2: 420,
-  string3: "ON NO! A tulip died!",
+  string3: "ON NO! The tulips died!",
   x3: 400,
   y3: 350,
   string4: "Mom won't be happy about this...",
@@ -105,11 +105,11 @@ let garden = {
   // An array to store the individual flowers
   tulips: [],
   // Number of flowers in the garden
-  numTulips: 40,
+  numTulips: 30,
   // An array to store the individual bees
   bees: [],
   // Number of bees in the garden
-  numBees: 10,
+  numBees: 15,
   // Color of the background
   bg: {
     r: 135,
@@ -203,7 +203,7 @@ function drawImage(objImg, obj) {
 //Switches from intro to simulation when the "enter" key is pressed
 function keyPressed() {
   if (keyCode === ENTER);
-  if (state === "introduction")  {
+  if (state === "introduction") {
     state = "simulation";
   }
 }
@@ -216,7 +216,6 @@ function noMoreFlowers() {
     }
   }
 }
-
 //Displays the title page
 function introduction() {
   //displays the title box
@@ -242,7 +241,7 @@ function introduction() {
 }
 //All code necessary to run the simulation
 function simulation() {
-    noCursor();
+  noCursor();
   //Loops through all the tulips and displays them
   for (let i = 0; i < garden.tulips.length; i++) {
     let tulip = garden.tulips[i];
@@ -253,13 +252,13 @@ function simulation() {
   }
   //Counts through all the bees
   for (let i = 0; i < garden.bees.length; i++) {
-    //If the bee is alive, they will shrink, move, and dbe isplayed
+    //If the bee is alive, they will shrink, move, and be displayed
     let bee = garden.bees[i];
     if (bee.alive) {
       bee.shrink();
       bee.move();
       bee.display();
-      //Each be will be checking for every tulip in the garden and will try to pollinate
+      //Each bee will be checking for every tulip in the garden and will try to pollinate
       for (let j = 0; j < garden.tulips.length; j++) {
         let tulip = garden.tulips[j];
         if (tulip.alive) {
@@ -272,29 +271,36 @@ function simulation() {
   wateringCan.display();
   //Checks to switch to the losing end screen if all flowers are gone
   noMoreFlowers();
+  allergy();
 }
 //Checks through all the flowers to see if the cursor pressed it
 function mousePressed() {
   for (let i = 0; i < garden.tulips.length; i++) {
     let tulip = garden.tulips[i];
     //Calling the function from the WateringCan.js class
-    tulip.mousePressed();
+    wateringCan.mousePressed(tulip);
+    {
+      tulip.pollinate(tulip);
+    }
+  }
+}
+function allergy() {
+  if (wateringCan.bitten == true) {
+    state = "loseBee";
   }
 }
 //Displays the losing screen if player gets touched by a bee
 function loseBee() {
-    //If the watering can collides with a bee, then display the endscreen
-  if ((WateringCan.touchedBee() = true)) {
-    textSize(35);
-    textAlign(CENTER);
-    noStroke(0);
-    fill(intro.r, intro.g, intro.b);
-    textStyle(BOLD);
-    text(lose.string1, lose.x1, lose.y1);
-    textSize(28);
-    text(lose.string2, lose.x2, lose.y2);
-    drawImage(pixelBeeImg, beeGameOver);
-  }
+  //If the watering can collides with a bee, then display the endscreen
+  textSize(35);
+  textAlign(CENTER);
+  noStroke(0);
+  fill(intro.r, intro.g, intro.b);
+  textStyle(BOLD);
+  text(lose.string1, lose.x1, lose.y1);
+  textSize(28);
+  text(lose.string2, lose.x2, lose.y2);
+  drawImage(pixelBeeImg, beeGameOver);
 }
 //Displays a different losing screen if all flowers dissapear
 function loseFlowers() {
