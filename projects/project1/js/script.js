@@ -256,7 +256,6 @@ function draw() {
   chickenFarmerCollide();
   //Calls the function that checks if chick colllides with farmer
   chickFarmerCollide();
-  console.log(state);
 }
 // =================== KEYBOARD BUTTONS ==========================
 /** 
@@ -264,7 +263,6 @@ function draw() {
 // */
 function keyPressed() {
   if (keyCode === ENTER) {
-    console.log("pressed");
     //Chick or Chicken gets captured or chicken wins -> set it back to initial screen
     if (chick.captured || chicken.captured || chicken.win) {
       chicken.win = false;
