@@ -11,20 +11,7 @@
 let canvasX = 800;
 let canvasY = 800;
 
-let bg = {
-  r: 135,
-  g: 199,
-  b: 144,
-};
-
-let bgSquares = {
-  r: 111,
-  g: 176,
-  b: 112,
-  w: 80,
-  h: 80,
-  amount: 5,
-};
+let game;
 
 /**
  * Description of preload
@@ -32,35 +19,23 @@ let bgSquares = {
 function preload() {}
 
 /**
- * Description of setup
+ * Creates the canvas size and a New Game
  */
 function setup() {
+  //Creates the square canvas size
   createCanvas(canvasX, canvasY);
-  background(bg.r, bg.g, bg.b);
+  game = new Game();
 }
 
 /**
- * Description of draw()
+ * Prints the current state
  */
 function draw() {
-  //Calls the loop functions to draw the dark green squares of the background
-  bgSquaresLoop(0, 0);
-  bgSquaresLoop(80, 80);
-  bgSquaresLoop(0, 160);
-  bgSquaresLoop(80, 240);
-  bgSquaresLoop(0, 320);
-  bgSquaresLoop(80, 400);
-  bgSquaresLoop(0, 480);
-  bgSquaresLoop(80, 560);
-  bgSquaresLoop(0, 640);
-  bgSquaresLoop(80, 720);
+  game.printState();
 }
-//Draws the background's rows of dark squares using a For Loop
-function bgSquaresLoop(x, y) {
-  for (let i = 0; i < bgSquares.amount; i++) {
-    noStroke();
-    fill(bgSquares.r, bgSquares.g, bgSquares.b);
-    rect(x, y, bgSquares.w, bgSquares.h);
-    x = x + 160;
+//Changes the state to "simulation" when the "enter" key is pressed
+function keyPressed() {
+  if (keyCode === ENTER) {
+    game.changeState();
   }
 }
