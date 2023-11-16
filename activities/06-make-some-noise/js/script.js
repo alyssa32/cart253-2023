@@ -13,10 +13,18 @@ let canvasY = 800;
 let mic;
 let scene;
 
+let judgingDogImg;
+let threateningDogImg;
+let barkImg;
+
 /**
  * Description of preload
  */
-function preload() {}
+function preload() {
+  barkImg = loadImage("assets/images/dog.png");
+  //   judgingDogImg = loadImage("assets/images/dog1.png");
+  //   threateningDogImg = loadImage("assets/images/dog2.png");
+}
 
 /**
  * Description of setup
@@ -40,7 +48,7 @@ function draw() {
   let level = mic.getLevel();
   console.log(level);
 
-  if (level > 0.04) {
+  if (level > 0.1) {
     scene.changeToMiddle();
   }
 }

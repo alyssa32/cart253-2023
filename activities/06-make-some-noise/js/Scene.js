@@ -4,10 +4,9 @@ class Scene {
     this.intro = {
       string:
         "Hello, nice to meet you! \n Can I hear your best dog impression?",
-
       //Placement of the string
       x: 400,
-      y: 400,
+      y: 270,
       //String size
       size: 33,
       //bg colours
@@ -17,13 +16,12 @@ class Scene {
     };
     this.mid = {
       string1: "…you really just barked at your screen. I was joking.",
-
       string2:
         "This is a little awkward. \n Anyways, press the “enter key” for a little surprise.",
       x1: 400,
-      y1: 300,
+      y1: 150,
       x2: 400,
-      y2: 500,
+      y2: 650,
       //bg colours
       r: 135,
       g: 199,
@@ -33,6 +31,12 @@ class Scene {
       r: 15,
       g: 199,
       b: 144,
+    };
+    this.dog = {
+      x1: 400,
+      y1: 550,
+      w1: 300,
+      h1: 360,
     };
   }
   //Prints the current state
@@ -45,6 +49,8 @@ class Scene {
     textSize(this.intro.size);
     textAlign(CENTER);
     text(this.intro.string, this.intro.x, this.intro.y);
+    imageMode(CENTER);
+    image(barkImg, this.dog.x1, this.dog.y1, this.dog.w1, this.dog.h1);
   }
   //Displays the second scene
   middle() {
@@ -53,6 +59,8 @@ class Scene {
     textAlign(CENTER);
     text(this.mid.string1, this.mid.x1, this.mid.y1);
     text(this.mid.string2, this.mid.x2, this.mid.y2);
+    imageMode(CENTER);
+    //image(judgingDogImg, this.dog.x, this.dog.y, this.dog.w, this.dog.h);
   }
   //Displays the final scene
   end() {
