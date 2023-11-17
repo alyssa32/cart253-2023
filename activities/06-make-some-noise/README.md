@@ -1,3 +1,4 @@
-# Template p5 project
+# Make Some Noise
 
-This is the README file for the entire project. For more official projects you should write information here about the nature of the project, your name, any special explanations of how the project works, etc.
+I could not think of a way to impliment sound to move characters within my final project, so I will have the player switch scenes by using their voice instead. Just like this exercise, once the user has read the instructions, they will have to make some noise loud enough for the simulation to switch onto the next scene.
+Finally, to get to the end screen, the player must press the "enter" key.Ideally, it would have been cool to have all scenes switched by the audio input only, but I would not want the player to make noise during the game and instantly skip to the end scenes.

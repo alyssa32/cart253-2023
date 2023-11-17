@@ -6,19 +6,19 @@
  */
 
 "use strict";
-
+//canvas size
 let canvasX = 800;
 let canvasY = 800;
-
+//New objects
 let mic;
 let scene;
-
+//The dog images
 let judgingDogImg;
 let threateningDogImg;
 let barkImg;
 
 /**
- * Description of preload
+ * Preloads the dog images
  */
 function preload() {
   barkImg = loadImage("assets/images/dog.png");
@@ -27,7 +27,7 @@ function preload() {
 }
 
 /**
- * Description of setup
+ * Creates the canvas, a new AudioIn and Scene object
  */
 function setup() {
   createCanvas(canvasX, canvasY);
@@ -37,17 +37,16 @@ function setup() {
   mic.start();
   scene = new Scene();
 }
-
 /**
- * Description of draw()
+ * Calls the scene switching function and the audio mechanisms
  */
 function draw() {
-  scene.printState();
+  //Checks which scene the player is at, and calls its function
   scene.checkScene();
-
+  //Prints out the current audio input level
   let level = mic.getLevel();
   console.log(level);
-
+  //If the audio input level is greater than 0.1, then the scene will switch to "middle"
   if (level > 0.1) {
     scene.changeToMiddle();
   }

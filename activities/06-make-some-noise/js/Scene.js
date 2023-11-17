@@ -61,8 +61,8 @@ class Scene {
     textSize(this.intro.size);
     textAlign(CENTER);
     text(this.intro.string, this.intro.x, this.intro.y);
-    imageMode(CENTER);
     //Displays the image of the barking dog
+    imageMode(CENTER);
     image(barkImg, this.dog.x1, this.dog.y1, this.dog.w1, this.dog.h1);
   }
   //Displays the second scene
@@ -81,8 +81,8 @@ class Scene {
   end() {
     //Draws the yellow background
     background(this.endBg.r, this.endBg.g, this.endBg.b);
-    imageMode(CENTER);
     //Displays the image of the threatening dog
+    imageMode(CENTER);
     image(
       threateningDogImg,
       this.dog.x3,
@@ -103,20 +103,16 @@ class Scene {
       this.end();
     }
   }
-  //Changes the state to "middle"
+  //Changes the state to "middle" only if the current state is at "introduction"
   changeToMiddle() {
     if (this.state === "introduction") {
       this.state = "middle";
     }
   }
-  //Changes the state to "end"
+  //Changes the state to "end" only if the current state is at "middle"
   changeToEnd() {
     if (this.state === "middle") {
       this.state = "end";
     }
-  }
-  //Prints the current state
-  printState() {
-    print(this.state);
   }
 }
