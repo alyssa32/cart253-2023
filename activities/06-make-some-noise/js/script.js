@@ -22,8 +22,7 @@ let barkImg;
  */
 function preload() {
   barkImg = loadImage("assets/images/dog.png");
-  //   judgingDogImg = loadImage("assets/images/dog1.png");
-  //   threateningDogImg = loadImage("assets/images/dog2.png");
+  judgingDogImg = loadImage("assets/images/judging.jpg");
 }
 
 /**
