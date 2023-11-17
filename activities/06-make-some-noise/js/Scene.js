@@ -1,6 +1,6 @@
 class Scene {
   constructor() {
-    this.state = "middle";
+    this.state = "introduction";
     this.intro = {
       string:
         "Hello, nice to meet you! \n Can I hear your best dog impression?",
@@ -28,9 +28,9 @@ class Scene {
       b: 144,
     };
     this.endBg = {
-      r: 250,
-      g: 243,
-      b: 185,
+      r: 255,
+      g: 255,
+      b: 255,
     };
     this.dog = {
       //The bark dog properties
@@ -45,9 +45,9 @@ class Scene {
       h2: 360,
       //The threatening dog properties
       x3: 400,
-      y3: 550,
-      w3: 300,
-      h3: 360,
+      y3: 370,
+      w3: 400,
+      h3: 600,
     };
   }
   //Prints the current state
@@ -81,8 +81,15 @@ class Scene {
   end() {
     //Draws the yellow background
     background(this.endBg.r, this.endBg.g, this.endBg.b);
+    imageMode(CENTER);
     //Displays the image of the threatening dog
-    //image(judgingDogImg, this.dog.x3, this.dog.y3, this.dog.w3, this.dog.h3);
+    image(
+      threateningDogImg,
+      this.dog.x3,
+      this.dog.y3,
+      this.dog.w3,
+      this.dog.h3
+    );
   }
   //Checks which scene is being called and displays it
   checkScene() {
