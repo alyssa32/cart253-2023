@@ -68,3 +68,28 @@ function keyPressed() {
     }
   }
 }
+// KeyBoard Arrows control the Chicken
+function keyReleased() {
+  let move = 80;
+  if (keyCode === LEFT_ARROW) {
+    insertImage.chicken.x -= move;
+  }
+  if (keyCode === RIGHT_ARROW) {
+    insertImage.chicken.x += move;
+  }
+  if (keyCode === UP_ARROW) {
+    insertImage.chicken.y -= move;
+  }
+  if (keyCode === DOWN_ARROW) {
+    insertImage.chicken.y += move;
+  }
+  if (
+    keyCode === LEFT_ARROW ||
+    keyCode === RIGHT_ARROW ||
+    keyCode === UP_ARROW ||
+    keyCode === DOWN_ARROW
+  ) {
+    //Basic command to generate the movement of the NPCs
+    game.movementFarmer();
+  }
+}

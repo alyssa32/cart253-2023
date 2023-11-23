@@ -139,6 +139,28 @@ class Game {
       canvasY - insertImage.farmer.h
     );
   }
+  // =================== NPC MOVEMENT
+  //Assigns random directions for the NPCs to move after the player moves
+  movementFarmer() {
+    let moveSquare = 160;
+    let direction = round(random(1, 4));
+    //Moves the farmer two squares to the left
+    if (direction === 1) {
+      insertImage.farmer.x -= moveSquare;
+    }
+    //Moves the farmer two squares to the right
+    if (direction === 2) {
+      insertImage.farmer.x += moveSquare;
+    }
+    //Moves the farmer two squares down
+    if (direction === 3) {
+      insertImage.farmer.y += moveSquare;
+    }
+    //Moves the farmer two squares up
+    if (direction === 4) {
+      insertImage.farmer.y -= moveSquare;
+    }
+  }
   // * Draws the background's rows of dark squares using a For Loop
   bgSquaresLoop(x, y) {
     for (let i = 0; i < insertImage.bgSquares.amount; i++) {
