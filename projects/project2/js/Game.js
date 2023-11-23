@@ -8,29 +8,26 @@ class Game {
       b: 144,
     };
     this.intro = {
-      string1: `You and your chick made an escape from \n the chicken farm! As you're running away \n from Jean-Paul the farmer, you look back \nonly to notice your chick is running far \n behind you because of its little legs.`,
-      x1: 400,
-      y1: 110,
+      string1: `As a chicken, you don't like your farmer,\n Jean-Paul, and you have decided to make an \nescape! Stock up on seeds so that you will be \nprepared for the outside world. `,
+      x1: 395,
+      y1: 130,
       r: 41,
       g: 148,
       b: 56,
       string2:
-        "Using the arrow keys, make your way to your chick before Jean-Paul does.",
+        "Using the arrow keys, collect all seeds but be careful that you don't \nget capture by the farmer",
       x2: 400,
-      y2: 340,
+      y2: 390,
       string3:
-        "= moves 1 square at a time in any direction \n \n    = moves 1 square in diagonal only \n \n   = moves 2 squares in any direction",
+        "= moves 1 square at a time in any direction \n \n    = moves 2 squares in any direction",
       x3: 420,
-      y3: 400,
+      y3: 510,
       r3: 197,
       g3: 237,
       b3: 154,
-      string4: "Be careful not to get captured as well.",
+      string4: "Make your best chicken noise to begin",
       x4: 400,
-      y4: 570,
-      string5: "Press the               key to begin",
-      x5: 400,
-      y5: 658,
+      y4: 688,
     };
   }
   //Prints the current state
@@ -64,18 +61,9 @@ class Game {
     text(this.intro.string3, this.intro.x3, this.intro.y3);
     //Text stateting to avoid the farmer
     fill(this.intro.r, this.intro.g, this.intro.b);
-    text(this.intro.string4, this.intro.x4, this.intro.y4);
     //Text explaing to hit the "enter" key to continue
     textSize(26);
-    text(this.intro.string5, this.intro.x5, this.intro.y5);
-    //Enter button image displayed on the title screen
-    image(
-      enterButtonImg,
-      insertImage.enterButton.x,
-      insertImage.enterButton.y,
-      insertImage.enterButton.w,
-      insertImage.enterButton.h
-    );
+    text(this.intro.string4, this.intro.x4, this.intro.y4);
     //Chicken image displayed on the title screen
     image(
       chickenImg,
@@ -83,14 +71,6 @@ class Game {
       insertImage.introChicken.y,
       insertImage.introChicken.w,
       insertImage.introChicken.h
-    );
-    //Chick image displayed on the title screen
-    image(
-      chickImg,
-      insertImage.introChick.x,
-      insertImage.introChick.y,
-      insertImage.introChick.w,
-      insertImage.introChick.h
     );
     //Farmer image displayed on the title screen
     image(
@@ -110,6 +90,14 @@ class Game {
   end() {
     //Light green background
     background(this.bg.r, this.bg.g, this.bg.b);
+    //Enter button image displayed on the title screen
+    image(
+      enterButtonImg,
+      insertImage.enterButton.x,
+      insertImage.enterButton.y,
+      insertImage.enterButton.w,
+      insertImage.enterButton.h
+    );
   }
   //Checks which state is being called and displays it
   checkState() {
