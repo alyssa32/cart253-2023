@@ -208,6 +208,9 @@ let loseChick = {
   b: 58,
 };
 
+//New objects
+let mic;
+
 let state = "introduction";
 
 let chickenImg;
@@ -232,6 +235,10 @@ function preload() {
  */
 function setup() {
   createCanvas(canvasX, canvasY);
+  //Makes a new AudioIn object
+  mic = new p5.AudioIn();
+  //asks for permision to use the mic
+  mic.start();
 }
 /**
  * Description of draw()

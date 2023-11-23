@@ -12,11 +12,26 @@ let canvasX = 800;
 let canvasY = 800;
 
 let game;
+let insertImage;
+//Images
+let chickenImg;
+let chickImg;
+let farmerImg;
+let farmer2Img;
+let introBgImg;
+let enterButtonImg;
 
 /**
- * Description of preload
+ * Preloads all images used
  */
-function preload() {}
+function preload() {
+  chickenImg = loadImage("assets/images/chicken.png");
+  chickImg = loadImage("assets/images/chick.png");
+  farmerImg = loadImage("assets/images/farmer.png");
+  farmer2Img = loadImage("assets/images/farmer2.png");
+  enterButtonImg = loadImage("assets/images/enterButton.png");
+  introBgImg = loadImage("assets/images/introBg.png");
+}
 
 /**
  * Creates the canvas size and a New Game
@@ -25,6 +40,7 @@ function setup() {
   //Creates the square canvas size
   createCanvas(canvasX, canvasY);
   game = new Game();
+  insertImage = new InsertImage();
 }
 
 /**
@@ -32,10 +48,5 @@ function setup() {
  */
 function draw() {
   game.printState();
-}
-//Changes the state to "simulation" when the "enter" key is pressed
-function keyPressed() {
-  if (keyCode === ENTER) {
-    game.changeState();
-  }
+  game.checkState();
 }
