@@ -117,6 +117,27 @@ class Game {
       0,
       canvasY - insertImage.chicken.h
     );
+    // ======================== FARMER
+    //Draws the farmer image
+    image(
+      farmerImg,
+      insertImage.farmer.x,
+      insertImage.farmer.y,
+      insertImage.farmer.w,
+      insertImage.farmer.h
+    );
+    // Constrain the farmer's x-coordinate
+    insertImage.farmer.x = constrain(
+      insertImage.farmer.x,
+      0,
+      canvasX - insertImage.farmer.w
+    );
+    // Constrain the chick's y-coordinate
+    insertImage.farmer.y = constrain(
+      insertImage.farmer.y,
+      0,
+      canvasY - insertImage.farmer.h
+    );
   }
   // * Draws the background's rows of dark squares using a For Loop
   bgSquaresLoop(x, y) {
