@@ -57,14 +57,12 @@ function draw() {
   //Displays the state being called
   game.checkState();
   //Prints out the current audio input level
-  //let level = mic.getLevel();
-  //console.log(level);
+  let level = mic.getLevel();
+  console.log(level);
 }
-//Changes the to the next state when the "enter" key is pressed if the state is currently "introduction"
+//Changes the state to "end" when the "enter" key is pressed
 function keyPressed() {
-  if (keyCode === ENTER) {
-    if (game.state === "introduction") {
-      game.changeState();
-    }
+  if (keyCode === ENTER || state === "introduction") {
+    game.changeState();
   }
 }

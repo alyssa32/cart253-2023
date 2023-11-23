@@ -26,34 +26,5 @@ class InsertImage {
       w: 90,
       h: 90,
     };
-    this.bgSquares = {
-      r: 111,
-      g: 176,
-      b: 112,
-      w: 80,
-      h: 80,
-      amount: 5,
-    };
-    this.chicken = {
-      x: 5,
-      y: 80,
-      w: 70,
-      h: 70,
-      captured: false,
-      win: false,
-    };
-    this.farmer = {
-      x: 400,
-      y: 400,
-      w: 80,
-      h: 80,
-    };
-    this.chick = {
-      x: 570,
-      y: 570,
-      w: 60,
-      h: 60,
-      captured: false,
-    };
   }
 }

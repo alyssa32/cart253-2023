@@ -84,52 +84,7 @@ class Game {
   //-----------------------------SIMULATION----------------------------------
   simulation() {
     //Light green background
-    background(this.bg.r, this.bg.g, this.bg.b);
-    //Calls the loop functions to draw the dark green squares of the background
-    this.bgSquaresLoop(0, 0);
-    this.bgSquaresLoop(80, 80);
-    this.bgSquaresLoop(0, 160);
-    this.bgSquaresLoop(80, 240);
-    this.bgSquaresLoop(0, 320);
-    this.bgSquaresLoop(80, 400);
-    this.bgSquaresLoop(0, 480);
-    this.bgSquaresLoop(80, 560);
-    this.bgSquaresLoop(0, 640);
-    this.bgSquaresLoop(80, 720);
-    // ======================== CHICKEN
-    //Draws the chicken image
-    image(
-      chickenImg,
-      insertImage.chicken.x,
-      insertImage.chicken.y,
-      insertImage.chicken.w,
-      insertImage.chicken.h
-    );
-    // Constrain the chicken's x-coordinate
-    insertImage.chicken.x = constrain(
-      insertImage.chicken.x,
-      0,
-      canvasX - insertImage.chicken.w
-    );
-    // Constrain the chicken's y-coordinate
-    insertImage.chicken.y = constrain(
-      insertImage.chicken.y,
-      0,
-      canvasY - insertImage.chicken.h
-    );
-  }
-  // * Draws the background's rows of dark squares using a For Loop
-  bgSquaresLoop(x, y) {
-    for (let i = 0; i < insertImage.bgSquares.amount; i++) {
-      noStroke();
-      fill(
-        insertImage.bgSquares.r,
-        insertImage.bgSquares.g,
-        insertImage.bgSquares.b
-      );
-      rect(x, y, insertImage.bgSquares.w, insertImage.bgSquares.h);
-      x = x + 160;
-    }
+    background(this.bg.r, this.bg.b, this.bg.g);
   }
   //-----------------------------END----------------------------------
   end() {
