@@ -96,48 +96,10 @@ class Game {
     this.bgSquaresLoop(80, 560);
     this.bgSquaresLoop(0, 640);
     this.bgSquaresLoop(80, 720);
-    // ======================== CHICKEN
-    //Draws the chicken image
-    image(
-      chickenImg,
-      insertImage.chicken.x,
-      insertImage.chicken.y,
-      insertImage.chicken.w,
-      insertImage.chicken.h
-    );
-    // Constrain the chicken's x-coordinate
-    insertImage.chicken.x = constrain(
-      insertImage.chicken.x,
-      0,
-      canvasX - insertImage.chicken.w
-    );
-    // Constrain the chicken's y-coordinate
-    insertImage.chicken.y = constrain(
-      insertImage.chicken.y,
-      0,
-      canvasY - insertImage.chicken.h
-    );
-    // ======================== FARMER
-    //Draws the farmer image
-    image(
-      farmerImg,
-      insertImage.farmer.x,
-      insertImage.farmer.y,
-      insertImage.farmer.w,
-      insertImage.farmer.h
-    );
-    // Constrain the farmer's x-coordinate
-    insertImage.farmer.x = constrain(
-      insertImage.farmer.x,
-      0,
-      canvasX - insertImage.farmer.w
-    );
-    // Constrain the chick's y-coordinate
-    insertImage.farmer.y = constrain(
-      insertImage.farmer.y,
-      0,
-      canvasY - insertImage.farmer.h
-    );
+    //Displays the chicken
+    insertImage.chickenDisplay();
+    //Displays the farmer
+    insertImage.farmerDisplay();
     // ======================== SEEDS
     insertImage.seedDisplay(265, 105);
     insertImage.seedDisplay(185, 665);

@@ -23,6 +23,13 @@ let introBgImg;
 let enterButtonImg;
 let seedImg;
 
+// let foodArray = {
+//   // An array to store the individual seeds
+//   seeds: [],
+//   //Total number of seeds
+//   numSeeds: [],
+// };
+
 /**
  * Preloads all images used
  */

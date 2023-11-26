@@ -59,12 +59,65 @@ class InsertImage {
       w: 30,
       h: 30,
       amount: 3,
+      eaten: false,
     };
   }
+  // =================== CHICKEN ==========================
+  chickenDisplay() {
+    //Draws the chicken image
+    image(
+      chickenImg,
+      this.chicken.x,
+      this.chicken.y,
+      this.chicken.w,
+      this.chicken.h
+    );
+    // Constrain the chicken's x-coordinate
+    this.chicken.x = constrain(this.chicken.x, 0, canvasX - this.chicken.w);
+    // Constrain the chicken's y-coordinate
+    this.chicken.y = constrain(this.chicken.y, 0, canvasY - this.chicken.h);
+  }
+  // =================== FARMER ==========================
+  farmerDisplay() {
+    //Draws the farmer image
+    image(
+      farmerImg,
+      this.farmer.x,
+      this.farmer.y,
+      this.farmer.w,
+      this.farmer.h
+    );
+    // Constrain the farmer's x-coordinate
+    this.farmer.x = constrain(this.farmer.x, 0, canvasX - this.farmer.w);
+    // Constrain the chick's y-coordinate
+    this.farmer.y = constrain(this.farmer.y, 0, canvasY - this.farmer.h);
+  }
+  // =================== SEEDS ==========================
   //Draws the seeds using a For Loop
   seedDisplay(x, y) {
     for (let i = 0; i < this.seed.amount; i++) {
       image(seedImg, x, y, this.seed.w, this.seed.h);
+    }
+  }
+  // =================== COLLISIONS ==========================
+  // Checks if one object collides with another
+  checkCollision(obj1, obj2) {
+    if (
+      obj1.x + obj1.w > obj2.x &&
+      obj1.x < obj2.x + obj2.w &&
+      obj1.y + obj1.h > obj2.y &&
+      obj1.y < obj2.y + obj2.h
+    ) {
+      return true;
+    }
+    return false;
+  }
+  //If the chicken collides with a seed, it will be set to "eaten"
+  seedEaten() {
+    for (let i = 0; i < this.seed.amount; i++) {
+      if (checkCollision(foodArray[i])) {
+        foodArray[i].eaten = true;
+      }
     }
   }
 }
