@@ -71,9 +71,9 @@ function draw() {
 function keyPressed() {
   if (keyCode === ENTER) {
     if (game.state === "story1") {
-      game.changeState();
+      game.changeToGame();
     } else if (game.state === "story2") {
-      game.changeState();
+      game.changeToGame();
     }
   }
 }
@@ -99,9 +99,9 @@ function keyReleased() {
     keyCode === UP_ARROW ||
     keyCode === DOWN_ARROW
   ) {
-    //Calls the function to have the farmer move 2 squares at a time
+    //Calls the function to have the farmer move 2 squares at the same time as the chicken
     insertImage.farmerMovement();
-    //Calls the function to have the chick move 1 square diagonally
+    //Calls the function to have the chick move 1 square diagonally at the same time as the chicken
     insertImage.chickMovement();
   }
 }

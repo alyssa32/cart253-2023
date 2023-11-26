@@ -172,6 +172,24 @@ class InsertImage {
     }
     return false;
   }
+  // Checks if the chicken collides with the farmer (captured)
+  chickenFarmerCollide() {
+    if (this.checkCollision(this.chicken, this.farmer)) {
+      this.chicken.captured = true;
+    }
+  }
+  // Checks if the chicken collides with the chick (win)
+  chickenChickCollide() {
+    if (this.checkCollision(this.chicken, this.chick)) {
+      this.chicken.win = true;
+    }
+  }
+  // Checks if the chick collides with the farmer (captured)
+  chickFarmerCollide() {
+    if (this.checkCollision(this.chick, this.farmer)) {
+      this.chick.captured = true;
+    }
+  }
   //If the chicken collides with a seed, it will be set to "eaten"
   seedEaten() {
     for (let i = 0; i < this.seed.amount; i++) {

@@ -1,6 +1,6 @@
 class Game {
   constructor() {
-    this.state = "game2";
+    this.state = "story2";
     //Light green background
     this.bg = {
       r: 135,
@@ -199,6 +199,12 @@ class Game {
     insertImage.farmerDisplay();
     //Displays the chick
     insertImage.chickDisplay();
+    //Calls the function that checks if chicken colllides with chick
+    insertImage.chickenChickCollide();
+    //Calls the function that checks if chicken colllides with farmer
+    insertImage.chickenFarmerCollide();
+    //Calls the function that checks if chick colllides with farmer
+    insertImage.chickFarmerCollide();
   }
   //-----------------------------win----------------------------------
   win() {
@@ -263,14 +269,20 @@ class Game {
       this.chickCaptured();
     }
   }
-  //Will change to the next state
-  changeState() {
+  //The audio input will change from a story state, to the game state
+  changeToGame() {
     if (this.state === "story1") {
       this.state = "game1";
-    } else if (this.state === "game1") {
-      this.state = "story2";
     } else if (this.state === "story2") {
       this.state = "game2";
+    }
+  }
+  //Will change to the next story state if the player wins or loses the game
+  changeToStory() {
+    if (this.state === "game1") {
+      this.state = "story2";
+    } else if (this.state === "win" || "chickenCaptured" || "chickCaptured") {
+      this.state = "story1";
     }
   }
 }
