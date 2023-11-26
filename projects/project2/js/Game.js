@@ -1,6 +1,6 @@
 class Game {
   constructor() {
-    this.state = "chickenGameOver";
+    this.state = "chickGameOver";
     //Light green background
     this.bg = {
       r: 135,
@@ -69,6 +69,21 @@ class Game {
       x1: 400,
       y1: 230,
       string2: `The farmer caught you and sold you
+   to the neighbour, Jean-Francois.`,
+      x2: 400,
+      y2: 300,
+      string3: `Press the               key to restart`,
+      x3: 400,
+      y3: 600,
+      r: 58,
+      g: 105,
+      b: 58,
+    };
+    this.loseChick = {
+      string1: `YOU LOST!`,
+      x1: 400,
+      y1: 230,
+      string2: `The farmer caught your chick and sold it
    to the neighbour, Jean-Francois.`,
       x2: 400,
       y2: 300,
@@ -237,7 +252,6 @@ class Game {
   }
   //-----------------------------WIN----------------------------------
   win() {
-    // if (insertImage.chicken.win) {
     background(
       insertImage.bgSquares.r,
       insertImage.bgSquares.g,
@@ -277,7 +291,6 @@ class Game {
       insertImage.enterButton.w,
       insertImage.enterButton.h
     );
-    // }
   }
   //-----------------------------CHICKEN GAME OVER----------------------------------
   chickenGameOver() {
@@ -295,7 +308,6 @@ class Game {
     textSize(30);
     text(this.loseChicken.string2, this.loseChicken.x2, this.loseChicken.y2);
     text(this.loseChicken.string3, this.loseChicken.x3, this.loseChicken.y3);
-    //noLoop();
     //Red Farmer image displayed on the title screen
     image(
       farmer2Img,
@@ -331,9 +343,45 @@ class Game {
   }
   //-----------------------------CHICK GAME OVER----------------------------------
   chickGameOver() {
-    //Light green background
-    background(this.bg.r, this.bg.g, this.bg.b);
-    //Enter button image displayed on the title screen
+    background(
+      insertImage.bgSquares.r,
+      insertImage.bgSquares.g,
+      insertImage.bgSquares.b
+    );
+    textSize(60);
+    textAlign(CENTER);
+    noStroke(0);
+    fill(this.loseChick.r, this.loseChick.g, this.loseChick.b);
+    textStyle(BOLD);
+    text(this.loseChick.string1, this.loseChick.x1, this.loseChick.y1);
+    textSize(30);
+    text(this.loseChick.string2, this.loseChick.x2, this.loseChick.y2);
+    text(this.loseChick.string3, this.loseChick.x3, this.loseChick.y3);
+    //Red Farmer image displayed on the title screen
+    image(
+      farmer2Img,
+      insertImage.loseFarmer2.x,
+      insertImage.loseFarmer2.y,
+      insertImage.loseFarmer2.w,
+      insertImage.loseFarmer2.h
+    );
+    //Blue Farmer image displayed on the title screen
+    image(
+      farmerImg,
+      insertImage.loseFarmer.x,
+      insertImage.loseFarmer.y,
+      insertImage.loseFarmer.w,
+      insertImage.loseFarmer.h
+    );
+    //Chicken image displayed on the losing screen
+    image(
+      chickImg,
+      insertImage.soldChick.x,
+      insertImage.soldChick.y,
+      insertImage.soldChick.w,
+      insertImage.soldChick.h
+    );
+    //Enter button image displayed on the losing screen
     image(
       enterButtonImg,
       insertImage.enterButton.x,
