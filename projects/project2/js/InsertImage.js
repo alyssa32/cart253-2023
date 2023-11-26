@@ -55,5 +55,16 @@ class InsertImage {
       h: 60,
       captured: false,
     };
+    this.seed = {
+      w: 30,
+      h: 30,
+      amount: 3,
+    };
+  }
+  //Draws the seeds using a For Loop
+  seedDisplay(x, y) {
+    for (let i = 0; i < this.seed.amount; i++) {
+      image(seedImg, x, y, this.seed.w, this.seed.h);
+    }
   }
 }

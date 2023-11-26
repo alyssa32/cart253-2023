@@ -21,6 +21,7 @@ let farmerImg;
 let farmer2Img;
 let introBgImg;
 let enterButtonImg;
+let seedImg;
 
 /**
  * Preloads all images used
@@ -32,6 +33,7 @@ function preload() {
   farmer2Img = loadImage("assets/images/farmer2.png");
   enterButtonImg = loadImage("assets/images/enterButton.png");
   introBgImg = loadImage("assets/images/introBg.png");
+  seedImg = loadImage("assets/images/seed.png");
 }
 
 /**

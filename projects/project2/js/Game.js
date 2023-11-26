@@ -1,6 +1,6 @@
 class Game {
   constructor() {
-    this.state = "introduction";
+    this.state = "simulation";
     //Light green background
     this.bg = {
       r: 135,
@@ -138,6 +138,10 @@ class Game {
       0,
       canvasY - insertImage.farmer.h
     );
+    // ======================== SEEDS
+    insertImage.seedDisplay(265, 105);
+    insertImage.seedDisplay(185, 665);
+    insertImage.seedDisplay(505, 345);
   }
   // =================== NPC MOVEMENT
   //Assigns random directions for the NPCs to move after the player moves
@@ -161,7 +165,7 @@ class Game {
       insertImage.farmer.y -= moveSquare;
     }
   }
-  // * Draws the background's rows of dark squares using a For Loop
+  //Draws the background's rows of dark squares using a For Loop
   bgSquaresLoop(x, y) {
     for (let i = 0; i < insertImage.bgSquares.amount; i++) {
       noStroke();
@@ -174,6 +178,7 @@ class Game {
       x = x + 160;
     }
   }
+
   //-----------------------------END----------------------------------
   end() {
     //Light green background
