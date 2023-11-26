@@ -1,23 +1,29 @@
 class InsertImage {
   constructor() {
     //Text box in intro
-    this.introBg = {
+    this.storyBg = {
       x: 40,
       y: 50,
       w: 720,
       h: 260,
     };
-    this.introChicken = {
+    this.storyChicken = {
       x: 160,
       y: 485,
       w: 30,
       h: 30,
     };
-    this.introFarmer = {
+    this.storyFarmer = {
       x: 220,
       y: 540,
       w: 30,
       h: 30,
+    };
+    this.storyChick = {
+      x: 210,
+      y: 475,
+      w: 50,
+      h: 50,
     };
     //The enter button image
     this.enterButton = {
