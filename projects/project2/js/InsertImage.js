@@ -13,6 +13,13 @@ class InsertImage {
       w: 30,
       h: 30,
     };
+    this.winChicken = {
+      x: 410,
+      y: 380,
+      w: 70,
+      h: 70,
+      captured: false,
+    };
     this.storyFarmer = {
       x: 220,
       y: 540,
@@ -25,12 +32,19 @@ class InsertImage {
       w: 50,
       h: 50,
     };
+    this.winChick = {
+      x: 360,
+      y: 410,
+      w: 40,
+      h: 40,
+      captured: false,
+    };
     //The enter button image
     this.enterButton = {
-      x: 335,
-      y: 610,
-      w: 90,
-      h: 90,
+      x: 320,
+      y: 545,
+      w: 100,
+      h: 100,
     };
     this.bgSquares = {
       r: 111,

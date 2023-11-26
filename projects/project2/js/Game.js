@@ -1,6 +1,6 @@
 class Game {
   constructor() {
-    this.state = "story2";
+    this.state = "win";
     //Light green background
     this.bg = {
       r: 135,
@@ -49,6 +49,20 @@ class Game {
       string4: "Make another chicken noise to continue",
       x4: 400,
       y4: 688,
+    };
+    this.winGame = {
+      string1: `YOU WON!`,
+      x1: 400,
+      y1: 250,
+      string2: `You ran away with your chick to start a free-range life.`,
+      x2: 400,
+      y2: 320,
+      string3: `Press the               key to restart`,
+      x3: 400,
+      y3: 600,
+      r: 58,
+      g: 105,
+      b: 58,
     };
   }
   //Prints the current state
@@ -115,7 +129,7 @@ class Game {
       x = x + 160;
     }
   }
-  //-----------------------------game1----------------------------------
+  //-----------------------------GAME1----------------------------------
   game1() {
     //Light green background
     background(this.bg.r, this.bg.g, this.bg.b);
@@ -139,7 +153,7 @@ class Game {
     insertImage.seedDisplay(185, 665);
     insertImage.seedDisplay(505, 345);
   }
-  //-----------------------------story2----------------------------------
+  //-----------------------------STORY2----------------------------------
   story2() {
     //Light green background
     background(this.bg.r, this.bg.g, this.bg.b);
@@ -178,7 +192,7 @@ class Game {
     textSize(26);
     text(this.intro2.string4, this.intro2.x4, this.intro2.y4);
   }
-  //-----------------------------game2----------------------------------
+  //-----------------------------GAME2----------------------------------
   game2() {
     //Light green background
     background(this.bg.r, this.bg.g, this.bg.b);
@@ -206,11 +220,41 @@ class Game {
     //Calls the function that checks if chick colllides with farmer
     insertImage.chickFarmerCollide();
   }
-  //-----------------------------win----------------------------------
+  //-----------------------------WIN----------------------------------
   win() {
-    //Light green background
-    background(this.bg.r, this.bg.g, this.bg.b);
-    //Enter button image displayed on the title screen
+    // if (insertImage.chicken.win) {
+    background(
+      insertImage.bgSquares.r,
+      insertImage.bgSquares.g,
+      insertImage.bgSquares.b
+    );
+    textSize(60);
+    textAlign(CENTER);
+    noStroke(0);
+    fill(this.winGame.r, this.winGame.g, this.winGame.b);
+    textStyle(BOLD);
+    text(this.winGame.string1, this.winGame.x1, this.winGame.y1);
+    textSize(25);
+    text(this.winGame.string2, this.winGame.x2, this.winGame.y2);
+    textSize(30);
+    text(this.winGame.string3, this.winGame.x3, this.winGame.y3);
+    //Display chicken image on winning screen
+    image(
+      chickenImg,
+      insertImage.winChicken.x,
+      insertImage.winChicken.y,
+      insertImage.winChicken.w,
+      insertImage.winChicken.h
+    );
+    //Display chick image on winning screen
+    image(
+      chickImg,
+      insertImage.winChick.x,
+      insertImage.winChick.y,
+      insertImage.winChick.w,
+      insertImage.winChick.h
+    );
+    //Enter button image displayed on the winning screen
     image(
       enterButtonImg,
       insertImage.enterButton.x,
@@ -218,8 +262,9 @@ class Game {
       insertImage.enterButton.w,
       insertImage.enterButton.h
     );
+    // }
   }
-  //-----------------------------chickenCaptured----------------------------------
+  //-----------------------------CHICKEN CAPTURED----------------------------------
   chickenCaptured() {
     //Light green background
     background(this.bg.r, this.bg.g, this.bg.b);
@@ -232,7 +277,7 @@ class Game {
       insertImage.enterButton.h
     );
   }
-  //-----------------------------chickCaptured----------------------------------
+  //-----------------------------CHICK CAPTURED----------------------------------
   chickCaptured() {
     //Light green background
     background(this.bg.r, this.bg.g, this.bg.b);
