@@ -250,13 +250,19 @@ class Game {
     insertImage.chickDisplay();
     //Calls the function that checks if chicken colllides with chick
     insertImage.chickenChickCollide();
+    //Chicken collides with Chick, winning end screen is displayed
+    if (insertImage.chicken.win) {
+      this.win();
+    }
     //Calls the function that checks if chicken colllides with farmer
     insertImage.chickenFarmerCollide();
+    //Chicken collides with Farmer, losing end screen is displayed
     if (insertImage.chicken.captured) {
       this.chickenGameOver();
     }
     //Calls the function that checks if chick colllides with farmer
     insertImage.chickFarmerCollide();
+    //Chick collides with Farmer, losing end screen is displayed
     if (insertImage.chick.captured) {
       this.chickGameOver();
     }
