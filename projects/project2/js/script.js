@@ -67,9 +67,13 @@ function draw() {
   //console.log(level);
 }
 // =================== STATE CHANGES ==========================
-//Changes the to the next state when the "enter" key is pressed if the state is currently "introduction"
+//Changes the to the next state when the "enter" key is pressed
 function keyPressed() {
   if (keyCode === ENTER) {
+    game.changeToStory();
+  }
+  //Changes the to the next state when the "shift" key is pressed
+  if (keyCode === SHIFT) {
     if (game.state === "story1") {
       game.changeToGame();
     } else if (game.state === "story2") {

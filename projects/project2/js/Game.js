@@ -1,6 +1,6 @@
 class Game {
   constructor() {
-    this.state = "chickGameOver";
+    this.state = "game2";
     //Light green background
     this.bg = {
       r: 135,
@@ -182,6 +182,11 @@ class Game {
     insertImage.seedDisplay(265, 105);
     insertImage.seedDisplay(185, 665);
     insertImage.seedDisplay(505, 345);
+    //Calls the function that checks if chicken colllides with farmer
+    insertImage.chickenFarmerCollide();
+    if (insertImage.chicken.captured) {
+      this.chickenGameOver();
+    }
   }
   //-----------------------------STORY2----------------------------------
   story2() {
@@ -247,6 +252,9 @@ class Game {
     insertImage.chickenChickCollide();
     //Calls the function that checks if chicken colllides with farmer
     insertImage.chickenFarmerCollide();
+    if (insertImage.chicken.captured) {
+      this.chickenGameOver();
+    }
     //Calls the function that checks if chick colllides with farmer
     insertImage.chickFarmerCollide();
   }
