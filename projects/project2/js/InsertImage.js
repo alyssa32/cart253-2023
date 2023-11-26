@@ -20,11 +20,30 @@ class InsertImage {
       h: 70,
       captured: false,
     };
+    this.soldChicken = {
+      x: 280,
+      y: 430,
+      w: 50,
+      h: 50,
+      captured: false,
+    };
     this.storyFarmer = {
       x: 220,
       y: 540,
       w: 30,
       h: 30,
+    };
+    this.loseFarmer = {
+      x: 330,
+      y: 400,
+      w: 80,
+      h: 80,
+    };
+    this.loseFarmer2 = {
+      x: 440,
+      y: 400,
+      w: 80,
+      h: 80,
     };
     this.storyChick = {
       x: 135,
@@ -37,6 +56,13 @@ class InsertImage {
       y: 410,
       w: 40,
       h: 40,
+      captured: false,
+    };
+    this.soldChick = {
+      x: 300,
+      y: 450,
+      w: 30,
+      h: 30,
       captured: false,
     };
     //The enter button image

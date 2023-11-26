@@ -1,6 +1,6 @@
 class Game {
   constructor() {
-    this.state = "win";
+    this.state = "chickenGameOver";
     //Light green background
     this.bg = {
       r: 135,
@@ -57,6 +57,21 @@ class Game {
       string2: `You ran away with your chick to start a free-range life.`,
       x2: 400,
       y2: 320,
+      string3: `Press the               key to restart`,
+      x3: 400,
+      y3: 600,
+      r: 58,
+      g: 105,
+      b: 58,
+    };
+    this.loseChicken = {
+      string1: `YOU LOST!`,
+      x1: 400,
+      y1: 230,
+      string2: `The farmer caught you and sold you
+   to the neighbour, Jean-Francois.`,
+      x2: 400,
+      y2: 300,
       string3: `Press the               key to restart`,
       x3: 400,
       y3: 600,
@@ -264,11 +279,48 @@ class Game {
     );
     // }
   }
-  //-----------------------------CHICKEN CAPTURED----------------------------------
-  chickenCaptured() {
-    //Light green background
-    background(this.bg.r, this.bg.g, this.bg.b);
-    //Enter button image displayed on the title screen
+  //-----------------------------CHICKEN GAME OVER----------------------------------
+  chickenGameOver() {
+    background(
+      insertImage.bgSquares.r,
+      insertImage.bgSquares.g,
+      insertImage.bgSquares.b
+    );
+    textSize(60);
+    textAlign(CENTER);
+    noStroke(0);
+    fill(this.loseChicken.r, this.loseChicken.g, this.loseChicken.b);
+    textStyle(BOLD);
+    text(this.loseChicken.string1, this.loseChicken.x1, this.loseChicken.y1);
+    textSize(30);
+    text(this.loseChicken.string2, this.loseChicken.x2, this.loseChicken.y2);
+    text(this.loseChicken.string3, this.loseChicken.x3, this.loseChicken.y3);
+    //noLoop();
+    //Red Farmer image displayed on the title screen
+    image(
+      farmer2Img,
+      insertImage.loseFarmer2.x,
+      insertImage.loseFarmer2.y,
+      insertImage.loseFarmer2.w,
+      insertImage.loseFarmer2.h
+    );
+    //Blue Farmer image displayed on the title screen
+    image(
+      farmerImg,
+      insertImage.loseFarmer.x,
+      insertImage.loseFarmer.y,
+      insertImage.loseFarmer.w,
+      insertImage.loseFarmer.h
+    );
+    //Chicken image displayed on the losing screen
+    image(
+      chickenImg,
+      insertImage.soldChicken.x,
+      insertImage.soldChicken.y,
+      insertImage.soldChicken.w,
+      insertImage.soldChicken.h
+    );
+    //Enter button image displayed on the losing screen
     image(
       enterButtonImg,
       insertImage.enterButton.x,
@@ -277,8 +329,8 @@ class Game {
       insertImage.enterButton.h
     );
   }
-  //-----------------------------CHICK CAPTURED----------------------------------
-  chickCaptured() {
+  //-----------------------------CHICK GAME OVER----------------------------------
+  chickGameOver() {
     //Light green background
     background(this.bg.r, this.bg.g, this.bg.b);
     //Enter button image displayed on the title screen
@@ -307,11 +359,11 @@ class Game {
     if (this.state === "win") {
       this.win();
     }
-    if (this.state === "chickenCaptured") {
-      this.chickenCaptured();
+    if (this.state === "chickenGameOver") {
+      this.chickenGameOver();
     }
-    if (this.state === "chickCaptured") {
-      this.chickCaptured();
+    if (this.state === "chickGameOver") {
+      this.chickGameOver();
     }
   }
   //The audio input will change from a story state, to the game state
@@ -326,7 +378,7 @@ class Game {
   changeToStory() {
     if (this.state === "game1") {
       this.state = "story2";
-    } else if (this.state === "win" || "chickenCaptured" || "chickCaptured") {
+    } else if (this.state === "win" || "chickenGameOver" || "chickGameOver") {
       this.state = "story1";
     }
   }
