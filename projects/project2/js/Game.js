@@ -257,6 +257,9 @@ class Game {
     }
     //Calls the function that checks if chick colllides with farmer
     insertImage.chickFarmerCollide();
+    if (insertImage.chick.captured) {
+      this.chickGameOver();
+    }
   }
   //-----------------------------WIN----------------------------------
   win() {
