@@ -56,10 +56,7 @@ function setup() {
   game = new Game();
   insertImage = new InsertImage();
 }
-
-/**
- * Prints the current state
- */
+//Prints the current state
 function draw() {
   //Prints the current displayed state
   game.printState();
@@ -69,14 +66,18 @@ function draw() {
   //let level = mic.getLevel();
   //console.log(level);
 }
+// =================== STATE CHANGES ==========================
 //Changes the to the next state when the "enter" key is pressed if the state is currently "introduction"
 function keyPressed() {
   if (keyCode === ENTER) {
-    if (game.state === "introduction") {
+    if (game.state === "story1") {
+      game.changeState();
+    } else if (game.state === "story2") {
       game.changeState();
     }
   }
 }
+// =================== CHARACTER MOVEMENTS ==========================
 // KeyBoard Arrows control the Chicken
 function keyReleased() {
   let move = 80;
@@ -98,7 +99,9 @@ function keyReleased() {
     keyCode === UP_ARROW ||
     keyCode === DOWN_ARROW
   ) {
-    //Basic command to generate the movement of the NPCs
-    game.movementFarmer();
+    //Calls the function to have the farmer move 2 squares at a time
+    insertImage.farmerMovement();
+    //Calls the function to have the chick move 1 square diagonally
+    insertImage.chickMovement();
   }
 }

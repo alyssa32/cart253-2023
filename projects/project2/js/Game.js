@@ -1,6 +1,6 @@
 class Game {
   constructor() {
-    this.state = "story2";
+    this.state = "game2";
     //Light green background
     this.bg = {
       r: 135,
@@ -40,7 +40,7 @@ class Game {
       string2: "Your chick was just born and has trouble walking straight.",
       x2: 400,
       y2: 390,
-      string3: "= moves 1 square diagonally",
+      string3: "= moves 1 square diagonally in any direction",
       x3: 420,
       y3: 510,
       r3: 197,
@@ -139,28 +139,6 @@ class Game {
     insertImage.seedDisplay(185, 665);
     insertImage.seedDisplay(505, 345);
   }
-  // =================== NPC MOVEMENT
-  //Assigns random directions for the NPCs to move after the player moves
-  movementFarmer() {
-    let moveSquare = 160;
-    let direction = round(random(1, 4));
-    //Moves the farmer two squares to the left
-    if (direction === 1) {
-      insertImage.farmer.x -= moveSquare;
-    }
-    //Moves the farmer two squares to the right
-    if (direction === 2) {
-      insertImage.farmer.x += moveSquare;
-    }
-    //Moves the farmer two squares down
-    if (direction === 3) {
-      insertImage.farmer.y += moveSquare;
-    }
-    //Moves the farmer two squares up
-    if (direction === 4) {
-      insertImage.farmer.y -= moveSquare;
-    }
-  }
   //-----------------------------story2----------------------------------
   story2() {
     //Light green background
@@ -215,6 +193,12 @@ class Game {
     this.bgSquaresLoop(80, 560);
     this.bgSquaresLoop(0, 640);
     this.bgSquaresLoop(80, 720);
+    //Displays the chicken
+    insertImage.chickenDisplay();
+    //Displays the farmer
+    insertImage.farmerDisplay();
+    //Displays the chick
+    insertImage.chickDisplay();
   }
   //-----------------------------win----------------------------------
   win() {
@@ -281,13 +265,12 @@ class Game {
   }
   //Will change to the next state
   changeState() {
-    print("is this being called");
     if (this.state === "story1") {
       this.state = "game1";
     } else if (this.state === "game1") {
       this.state = "story2";
     } else if (this.state === "story2") {
-      this.state = "story1";
+      this.state = "game2";
     }
   }
 }

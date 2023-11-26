@@ -20,7 +20,7 @@ class InsertImage {
       h: 30,
     };
     this.storyChick = {
-      x: 210,
+      x: 135,
       y: 475,
       w: 50,
       h: 50,
@@ -95,8 +95,62 @@ class InsertImage {
     );
     // Constrain the farmer's x-coordinate
     this.farmer.x = constrain(this.farmer.x, 0, canvasX - this.farmer.w);
-    // Constrain the chick's y-coordinate
+    // Constrain the farmer's y-coordinate
     this.farmer.y = constrain(this.farmer.y, 0, canvasY - this.farmer.h);
+  }
+  //Assigns random directions for the farmer to move after the player moves
+  farmerMovement() {
+    let moveSquare = 160;
+    let direction = round(random(1, 4));
+    //Moves the farmer two squares to the left
+    if (direction === 1) {
+      this.farmer.x -= moveSquare;
+    }
+    //Moves the farmer two squares to the right
+    if (direction === 2) {
+      this.farmer.x += moveSquare;
+    }
+    //Moves the farmer two squares down
+    if (direction === 3) {
+      this.farmer.y += moveSquare;
+    }
+    //Moves the farmer two squares up
+    if (direction === 4) {
+      this.farmer.y -= moveSquare;
+    }
+  }
+  // =================== CHICK ==========================
+  chickDisplay() {
+    //Draws the chick image
+    image(chickImg, this.chick.x, this.chick.y, this.chick.w, this.chick.h);
+    // Constrain the chick's x-coordinate
+    this.chick.x = constrain(this.chick.x, 0, canvasX - this.chick.w);
+    // Constrain the chick's y-coordinate
+    this.chick.y = constrain(this.chick.y, 0, canvasY - this.chick.h);
+  }
+  chickMovement() {
+    let moveSquare = 80;
+    let direction = round(random(1, 4));
+    //Moves the chick one square diagonal up-left
+    if (direction === 1) {
+      this.chick.x -= moveSquare;
+      this.chick.y -= moveSquare;
+    }
+    //Moves the chick one square diagonal up-right
+    if (direction === 2) {
+      this.chick.x += moveSquare;
+      this.chick.y -= moveSquare;
+    }
+    //Moves the chick one square diagonal down-left
+    if (direction === 3) {
+      this.chick.x -= moveSquare;
+      this.chick.y += moveSquare;
+    }
+    //Moves the chick one square diagonal down-right
+    if (direction === 4) {
+      this.chick.x += moveSquare;
+      this.chick.y += moveSquare;
+    }
   }
   // =================== SEEDS ==========================
   //Draws the seeds using a For Loop
