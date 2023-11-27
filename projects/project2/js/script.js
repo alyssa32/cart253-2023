@@ -27,7 +27,7 @@ let seedImg;
 //   // An array to store the individual seeds
 //   seeds: [],
 //   //Total number of seeds
-//   numSeeds: [],
+//   amounfOfSeeds: 3,
 // };
 
 /**

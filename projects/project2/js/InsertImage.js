@@ -199,6 +199,15 @@ class InsertImage {
       image(seedImg, x, y, this.seed.w, this.seed.h);
     }
   }
+  //If a chicken touches a seed, set "eaten" to "true"
+  seedEaten() {
+    for (let i = 0; i < this.seed.amount; i++) {
+      if (this.checkCollision(this.chicken, this.seed[i])) {
+        this.seed[i].eaten = true;
+        console.log("ate seed");
+      }
+    }
+  }
   // =================== COLLISIONS ==========================
   // Checks if one object collides with another
   checkCollision(obj1, obj2) {

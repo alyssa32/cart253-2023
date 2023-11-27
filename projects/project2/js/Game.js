@@ -1,6 +1,6 @@
 class Game {
   constructor() {
-    this.state = "game2";
+    this.state = "game1";
     //Light green background
     this.bg = {
       r: 135,
@@ -187,6 +187,7 @@ class Game {
     if (insertImage.chicken.captured) {
       this.chickenGameOver();
     }
+    insertImage.seedEaten();
   }
   //-----------------------------STORY2----------------------------------
   story2() {
