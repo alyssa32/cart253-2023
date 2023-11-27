@@ -1,4 +1,7 @@
 class InsertImage {
+  totalSeedAmount = 3;
+  seedArray = [this.totalSeedAmount];
+
   constructor() {
     //Text box in intro
     this.storyBg = {
@@ -104,10 +107,10 @@ class InsertImage {
     this.seed = {
       w: 30,
       h: 30,
-      amount: 3,
       eaten: false,
     };
   }
+
   // =================== CHICKEN ==========================
   chickenDisplay() {
     //Draws the chicken image
@@ -195,19 +198,38 @@ class InsertImage {
   // =================== SEEDS ==========================
   //Draws the seeds using a For Loop
   seedDisplay(x, y) {
-    for (let i = 0; i < this.seed.amount; i++) {
-      image(seedImg, x, y, this.seed.w, this.seed.h);
-    }
+    let seed = {
+      x: x,
+      y: y,
+      w: this.seed.w,
+      h: this.seed.h,
+      eaten: false,
+    };
+
+    this.seedArray.push(seed);
   }
+
   //If a chicken touches a seed, set "eaten" to "true"
   seedEaten() {
-    for (let i = 0; i < this.seed.amount; i++) {
-      if (this.checkCollision(this.chicken, this.seed[i])) {
-        this.seed[i].eaten = true;
+    for (let i = 0; i < this.seedArray.length; i++) {
+      if (this.checkCollision(this.chicken, this.seedArray[i])) {
+        this.seedArray[i].eaten = true;
+
         console.log("ate seed");
+      }
+
+      if (!this.seedArray[i].eaten) {
+        image(
+          seedImg,
+          this.seedArray[i].x,
+          this.seedArray[i].y,
+          this.seedArray[i].w,
+          this.seedArray[i].h
+        );
       }
     }
   }
+
   // =================== COLLISIONS ==========================
   // Checks if one object collides with another
   checkCollision(obj1, obj2) {
@@ -237,14 +259,6 @@ class InsertImage {
   chickFarmerCollide() {
     if (this.checkCollision(this.chick, this.farmer)) {
       this.chick.captured = true;
-    }
-  }
-  //If the chicken collides with a seed, it will be set to "eaten"
-  seedEaten() {
-    for (let i = 0; i < this.seed.amount; i++) {
-      if (checkCollision(foodArray[i])) {
-        foodArray[i].eaten = true;
-      }
     }
   }
 }

@@ -179,15 +179,12 @@ class Game {
     //Displays the farmer
     insertImage.farmerDisplay();
     // ======================== SEEDS
-    insertImage.seedDisplay(265, 105);
-    insertImage.seedDisplay(185, 665);
-    insertImage.seedDisplay(505, 345);
+    insertImage.seedEaten();
     //Calls the function that checks if chicken colllides with farmer
     insertImage.chickenFarmerCollide();
     if (insertImage.chicken.captured) {
       this.chickenGameOver();
     }
-    insertImage.seedEaten();
   }
   //-----------------------------STORY2----------------------------------
   story2() {

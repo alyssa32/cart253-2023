@@ -41,6 +41,13 @@ function preload() {
   enterButtonImg = loadImage("assets/images/enterButton.png");
   introBgImg = loadImage("assets/images/introBg.png");
   seedImg = loadImage("assets/images/seed.png");
+
+  game = new Game();
+  insertImage = new InsertImage();
+
+  insertImage.seedDisplay(265, 105);
+  insertImage.seedDisplay(185, 665);
+  insertImage.seedDisplay(505, 345);
 }
 
 /**
@@ -53,8 +60,6 @@ function setup() {
   mic = new p5.AudioIn();
   //asks for permision to use the mic
   mic.start();
-  game = new Game();
-  insertImage = new InsertImage();
 }
 //Prints the current state
 function draw() {
