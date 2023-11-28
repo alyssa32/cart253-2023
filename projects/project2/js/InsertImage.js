@@ -1,7 +1,4 @@
 class InsertImage {
-  totalSeedAmount = 3;
-  seedArray = [this.totalSeedAmount];
-
   constructor() {
     //Text box in intro
     this.storyBg = {
@@ -110,7 +107,8 @@ class InsertImage {
       eaten: false,
     };
   }
-
+  totalSeedAmount = 3;
+  seedArray = [this.totalSeedAmount];
   // =================== CHICKEN ==========================
   chickenDisplay() {
     //Draws the chicken image
@@ -208,16 +206,14 @@ class InsertImage {
 
     this.seedArray.push(seed);
   }
-
   //If a chicken touches a seed, set "eaten" to "true"
   seedEaten() {
     for (let i = 0; i < this.seedArray.length; i++) {
       if (this.checkCollision(this.chicken, this.seedArray[i])) {
         this.seedArray[i].eaten = true;
-
         console.log("ate seed");
       }
-
+      //If the seeds have not been eaten, draw them
       if (!this.seedArray[i].eaten) {
         image(
           seedImg,
@@ -229,7 +225,12 @@ class InsertImage {
       }
     }
   }
-
+  //Changes to the next state if all seeds have been eaten
+  allSeedsEaten() {
+    if (this.seedArray.eaten === true) {
+      game.state = "story2";
+    }
+  }
   // =================== COLLISIONS ==========================
   // Checks if one object collides with another
   checkCollision(obj1, obj2) {

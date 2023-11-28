@@ -23,16 +23,7 @@ let introBgImg;
 let enterButtonImg;
 let seedImg;
 
-// let foodArray = {
-//   // An array to store the individual seeds
-//   seeds: [],
-//   //Total number of seeds
-//   amounfOfSeeds: 3,
-// };
-
-/**
- * Preloads all images used
- */
+//Preloads all images used
 function preload() {
   chickenImg = loadImage("assets/images/chicken.png");
   chickImg = loadImage("assets/images/chick.png");

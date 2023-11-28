@@ -185,6 +185,7 @@ class Game {
     if (insertImage.chicken.captured) {
       this.chickenGameOver();
     }
+    insertImage.allSeedsEaten();
   }
   //-----------------------------STORY2----------------------------------
   story2() {
