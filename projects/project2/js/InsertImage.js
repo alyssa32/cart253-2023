@@ -146,6 +146,7 @@ class InsertImage {
     let direction = round(random(1, 4));
     //Moves the farmer two squares to the left
     if (direction === 1) {
+      //If he is near the left edge of the canvas, make him move right
       if (this.farmer.x - moveSquare > 0) {
         this.farmer.x -= moveSquare;
       } else {
@@ -160,6 +161,7 @@ class InsertImage {
     }
     //Moves the farmer two squares to the right
     if (direction === 2) {
+      //If he is near the right edge of the canvas, make him move left
       if (this.farmer.x + moveSquare < canvasX) {
         this.farmer.x += moveSquare;
       } else {
@@ -168,6 +170,7 @@ class InsertImage {
     }
     //Moves the farmer two squares down
     if (direction === 3) {
+      //If he is near the bottom edge of the canvas, make him move up
       if (this.farmer.y + moveSquare < canvasY) {
         this.farmer.y += moveSquare;
       } else {
@@ -176,6 +179,7 @@ class InsertImage {
     }
     //Moves the farmer two squares up
     if (direction === 4) {
+      //If he is near the top edge of the canvas, make him move down
       if (this.farmer.y - moveSquare > 0) {
         this.farmer.y -= moveSquare;
       } else {
@@ -197,23 +201,47 @@ class InsertImage {
     let direction = round(random(1, 4));
     //Moves the chick one square diagonal up-left
     if (direction === 1) {
-      this.chick.x -= moveSquare;
-      this.chick.y -= moveSquare;
+      //If it is near the left edge of the canvas, make it move right
+      if (this.chick.x - moveSquare > 0) {
+        this.chick.x -= moveSquare;
+        this.chick.y -= moveSquare;
+      } else {
+        this.chick.x += moveSquare;
+        this.chick.y += moveSquare;
+      }
     }
     //Moves the chick one square diagonal up-right
     if (direction === 2) {
-      this.chick.x += moveSquare;
-      this.chick.y -= moveSquare;
+      //If it is near the right edge of the canvas, make it move left
+      if (this.chick.x + moveSquare < canvasX) {
+        this.chick.x += moveSquare;
+        this.chick.y -= moveSquare;
+      } else {
+        this.chick.x -= moveSquare;
+        this.chick.y -= moveSquare;
+      }
     }
     //Moves the chick one square diagonal down-left
     if (direction === 3) {
-      this.chick.x -= moveSquare;
-      this.chick.y += moveSquare;
+      //If it is near the bottom edge of the canvas, make it move up-right
+      if (this.chick.y + moveSquare < canvasY) {
+        this.chick.x -= moveSquare;
+        this.chick.y += moveSquare;
+      } else {
+        this.chick.x -= moveSquare;
+        this.chick.y += moveSquare;
+      }
     }
     //Moves the chick one square diagonal down-right
     if (direction === 4) {
-      this.chick.x += moveSquare;
-      this.chick.y += moveSquare;
+      //If it is near the bottom edge of the canvas, make it move up-left
+      if (this.chick.y - moveSquare > 0) {
+        this.chick.x += moveSquare;
+        this.chick.y += moveSquare;
+      } else {
+        this.chick.x -= moveSquare;
+        this.chick.y -= moveSquare;
+      }
     }
   }
   // =================== SEEDS ==========================

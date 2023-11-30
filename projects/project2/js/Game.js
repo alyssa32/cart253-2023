@@ -1,6 +1,6 @@
 class Game {
   constructor() {
-    this.state = "game1";
+    this.state = "game2";
     //Light green background
     this.bg = {
       r: 135,
