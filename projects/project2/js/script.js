@@ -22,9 +22,12 @@ let farmer2Img;
 let introBgImg;
 let enterButtonImg;
 let seedImg;
+//Sounds
+let popSFX;
 
 //Preloads all images used
 function preload() {
+  //images
   chickenImg = loadImage("assets/images/chicken.png");
   chickImg = loadImage("assets/images/chick.png");
   farmerImg = loadImage("assets/images/farmer.png");
@@ -32,6 +35,8 @@ function preload() {
   enterButtonImg = loadImage("assets/images/enterButton.png");
   introBgImg = loadImage("assets/images/introBg.png");
   seedImg = loadImage("assets/images/seed.png");
+  //sounds
+  popSFX = loadSound("assets/sounds/pop.mp3");
 
   game = new Game();
   insertImage = new InsertImage();
@@ -47,6 +52,8 @@ function preload() {
 function setup() {
   //Creates the square canvas size
   createCanvas(canvasX, canvasY);
+  //sets up the audio before it is used
+  userStartAudio();
   //Makes a new AudioIn object
   mic = new p5.AudioIn();
   //asks for permision to use the mic
@@ -59,8 +66,12 @@ function draw() {
   //Displays the state being called
   game.checkState();
   //Prints out the current audio input level
-  //let level = mic.getLevel();
-  //console.log(level);
+  let level = mic.getLevel();
+  console.log(level);
+  //If the audio input level is greater than 0.1, then the scene will switch to the next game
+  if (level > 0.1) {
+    game.changeToGame();
+  }
 }
 // =================== STATE CHANGES ==========================
 //Changes the to the next state when the "enter" key is pressed

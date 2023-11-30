@@ -106,9 +106,10 @@ class InsertImage {
       h: 30,
       eaten: false,
     };
+    this.totalSeedAmount = 3;
+    this.seedArray = [this.totalSeedAmount];
   }
-  totalSeedAmount = 3;
-  seedArray = [this.totalSeedAmount];
+
   // =================== CHICKEN ==========================
   chickenDisplay() {
     //Draws the chicken image
@@ -146,6 +147,12 @@ class InsertImage {
     //Moves the farmer two squares to the left
     if (direction === 1) {
       this.farmer.x -= moveSquare;
+      //attempts to flip the image
+      // translate(this.farmer.w, 0);
+      // // Scale -1, 1 means reverse the x axis, keep y the same.
+      // scale(-1, 1);
+      // // Because the x-axis is reversed, we need to draw at different x position.
+      // image(farmerImg, -this.farmer.x, 0);
     }
     //Moves the farmer two squares to the right
     if (direction === 2) {
@@ -159,6 +166,9 @@ class InsertImage {
     if (direction === 4) {
       this.farmer.y -= moveSquare;
     }
+    // while (this.farmer.x === 720 || 640) {
+    //   direction != 1;
+    // }
   }
   // =================== CHICK ==========================
   chickDisplay() {
@@ -212,6 +222,9 @@ class InsertImage {
       if (this.checkCollision(this.chicken, this.seedArray[i])) {
         this.seedArray[i].eaten = true;
         console.log("ate seed");
+        //Plays a sound effect when a seed has been eaten
+        // popSFX.setLoop(false);
+        // popSFX.play();
       }
       //If the seeds have not been eaten, draw them
       if (!this.seedArray[i].eaten) {
@@ -227,7 +240,11 @@ class InsertImage {
   }
   //Changes to the next state if all seeds have been eaten
   allSeedsEaten() {
-    if (this.seedArray.eaten === true) {
+    if (
+      (this.seedArray[0].eaten === true &&
+        this.seedArray[1].eaten === true &&
+        this.seedArray[2].eaten) === true
+    ) {
       game.state = "story2";
     }
   }
