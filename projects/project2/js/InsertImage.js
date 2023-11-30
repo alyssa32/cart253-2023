@@ -146,7 +146,11 @@ class InsertImage {
     let direction = round(random(1, 4));
     //Moves the farmer two squares to the left
     if (direction === 1) {
-      this.farmer.x -= moveSquare;
+      if (this.farmer.x - moveSquare > 0) {
+        this.farmer.x -= moveSquare;
+      } else {
+        this.farmer.x += moveSquare;
+      }
       //attempts to flip the image
       // translate(this.farmer.w, 0);
       // // Scale -1, 1 means reverse the x axis, keep y the same.
@@ -156,15 +160,27 @@ class InsertImage {
     }
     //Moves the farmer two squares to the right
     if (direction === 2) {
-      this.farmer.x += moveSquare;
+      if (this.farmer.x + moveSquare < canvasX) {
+        this.farmer.x += moveSquare;
+      } else {
+        this.farmer.x -= moveSquare;
+      }
     }
     //Moves the farmer two squares down
     if (direction === 3) {
-      this.farmer.y += moveSquare;
+      if (this.farmer.y + moveSquare < canvasY) {
+        this.farmer.y += moveSquare;
+      } else {
+        this.farmer.y -= moveSquare;
+      }
     }
     //Moves the farmer two squares up
     if (direction === 4) {
-      this.farmer.y -= moveSquare;
+      if (this.farmer.y - moveSquare > 0) {
+        this.farmer.y -= moveSquare;
+      } else {
+        this.farmer.y += moveSquare;
+      }
     }
   }
   // =================== CHICK ==========================
@@ -211,6 +227,7 @@ class InsertImage {
       eaten: false,
     };
 
+    console.log(this.seedArray.length);
     this.seedArray.push(seed);
   }
   //If a chicken touches a seed, set "eaten" to "true"
@@ -237,11 +254,16 @@ class InsertImage {
   }
   //Changes to the next state if all seeds have been eaten
   allSeedsEaten() {
+    console.log("seedArray[0] value: " + this.seedArray[0].eaten);
+    console.log("seedArray[1] value: " + this.seedArray[1].eaten);
+    console.log("seedArray[2] value: " + this.seedArray[2].eaten);
+
     if (
       (this.seedArray[1].eaten === true &&
         this.seedArray[2].eaten === true &&
         this.seedArray[3].eaten) === true
     ) {
+      console.log("Inside of allSeedsEaten");
       game.state = "story2";
     }
   }
