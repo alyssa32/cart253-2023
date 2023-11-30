@@ -166,9 +166,6 @@ class InsertImage {
     if (direction === 4) {
       this.farmer.y -= moveSquare;
     }
-    // while (this.farmer.x === 720 || 640) {
-    //   direction != 1;
-    // }
   }
   // =================== CHICK ==========================
   chickDisplay() {
@@ -241,9 +238,9 @@ class InsertImage {
   //Changes to the next state if all seeds have been eaten
   allSeedsEaten() {
     if (
-      (this.seedArray[0].eaten === true &&
-        this.seedArray[1].eaten === true &&
-        this.seedArray[2].eaten) === true
+      (this.seedArray[1].eaten === true &&
+        this.seedArray[2].eaten === true &&
+        this.seedArray[3].eaten) === true
     ) {
       game.state = "story2";
     }

@@ -110,9 +110,13 @@ function keyReleased() {
     keyCode === UP_ARROW ||
     keyCode === DOWN_ARROW
   ) {
-    //Calls the function to have the farmer move 2 squares at the same time as the chicken
-    insertImage.farmerMovement();
-    //Calls the function to have the chick move 1 square diagonally at the same time as the chicken
-    insertImage.chickMovement();
   }
+  //Delays the farmer's moves by 0.25 seconds
+  setTimeout(function enableFarmerMovement() {
+    insertImage.farmerMovement();
+  }, 250);
+  //Delays the chick's moves by 0.25 seconds
+  setTimeout(function enableChickMovement() {
+    insertImage.chickMovement();
+  }, 250);
 }
