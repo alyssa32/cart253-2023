@@ -361,10 +361,12 @@ class Game {
   }
   //-----------------------------CHICK GAME OVER----------------------------------
   chickGameOver() {
-    background(
-      insertImage.bgSquares.r,
-      insertImage.bgSquares.g,
-      insertImage.bgSquares.b
+    image(
+      loseBgImg,
+      insertImage.BgImg.x,
+      insertImage.BgImg.y,
+      insertImage.BgImg.w,
+      insertImage.BgImg.h
     );
     textSize(60);
     textAlign(CENTER);
