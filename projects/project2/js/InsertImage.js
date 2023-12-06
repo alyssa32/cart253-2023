@@ -101,6 +101,12 @@ class InsertImage {
       h: 60,
       captured: false,
     };
+    this.BgImg = {
+      x: 0,
+      y: 0,
+      w: 800,
+      h: 800,
+    };
     this.seed = {
       w: 30,
       h: 30,
@@ -229,7 +235,7 @@ class InsertImage {
         this.chick.y += moveSquare;
       } else {
         this.chick.x -= moveSquare;
-        this.chick.y += moveSquare;
+        this.chick.y -= moveSquare;
       }
     }
     //Moves the chick one square diagonal down-right

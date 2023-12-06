@@ -1,6 +1,6 @@
 class Game {
   constructor() {
-    this.state = "game2";
+    this.state = "chickGameOver";
     //Light green background
     this.bg = {
       r: 135,
@@ -67,11 +67,11 @@ class Game {
     this.loseChicken = {
       string1: `YOU LOST!`,
       x1: 400,
-      y1: 230,
+      y1: 110,
       string2: `The farmer caught you and sold you
    to the neighbour, Jean-Francois.`,
       x2: 400,
-      y2: 300,
+      y2: 200,
       string3: `Press the               key to restart`,
       x3: 400,
       y3: 600,
@@ -82,11 +82,11 @@ class Game {
     this.loseChick = {
       string1: `YOU LOST!`,
       x1: 400,
-      y1: 230,
+      y1: 110,
       string2: `The farmer caught your chick and sold it
    to the neighbour, Jean-Francois.`,
       x2: 400,
-      y2: 300,
+      y2: 200,
       string3: `Press the               key to restart`,
       x3: 400,
       y3: 600,
@@ -310,10 +310,12 @@ class Game {
   }
   //-----------------------------CHICKEN GAME OVER----------------------------------
   chickenGameOver() {
-    background(
-      insertImage.bgSquares.r,
-      insertImage.bgSquares.g,
-      insertImage.bgSquares.b
+    image(
+      loseBgImg,
+      insertImage.BgImg.x,
+      insertImage.BgImg.y,
+      insertImage.BgImg.w,
+      insertImage.BgImg.h
     );
     textSize(60);
     textAlign(CENTER);

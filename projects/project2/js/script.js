@@ -22,6 +22,8 @@ let farmer2Img;
 let introBgImg;
 let enterButtonImg;
 let seedImg;
+let winBgImg;
+let loseBgImg;
 //Sounds
 let popSFX;
 
@@ -35,6 +37,8 @@ function preload() {
   enterButtonImg = loadImage("assets/images/enterButton.png");
   introBgImg = loadImage("assets/images/introBg.png");
   seedImg = loadImage("assets/images/seed.png");
+  winBgImg = loadImage("assets/images/winBg.png");
+  loseBgImg = loadImage("assets/images/loseBg.png");
   //sounds
   popSFX = loadSound("assets/sounds/pop.mp3");
 
