@@ -34,6 +34,12 @@ class InsertImage {
       w: 30,
       h: 30,
     };
+    this.storyDog = {
+      x: 225,
+      y: 595,
+      w: 30,
+      h: 30,
+    };
     this.loseFarmer = {
       x: 330,
       y: 400,
@@ -100,6 +106,12 @@ class InsertImage {
       y: 400,
       w: 80,
       h: 80,
+    };
+    this.loseDog = {
+      x: 340,
+      y: 390,
+      w: 90,
+      h: 90,
     };
     this.chick = {
       x: 570,
@@ -378,6 +390,7 @@ class InsertImage {
   chickenDogCollide() {
     if (this.checkCollision(this.chicken, this.dog)) {
       this.chicken.capturedByDog = true;
+      console.log("chicken and dog collided");
     }
   }
   // Checks if the chicken collides with the chick (win)
