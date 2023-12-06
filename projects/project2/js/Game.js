@@ -264,6 +264,13 @@ class Game {
     if (insertImage.chicken.captured) {
       this.chickenGameOver();
     }
+    //Calls the function that checks if chicken colllides with the dog
+    insertImage.chickenDogCollide();
+    //Chicken collides with the dog, losing end screen is displayed
+    if (insertImage.chicken.capturedByDog) {
+      console.log("chicken/dog collide");
+      this.chickenGameOver();
+    }
     //Calls the function that checks if chick colllides with farmer
     insertImage.chickFarmerCollide();
     //Chick collides with Farmer, losing end screen is displayed

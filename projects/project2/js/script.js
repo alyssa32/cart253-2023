@@ -121,6 +121,10 @@ function keyReleased() {
   setTimeout(function enableFarmerMovement() {
     insertImage.farmerMovement();
   }, 250);
+  //Delays the dog's moves by 0.25 seconds (same as farmer)
+  setTimeout(function enableDogMovement() {
+    insertImage.dogMovement();
+  }, 250);
   //Delays the chick's moves by 0.25 seconds
   setTimeout(function enableChickMovement() {
     insertImage.chickMovement();

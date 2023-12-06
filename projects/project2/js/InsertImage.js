@@ -19,6 +19,7 @@ class InsertImage {
       w: 70,
       h: 70,
       captured: false,
+      capturedByDog: false,
     };
     this.soldChicken = {
       x: 280,
@@ -203,6 +204,50 @@ class InsertImage {
   dogDisplay() {
     //Draws the dog image
     image(dogImg, this.dog.x, this.dog.y, this.dog.w, this.dog.h);
+    // Constrain the dog's x-coordinate
+    this.dog.x = constrain(this.dog.x, 0, canvasX - this.dog.w);
+    // Constrain the dog's y-coordinate
+    this.dog.y = constrain(this.dog.y, 0, canvasY - this.dog.h);
+  }
+  dogMovement() {
+    let moveSquare = 80;
+    let direction = round(random(1, 4));
+    //Moves the dog one square to the left
+    if (direction === 1) {
+      //If he is near the left edge of the canvas, make him move right
+      if (this.dog.x - moveSquare > 0) {
+        this.dog.x -= moveSquare;
+      } else {
+        this.dog.x += moveSquare;
+      }
+    }
+    //Moves the dog one square to the right
+    if (direction === 2) {
+      //If he is near the right edge of the canvas, make him move left
+      if (this.dog.x + moveSquare < canvasX) {
+        this.dog.x += moveSquare;
+      } else {
+        this.dog.x -= moveSquare;
+      }
+    }
+    //Moves the dog one square down
+    if (direction === 3) {
+      //If he is near the bottom edge of the canvas, make him move up
+      if (this.dog.y + moveSquare < canvasY) {
+        this.dog.y += moveSquare;
+      } else {
+        this.dog.y -= moveSquare;
+      }
+    }
+    //Moves the dog one square up
+    if (direction === 4) {
+      //If he is near the top edge of the canvas, make him move down
+      if (this.dog.y - moveSquare > 0) {
+        this.dog.y -= moveSquare;
+      } else {
+        this.dog.y += moveSquare;
+      }
+    }
   }
   // =================== CHICK ==========================
   chickDisplay() {
@@ -271,8 +316,6 @@ class InsertImage {
       h: this.seed.h,
       eaten: false,
     };
-
-    console.log(this.seedArray.length);
     this.seedArray.push(seed);
   }
   //If a chicken touches a seed, set "eaten" to "true"
@@ -329,6 +372,12 @@ class InsertImage {
   chickenFarmerCollide() {
     if (this.checkCollision(this.chicken, this.farmer)) {
       this.chicken.captured = true;
+    }
+  }
+  // Checks if the chicken collides with the dog (captured)
+  chickenDogCollide() {
+    if (this.checkCollision(this.chicken, this.dog)) {
+      this.chicken.capturedByDog = true;
     }
   }
   // Checks if the chicken collides with the chick (win)
