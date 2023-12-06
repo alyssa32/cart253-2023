@@ -1,6 +1,6 @@
 class Game {
   constructor() {
-    this.state = "chickGameOver";
+    this.state = "game1";
     //Light green background
     this.bg = {
       r: 135,
@@ -15,7 +15,7 @@ class Game {
       g: 148,
       b: 56,
       string2:
-        "Using the arrow keys, collect all seeds but be careful that you don't \nget capture by the farmer",
+        "Using the arrow keys, collect all seeds but be careful that you don't \nget capture by the farmer or his vicious shepard.",
       x2: 400,
       y2: 390,
       string3:
@@ -53,16 +53,19 @@ class Game {
     this.winGame = {
       string1: `YOU WON!`,
       x1: 400,
-      y1: 250,
+      y1: 170,
       string2: `You ran away with your chick to start a free-range life.`,
       x2: 400,
-      y2: 320,
+      y2: 290,
       string3: `Press the               key to restart`,
       x3: 400,
       y3: 600,
       r: 58,
       g: 105,
       b: 58,
+      r1: 241,
+      g1: 255,
+      b1: 196,
     };
     this.loseChicken = {
       string1: `YOU LOST!`,
@@ -178,6 +181,8 @@ class Game {
     insertImage.chickenDisplay();
     //Displays the farmer
     insertImage.farmerDisplay();
+    //Displays the dog
+    insertImage.dogDisplay();
     // ======================== SEEDS
     insertImage.seedEaten();
     //Calls the function that checks if chicken colllides with farmer
@@ -268,10 +273,12 @@ class Game {
   }
   //-----------------------------WIN----------------------------------
   win() {
-    background(
-      insertImage.bgSquares.r,
-      insertImage.bgSquares.g,
-      insertImage.bgSquares.b
+    image(
+      winBgImg,
+      insertImage.BgImg.x,
+      insertImage.BgImg.y,
+      insertImage.BgImg.w,
+      insertImage.BgImg.h
     );
     textSize(60);
     textAlign(CENTER);
@@ -280,8 +287,10 @@ class Game {
     textStyle(BOLD);
     text(this.winGame.string1, this.winGame.x1, this.winGame.y1);
     textSize(25);
+    fill(this.winGame.r1, this.winGame.g1, this.winGame.b1);
     text(this.winGame.string2, this.winGame.x2, this.winGame.y2);
     textSize(30);
+    fill(this.winGame.r, this.winGame.g, this.winGame.b);
     text(this.winGame.string3, this.winGame.x3, this.winGame.y3);
     //Display chicken image on winning screen
     image(

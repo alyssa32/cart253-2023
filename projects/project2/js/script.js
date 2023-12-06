@@ -22,6 +22,7 @@ let farmer2Img;
 let introBgImg;
 let enterButtonImg;
 let seedImg;
+let dogImg;
 let winBgImg;
 let loseBgImg;
 //Sounds
@@ -37,6 +38,7 @@ function preload() {
   enterButtonImg = loadImage("assets/images/enterButton.png");
   introBgImg = loadImage("assets/images/introBg.png");
   seedImg = loadImage("assets/images/seed.png");
+  dogImg = loadImage("assets/images/dog.png");
   winBgImg = loadImage("assets/images/winBg.png");
   loseBgImg = loadImage("assets/images/loseBg.png");
   //sounds

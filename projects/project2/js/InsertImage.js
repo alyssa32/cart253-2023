@@ -94,6 +94,12 @@ class InsertImage {
       w: 80,
       h: 80,
     };
+    this.dog = {
+      x: 320,
+      y: 400,
+      w: 80,
+      h: 80,
+    };
     this.chick = {
       x: 570,
       y: 570,
@@ -192,6 +198,11 @@ class InsertImage {
         this.farmer.y += moveSquare;
       }
     }
+  }
+  // =================== DOG ==========================
+  dogDisplay() {
+    //Draws the dog image
+    image(dogImg, this.dog.x, this.dog.y, this.dog.w, this.dog.h);
   }
   // =================== CHICK ==========================
   chickDisplay() {
