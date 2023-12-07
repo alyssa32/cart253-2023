@@ -1,6 +1,6 @@
 class Game {
   constructor() {
-    this.state = "dogCapturedChicken";
+    this.state = "story1";
     //Light green background
     this.bg = {
       r: 135,
@@ -318,7 +318,13 @@ class Game {
     insertImage.chickFarmerCollide();
     //Chick collides with Farmer, losing end screen is displayed
     if (insertImage.chick.captured) {
-      this.chickGameOver();
+      this.dogCapturedChicken();
+    }
+    //Calls the function that checks if chick colllides with the dog
+    insertImage.dogChickCollide();
+    //Chick collides with dog, losing end screen is displayed
+    if (insertImage.chick.capturedByDog) {
+      this.dogCapturedChick();
     }
   }
   //-----------------------------WIN----------------------------------
@@ -530,6 +536,7 @@ class Game {
   }
   //----------------------------- DOG CAPTURED CHICK ----------------------------------
   dogCapturedChick() {
+    //Displays the farm background image
     image(
       loseBgImg,
       insertImage.BgImg.x,
@@ -540,35 +547,31 @@ class Game {
     textSize(60);
     textAlign(CENTER);
     noStroke(0);
-    fill(
-      this.dogFoundChicken.r,
-      this.dogFoundChicken.g,
-      this.dogFoundChicken.b
-    );
+    fill(this.dogFoundChick.r, this.dogFoundChick.g, this.dogFoundChick.b);
     textStyle(BOLD);
     text(
-      this.dogFoundChicken.string1,
-      this.dogFoundChicken.x1,
-      this.dogFoundChicken.y1
+      this.dogFoundChick.string1,
+      this.dogFoundChick.x1,
+      this.dogFoundChick.y1
     );
     textSize(30);
     text(
-      this.dogFoundChicken.string2,
-      this.dogFoundChicken.x2,
-      this.dogFoundChicken.y2
+      this.dogFoundChick.string2,
+      this.dogFoundChick.x2,
+      this.dogFoundChick.y2
     );
     text(
-      this.dogFoundChicken.string3,
-      this.dogFoundChicken.x3,
-      this.dogFoundChicken.y3
+      this.dogFoundChick.string3,
+      this.dogFoundChick.x3,
+      this.dogFoundChick.y3
     );
-    //Chicken image displayed on the losing screen
+    //Chick image displayed on the losing screen
     image(
-      chickenImg,
-      insertImage.soldChicken.x,
-      insertImage.soldChicken.y,
-      insertImage.soldChicken.w,
-      insertImage.soldChicken.h
+      chickImg,
+      insertImage.soldChick.x,
+      insertImage.soldChick.y,
+      insertImage.soldChick.w,
+      insertImage.soldChick.h
     );
     //Dog image displayed on the losing screen
     image(
@@ -613,6 +616,9 @@ class Game {
     }
     if (this.state === "dogCapturedChicken") {
       this.dogCapturedChicken();
+    }
+    if (this.state === "dogCapturedChick") {
+      this.dogCapturedChick();
     }
   }
   //The audio input will change from a story state, to the game state

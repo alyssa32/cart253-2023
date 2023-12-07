@@ -119,6 +119,7 @@ class InsertImage {
       w: 60,
       h: 60,
       captured: false,
+      capturedByDog: false,
     };
     this.BgImg = {
       x: 0,
@@ -390,7 +391,6 @@ class InsertImage {
   chickenDogCollide() {
     if (this.checkCollision(this.chicken, this.dog)) {
       this.chicken.capturedByDog = true;
-      console.log("chicken and dog collided");
     }
   }
   // Checks if the chicken collides with the chick (win)
@@ -403,6 +403,12 @@ class InsertImage {
   chickFarmerCollide() {
     if (this.checkCollision(this.chick, this.farmer)) {
       this.chick.captured = true;
+    }
+  }
+  // Checks if the dog collides with the chick (lose)
+  dogChickCollide() {
+    if (this.checkCollision(this.chick, this.dog)) {
+      this.chick.capturedByDog = true;
     }
   }
 }
