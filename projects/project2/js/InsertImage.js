@@ -336,7 +336,6 @@ class InsertImage {
     for (let i = 0; i < this.seedArray.length; i++) {
       if (this.checkCollision(this.chicken, this.seedArray[i])) {
         this.seedArray[i].eaten = true;
-        console.log("ate seed");
         //Plays a sound effect when a seed has been eaten
         // popSFX.setLoop(false);
         // popSFX.play();
@@ -365,7 +364,6 @@ class InsertImage {
         this.seedArray[2].eaten === true &&
         this.seedArray[3].eaten) === true
     ) {
-      console.log("Inside of allSeedsEaten");
       game.state = "story2";
     }
   }

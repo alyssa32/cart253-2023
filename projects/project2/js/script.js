@@ -68,14 +68,17 @@ function setup() {
 //Prints the current state and checks for the audio input level
 function draw() {
   //Prints the current displayed state
-  game.printState();
+  //---------------------------------------------------------------------------------------------- game.printState();
   //Displays the state being called
   game.checkState();
   //Prints out the current audio input level
   let level = mic.getLevel();
-  console.log(level);
+  //----------------------------------------------------------------------------------------------console.log(level);
   //If the audio input level is greater than 0.1, then the scene will switch to the next game
-  if (level > 0.1) {
+  if (
+    (level > 0.1 && game.state === "story1") ||
+    (level > 0.1 && game.state === "story2")
+  ) {
     game.changeToGame();
     //Resets the chicken's location back to the top left
     insertImage.chicken.x = 5;
@@ -87,8 +90,8 @@ function draw() {
     insertImage.farmer.x = 400;
     insertImage.farmer.y = 400;
     //Resets the dog's location back to the middle
-    insertImage.farmer.x = 320;
-    insertImage.farmer.y = 400;
+    insertImage.dog.x = 320;
+    insertImage.dog.y = 400;
   }
 }
 // =================== STATE CHANGES ==========================
@@ -103,7 +106,9 @@ function keyPressed() {
     insertImage.chick.capturedByDog = false;
     insertImage.chicken.win = false;
     //Resets all seeds back to not eaten
-    insertImage.seedArray[i].eaten = false;
+    for (let i = 1; i < insertImage.seedArray.length; i++) {
+      insertImage.seedArray[i].eaten = false;
+    }
   }
   //Changes the to the next state when the "shift" key is pressed
   if (keyCode === SHIFT) {
