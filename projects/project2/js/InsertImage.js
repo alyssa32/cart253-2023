@@ -178,12 +178,14 @@ class InsertImage {
       } else {
         this.farmer.x += moveSquare;
       }
+
       //attempts to flip the image
-      // translate(this.farmer.w, 0);
-      // // Scale -1, 1 means reverse the x axis, keep y the same.
-      // scale(-1, 1);
-      // // Because the x-axis is reversed, we need to draw at different x position.
-      // image(farmerImg, -this.farmer.x, 0);
+      //translate(this.farmer.w, 0);
+      // Scale -1, 1 means reverse the x axis, keep y the same.
+      push();
+      scale(-1, 1);
+      // Because the x-axis is reversed, we need to draw at different x position.
+      image(farmerImg, -this.farmer.x, 0, this.farmer.w, this.farmer.h);
     }
     //Moves the farmer two squares to the right
     if (direction === 2) {
@@ -335,11 +337,13 @@ class InsertImage {
   seedEaten() {
     for (let i = 0; i < this.seedArray.length; i++) {
       if (this.checkCollision(this.chicken, this.seedArray[i])) {
+        //Plays a sound effect only once when a seed has been eaten
+        if (popSFX.isPlaying() === false && this.seedArray[i].eaten === false) {
+          popSFX.setVolume(0.5);
+          popSFX.setLoop(false);
+          popSFX.play();
+        }
         this.seedArray[i].eaten = true;
-        //Plays a sound effect when a seed has been eaten
-        // popSFX.setLoop(false);
-        // popSFX.play();
-        // noLoop();
       }
       //If the seeds have not been eaten, draw them
       if (!this.seedArray[i].eaten) {
@@ -355,15 +359,12 @@ class InsertImage {
   }
   //Changes to the next state if all seeds have been eaten
   allSeedsEaten() {
-    console.log("seedArray[0] value: " + this.seedArray[0].eaten);
-    console.log("seedArray[1] value: " + this.seedArray[1].eaten);
-    console.log("seedArray[2] value: " + this.seedArray[2].eaten);
-
     if (
       (this.seedArray[1].eaten === true &&
         this.seedArray[2].eaten === true &&
         this.seedArray[3].eaten) === true
     ) {
+      // console.log("Inside of allSeedsEaten");
       game.state = "story2";
     }
   }

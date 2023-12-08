@@ -68,12 +68,12 @@ function setup() {
 //Prints the current state and checks for the audio input level
 function draw() {
   //Prints the current displayed state
-  //---------------------------------------------------------------------------------------------- game.printState();
+  game.printState();
   //Displays the state being called
   game.checkState();
   //Prints out the current audio input level
   let level = mic.getLevel();
-  //----------------------------------------------------------------------------------------------console.log(level);
+  console.log(level);
   //If the audio input level is greater than 0.1, then the scene will switch to the next game
   if (
     (level > 0.1 && game.state === "story1") ||
