@@ -1,6 +1,6 @@
 class Game {
   constructor() {
-    this.state = "game1";
+    this.state = "story1";
     //Light green background
     this.bg = {
       r: 135,
@@ -200,6 +200,12 @@ class Game {
   }
   //-----------------------------GAME1----------------------------------
   game1() {
+    //Plays the upbeat sneaky music
+    if (music.isPlaying() === false) {
+      music.setVolume(0.2);
+      music.setLoop(false);
+      music.play();
+    }
     //Light green background
     background(this.bg.r, this.bg.g, this.bg.b);
     //Calls the loop functions to draw the dark green squares of the background
@@ -236,6 +242,8 @@ class Game {
   }
   //-----------------------------STORY2----------------------------------
   story2() {
+    //Stops playinf the upbeat sneaky music for this state
+    music.stop();
     //Light green background
     background(this.bg.r, this.bg.g, this.bg.b);
     //Displays the story panel
@@ -275,6 +283,12 @@ class Game {
   }
   //-----------------------------GAME2----------------------------------
   game2() {
+    //Plays the upbeat sneaky music
+    if (music.isPlaying() === false) {
+      music.setVolume(0.2);
+      music.setLoop(false);
+      music.play();
+    }
     //Light green background
     background(this.bg.r, this.bg.g, this.bg.b);
     //Calls the loop functions to draw the dark green squares of the background
@@ -329,6 +343,8 @@ class Game {
   }
   //-----------------------------WIN----------------------------------
   win() {
+    //Stops playinf the upbeat sneaky music for this state
+    music.stop();
     image(
       winBgImg,
       insertImage.BgImg.x,
@@ -375,6 +391,8 @@ class Game {
   }
   //-----------------------------CHICKEN GAME OVER----------------------------------
   chickenGameOver() {
+    //Stops playinf the upbeat sneaky music for this state
+    music.stop();
     image(
       loseBgImg,
       insertImage.BgImg.x,
@@ -426,6 +444,8 @@ class Game {
   }
   //-----------------------------CHICK GAME OVER----------------------------------
   chickGameOver() {
+    //Stops playinf the upbeat sneaky music for this state
+    music.stop();
     image(
       loseBgImg,
       insertImage.BgImg.x,
@@ -477,6 +497,8 @@ class Game {
   }
   //----------------------------- DOG CAPTURED CHICKEN ----------------------------------
   dogCapturedChicken() {
+    //Stops playinf the upbeat sneaky music for this state
+    music.stop();
     image(
       loseBgImg,
       insertImage.BgImg.x,
@@ -536,6 +558,8 @@ class Game {
   }
   //----------------------------- DOG CAPTURED CHICK ----------------------------------
   dogCapturedChick() {
+    //Stops playinf the upbeat sneaky music for this state
+    music.stop();
     //Displays the farm background image
     image(
       loseBgImg,

@@ -28,6 +28,7 @@ let loseBgImg;
 //Sounds
 let popSFX;
 let barkSFX;
+let music;
 
 //Preloads all images used
 function preload() {
@@ -45,6 +46,7 @@ function preload() {
   //sounds
   popSFX = loadSound("assets/sounds/pop.mp3");
   barkSFX = loadSound("assets/sounds/bark.wav");
+  music = loadSound("assets/sounds/justSnoopingAround.mp3");
 
   game = new Game();
   insertImage = new InsertImage();
