@@ -340,6 +340,7 @@ class InsertImage {
         //Plays a sound effect when a seed has been eaten
         // popSFX.setLoop(false);
         // popSFX.play();
+        // noLoop();
       }
       //If the seeds have not been eaten, draw them
       if (!this.seedArray[i].eaten) {

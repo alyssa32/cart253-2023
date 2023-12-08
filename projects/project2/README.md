@@ -1,3 +1,14 @@
-# Template p5 project
+# Mission: Free-Range
 
-This is the README file for the entire project. For more official projects you should write information here about the nature of the project, your name, any special explanations of how the project works, etc.
+Alyssa Durdey
+
+I had taken my midterm project simulation, added some modifications to what is now my final game, Mission: Free-Range. Firstly, I re-wrote the all the code and organized it through classes. I really struggled to undertand classes and how to call them within eachother. During class time, I had asked so many questions just regarding classes until I finally started catching on and they no longer seemed so overwhelming.
+
+Once again, I drew all the characters, backgrounds, buttons, and panels myself using the website pixelart.com. This project made me realize just how much I love the pixel and pastel colour aesthetic. My artistic vision was to create a visually cute and colourful game. This game is very short and can be completed in under a minute but it is meant to be played slowly. Similarly to a chess game where the player must think of their opponent's moves ahead of time. I am very pleased with the aesthetics of my game visually and techically.
+
+Next, as I was adding new characters and obstacles, I realized that I did not understand arrays as much as I thought I did. I understood why one would use them and what they do, but writing the code was where I kept getting stuck. Once again, I had asked so many simple questions until I had written a functional line of code using arrays.
+
+If compaired to my midterm project, there are many clear visual differences to my final simulation. Firstly, there are two mini games, as opposed to one. These games are similar to one another but they follow a different story than the initial one I had written. Depending on how you play, I designed five different ending screens of which the player can end with. Next, I added obstacles to the game to make it more challenging, such as seeds the player must collect, as well as the farmer's shepherd to avoid. It was fairly simple but I find it so facinating how I can have the audio input chage the states of my game. It's not often seen in games so I am proud of that little addition.
+Additionally, there are changes I made that are not as easily visible. For instance, the non-playable characters no longer get stuck in corners. Initially, I faced an issue of these NPC's wanting to move beyond the canvas, but because they were constrained, they stayed in place. With some new lines of code, these characters move after every turn and no longer get stuck. I also added a delay to their movements, as this was a suggestion from all my friends who found all characters moving at once confusing.
+
+Although my final project might not seem like that much work, I faced many walls I could not get past on my own, and asked endless amounts of questions until I felt comfortable enough to continue on my own. I am really proud of not only my final project, but the hurdles I was able to jump over and learn from. I can proudly say classes and arrays do not scare me anymore and I would feel comfortable writing a different piece of code using these features.

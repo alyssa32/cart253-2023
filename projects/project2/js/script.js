@@ -53,7 +53,7 @@ function preload() {
 }
 
 /**
- * Creates the canvas size and a New Game
+ * Creates the canvas size and a New Game, and sets up the microphone to be used
  */
 function setup() {
   //Creates the square canvas size
@@ -65,7 +65,7 @@ function setup() {
   //asks for permision to use the mic
   mic.start();
 }
-//Prints the current state
+//Prints the current state and checks for the audio input level
 function draw() {
   //Prints the current displayed state
   game.printState();
@@ -77,6 +77,18 @@ function draw() {
   //If the audio input level is greater than 0.1, then the scene will switch to the next game
   if (level > 0.1) {
     game.changeToGame();
+    //Resets the chicken's location back to the top left
+    insertImage.chicken.x = 5;
+    insertImage.chicken.y = 80;
+    //Resets the chicken's location back to the top left
+    insertImage.chick.x = 570;
+    insertImage.chick.y = 570;
+    //Resets the farmer's location back to the middle
+    insertImage.farmer.x = 400;
+    insertImage.farmer.y = 400;
+    //Resets the dog's location back to the middle
+    insertImage.farmer.x = 320;
+    insertImage.farmer.y = 400;
   }
 }
 // =================== STATE CHANGES ==========================
@@ -84,6 +96,14 @@ function draw() {
 function keyPressed() {
   if (keyCode === ENTER) {
     game.changeToStory();
+    //Resets all character variables back to false
+    insertImage.chicken.captured = false;
+    insertImage.chick.captured = false;
+    insertImage.chicken.capturedByDog = false;
+    insertImage.chick.capturedByDog = false;
+    insertImage.chicken.win = false;
+    //Resets all seeds back to not eaten
+    insertImage.seedArray[i].eaten = false;
   }
   //Changes the to the next state when the "shift" key is pressed
   if (keyCode === SHIFT) {
