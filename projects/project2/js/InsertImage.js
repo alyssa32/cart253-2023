@@ -391,6 +391,12 @@ class InsertImage {
   chickenDogCollide() {
     if (this.checkCollision(this.chicken, this.dog)) {
       this.chicken.capturedByDog = true;
+      //Barking noise will play if the dog collides with the chicken
+      if (barkSFX.isPlaying() === false) {
+        barkSFX.setVolume(0.5);
+        barkSFX.setLoop(false);
+        barkSFX.play();
+      }
     }
   }
   // Checks if the chicken collides with the chick (win)
@@ -409,6 +415,12 @@ class InsertImage {
   dogChickCollide() {
     if (this.checkCollision(this.chick, this.dog)) {
       this.chick.capturedByDog = true;
+      //Barking noise will play if the dog collides with the chick
+      if (barkSFX.isPlaying() === false && this.chick.capturedByDog === false) {
+        barkSFX.setVolume(0.5);
+        barkSFX.setLoop(false);
+        barkSFX.play();
+      }
     }
   }
 }

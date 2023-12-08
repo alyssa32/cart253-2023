@@ -1,6 +1,6 @@
 class Game {
   constructor() {
-    this.state = "story1";
+    this.state = "game1";
     //Light green background
     this.bg = {
       r: 135,
@@ -15,7 +15,7 @@ class Game {
       g: 148,
       b: 56,
       string2:
-        "Using the arrow keys, collect all seeds but be careful that you don't \nget capture by the farmer or his vicious shepard.",
+        "Using the arrow keys, collect all seeds but be careful that you don't \nget capture by the farmer or his vicious dog.",
       x2: 400,
       y2: 390,
       string3:
@@ -101,7 +101,7 @@ class Game {
       string1: `YOU LOST!`,
       x1: 400,
       y1: 110,
-      string2: `The shepherd caught you \n and adopted you as one of her own.`,
+      string2: `The farmer's dog caught you \n and adopted you as one of her own.`,
       x2: 400,
       y2: 200,
       string3: `Press the               key to restart`,
@@ -115,7 +115,7 @@ class Game {
       string1: `YOU LOST!`,
       x1: 400,
       y1: 110,
-      string2: `The shepherd caught your chick \n and adopted it as one of her own.`,
+      string2: `The farmer's caught your chick \n and adopted it as one of her own.`,
       x2: 400,
       y2: 200,
       string3: `Press the               key to restart`,
@@ -231,7 +231,7 @@ class Game {
     insertImage.chickenDogCollide();
     //Chicken collides with the dog, losing end screen is displayed
     if (insertImage.chicken.capturedByDog) {
-      this.chickenGameOver();
+      this.dogCapturedChicken();
     }
   }
   //-----------------------------STORY2----------------------------------
@@ -312,13 +312,13 @@ class Game {
     insertImage.chickenDogCollide();
     //Chicken collides with the dog, losing end screen is displayed
     if (insertImage.chicken.capturedByDog) {
-      this.chickenGameOver();
+      this.dogCapturedChicken();
     }
     //Calls the function that checks if chick colllides with farmer
     insertImage.chickFarmerCollide();
     //Chick collides with Farmer, losing end screen is displayed
     if (insertImage.chick.captured) {
-      this.dogCapturedChicken();
+      this.chickGameOver();
     }
     //Calls the function that checks if chick colllides with the dog
     insertImage.dogChickCollide();
