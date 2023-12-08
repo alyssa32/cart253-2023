@@ -2,8 +2,7 @@
  * Mission: Free-Range
  * Alyssa Durdey
  *
- * This is a template. You must fill in the title, author,
- * and this description to match your project!
+This is a feel-good type of game, where the player escapes the farm as a chicken. As they successfully complete the first mini-game, they face another task.. to escape with their chick! The chicken is controled with the use of the arrow keys, while all other characters' movements are automatically generated.
  */
 
 "use strict";
@@ -124,7 +123,7 @@ function keyPressed() {
   }
 }
 // =================== CHARACTER MOVEMENTS ==========================
-// KeyBoard Arrows control the Chicken
+// KeyBoard Arrows control the Chicken which then triggers the NPC's to move later
 function keyReleased() {
   let move = 80;
   if (keyCode === LEFT_ARROW) {
