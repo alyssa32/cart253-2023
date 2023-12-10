@@ -1,0 +1,55 @@
+body {
+  background-image: url("images/IntroBackground.png");
+  background-attachment: fixed;
+  background-size: 1600px 910px;
+}
+h1 {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 90px;
+  font-family: "Pixelify Sans", sans-serif;
+  color: #1c5e7c;
+}
+h2 {
+  width: 70%;
+  text-align: center;
+  padding: 30px;
+  margin: auto;
+  margin-top: 70px;
+  background-color: #c2effcae;
+  border-radius: 30px;
+  box-shadow: 10px 10px 10px #388eb6;
+  font-size: 40px;
+  font-family: "Pixelify Sans", sans-serif;
+  color: #1c5e7c;
+}
+a {
+  display: block;
+  width: max-content;
+  padding: 30px;
+  margin: auto;
+  margin-top: 80px;
+  background-color: #c2effcae;
+  border-radius: 30px;
+  box-shadow: 10px 10px 10px #388eb6;
+  font-size: 40px;
+  font-family: "Pixelify Sans", sans-serif;
+  color: #388eb6;
+  text-decoration: none;
+}
+h1:hover {
+  cursor: grab;
+}
+h2:hover {
+  background-color: #96cfecae;
+  color: #47809b;
+  transition: background-color 0.5s, color 0.5s;
+  transition-timing-function: ease-out;
+}
+a:hover {
+  background-color: #388eb6;
+  transition: background-color 0.5s, color 0.5s, box-shadow 0.5s;
+  color: aliceblue;
+  box-shadow: 10px 10px 10px #81bad4;
+  cursor: grab;
+}

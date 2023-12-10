@@ -1,0 +1,82 @@
+body {
+  background-image: url("images/background.png");
+  background-attachment: fixed;
+  background-size: 1600px 910px;
+}
+#robot {
+  position: absolute;
+  bottom: 20px;
+  left: 160px;
+}
+a {
+  display: block;
+  width: max-content;
+  padding: 15px;
+  margin-top: 15px;
+  margin-left: 10px;
+  background-color: #c2effcae;
+  border-radius: 15px;
+  box-shadow: 5px 5px 5px #388eb6;
+  font-size: 25px;
+  font-family: "Pixelify Sans", sans-serif;
+  color: #388eb6;
+  text-decoration: none;
+}
+a:hover {
+  cursor: grab;
+}
+a:hover {
+  background-color: #60a6c7;
+  transition: background-color 0.5s, color 0.5s, box-shadow 0.5s;
+  color: #a4ddf8;
+  cursor: grab;
+}
+h2 {
+  display: block;
+  width: max-content;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 5px 5px 5px #17475e;
+  font-size: 40px;
+  font-family: "Pixelify Sans", sans-serif;
+  color: #032332;
+  text-decoration: none;
+}
+h2:hover {
+  cursor: grab;
+}
+#ai {
+  background-color: #a4ddf8;
+  margin-left: 200px;
+  margin-top: 130px;
+}
+#ai:hover {
+  background-color: #92de8b;
+  transition: background-color 0.5s, color 0.5s, box-shadow 0.5s;
+  cursor: grab;
+}
+#human {
+  background-color: #a4ddf8;
+  margin-left: 110px;
+}
+#human:hover {
+  background-color: #de8b8b;
+  transition: background-color 0.5s, color 0.5s, box-shadow 0.5s;
+  cursor: grab;
+}
+#art {
+  margin-left: 510px;
+  margin-top: -279px;
+  width: 632px;
+  height: 392px;
+}
+#plug {
+  height: 210px;
+  width: 162px;
+  margin-left: 1056px;
+  margin-top: -30px;
+}
+
+#plug:hover {
+  cursor: grab;
+}
