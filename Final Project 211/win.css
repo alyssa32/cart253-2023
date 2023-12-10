@@ -1,0 +1,44 @@
+body {
+  background-image: url("images/winBG.png");
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+h2 {
+  display: block;
+  text-align: center;
+  width: auto;
+  padding: 15px;
+  border-radius: 15px;
+  margin-left: 45%;
+  margin-right: 5%;
+  margin-top: 10%;
+  box-shadow: 10px 10px 10px #17475e;
+  font-size: 40px;
+  font-family: "Pixelify Sans", sans-serif;
+  color: #032332;
+  background-color: #a4ddf8bb;
+  text-decoration: none;
+}
+a {
+  display: block;
+  width: max-content;
+  padding: 15px;
+  margin-top: 5%;
+  margin-left: 63%;
+  background-color: #c2effcae;
+  border-radius: 15px;
+  box-shadow: 5px 5px 5px #388eb6;
+  font-size: 40px;
+  font-family: "Pixelify Sans", sans-serif;
+  color: #21566e;
+  text-decoration: none;
+}
+a:hover {
+  cursor: grab;
+}
+a:hover {
+  background-color: #60a6c7;
+  transition: background-color 0.5s, color 0.5s, box-shadow 0.5s;
+  color: #a4ddf8;
+  cursor: grab;
+}

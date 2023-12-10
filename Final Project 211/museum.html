@@ -12,17 +12,24 @@
     />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Museum</title>
+    <title>A(n) I(mposter)</title>
   </head>
   <body>
-    <!-- Back Buttom -->
+    <!-- Back Button -->
     <a id="intro" href="index.html">BACK</a>
+    <!-- Keeps track of the images generated -->
+    <h1 id="imgCounter">Image:</h1>
     <!-- Robot Image -->
     <img id="robot" height="400px" width="340px" src="images/robot.gif" />
     <!-- AI Buttom -->
-    <h2 id="ai">AI ART</h2>
+    <button id="ai" type="button" onclick="buttonAIArt()">AI ART</button>
     <!-- Human Buttom -->
-    <h2 id="human">HUMAN-MADE ART</h2>
+    <button type="button" id="human" onclick="buttonHumanArt()">
+      HUMAN-MADE ART
+    </button>
+    <!-- link to the losing page -->
+    <a id="lose" href="lose.html"></a>
+    <a id="win" href="win.html"></a>
     <img id="art" />
     <img onClick="plugTV()" id="plug" src="images/unplugged.png" />
   </body>
