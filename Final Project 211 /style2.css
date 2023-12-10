@@ -21,29 +21,6 @@ body {
   bottom: 20px;
   left: 160px;
 }
-a {
-  display: block;
-  width: max-content;
-  padding: 15px;
-  margin-top: 15px;
-  margin-left: 10px;
-  background-color: #c2effcae;
-  border-radius: 15px;
-  box-shadow: 5px 5px 5px #388eb6;
-  font-size: 25px;
-  font-family: "Pixelify Sans", sans-serif;
-  color: #388eb6;
-  text-decoration: none;
-}
-a:hover {
-  cursor: grab;
-}
-a:hover {
-  background-color: #60a6c7;
-  transition: background-color 0.5s, color 0.5s, box-shadow 0.5s;
-  color: #a4ddf8;
-  cursor: grab;
-}
 h1 {
   text-align: center;
   font-size: 40px;
@@ -88,7 +65,7 @@ h2:hover {
 }
 #art {
   margin-left: 32%;
-  margin-top: -20.1%;
+  margin-top: -18.4%;
   width: 635px;
   height: 392px;
   display: none;
@@ -104,5 +81,6 @@ h2:hover {
   cursor: grab;
 }
 #imgCounter {
-  margin-top: 0%;
+  margin-top: 3%;
+  display: none;
 }

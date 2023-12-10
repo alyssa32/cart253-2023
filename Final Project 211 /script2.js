@@ -87,6 +87,7 @@ function plugTV() {
     document.getElementById("ai").style.display = "block";
     document.getElementById("human").style.display = "block";
     document.getElementById("art").style.display = "block";
+    document.getElementById("imgCounter").style.display = "block";
 
     pluggIn = true;
   }
@@ -141,9 +142,8 @@ function updateImageCounter() {
 }
 
 function displayLoseScreen() {
-  alert("You made the wrong decision.\nGAME OVER!");
-  document.getElementById("lose").src = "lose.html";
+  window.location.href = "lose.html";
 }
 function displayWinScreen() {
-  document.getElementById("win").src = "win.html";
+  window.location.href = "win.html";
 }
